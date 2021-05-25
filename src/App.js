@@ -1,13 +1,17 @@
-import {useDispatch} from 'react-redux';
-import {login, logout} from './redux/actions/userActions';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {Home} from './pages/Home';
+import {Login} from './pages/Login';
+import {Register} from './pages/Register';
 
 const App = () => {
-  const dispatch = useDispatch();
   return (
-    <div className='App'>
-      <button onClick={() => dispatch(login())}>Login</button>
-      <button onClick={() => dispatch(logout())}>Logout</button>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route exact path='/login' component={Login} />
+        <Route exact path='/register' component={Register} />
+      </Switch>
+    </BrowserRouter>
   );
 };
 
