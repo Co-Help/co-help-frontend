@@ -1,8 +1,42 @@
 import {Button} from '@chakra-ui/button';
 import {Box, Flex, Heading, Text} from '@chakra-ui/layout';
+import axios from 'axios';
+import {useEffect} from 'react';
+import {useGoogleLogin} from 'react-google-login';
 import {ImGoogle} from 'react-icons/im';
+import {useDispatch, useSelector} from 'react-redux';
+import {useHistory} from 'react-router';
+import {login} from '../redux/actions/user/userActions';
 
 export const Login = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const userProfile = useSelector(state => state.user.profile);
+
+  const onSuccess = async res => {
+    try {
+      const {data} = await axios.post('/auth/login', {idToken: res.tokenId});
+      if (data?.user) dispatch(login(data));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const onFailure = res => {
+    console.log('Login failed: res:', res);
+  };
+
+  const {signIn, loaded} = useGoogleLogin({
+    onSuccess,
+    onFailure,
+    clientId: process.env.REACT_APP_CLIENT_ID,
+    isSignedIn: true,
+  });
+
+  useEffect(() => {
+    if (loaded && userProfile) history.push('/');
+  }, [loaded, userProfile, history]);
+
   return (
     <Flex bg='#DBE2EF' minH='100vh' minW='full'>
       <Flex
@@ -13,6 +47,8 @@ export const Login = () => {
         boxShadow='lg'
         p={5}>
         <Button
+          disabled={!loaded}
+          onClick={signIn}
           bg='#3F72AF'
           _hover={{background: '#3F72AF'}}
           p={6}
