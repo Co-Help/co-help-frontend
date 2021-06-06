@@ -2,17 +2,28 @@ import axios from 'axios';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {Home} from './pages/Home';
 import {Login} from './pages/Login';
-import {Register} from './pages/Register';
+import {CompleteProfile} from './pages/user/CompleteProfile';
 
 axios.defaults.baseURL = 'http://localhost:5000';
+
+const AuthRoutes = [
+  {path: '/', component: Home},
+  {path: '/login', component: Login},
+];
+const UserRoutes = [
+  {path: '/user/complete-profile', component: CompleteProfile},
+];
 
 const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path='/' component={Home} />
-        <Route exact path='/login' component={Login} />
-        <Route exact path='/register' component={Register} />
+        {AuthRoutes.map(r => (
+          <Route key={r.path} exact path={r.path} component={r.component} />
+        ))}
+        {UserRoutes.map(r => (
+          <Route key={r.path} exact path={r.path} component={r.component} />
+        ))}
       </Switch>
     </BrowserRouter>
   );

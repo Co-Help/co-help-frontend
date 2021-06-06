@@ -34,17 +34,21 @@ export const Login = () => {
   });
 
   useEffect(() => {
-    if (loaded && userProfile) history.push('/');
-  }, [loaded, userProfile, history]);
+    if (loaded && userProfile) {
+      userProfile.is_profile_completed
+        ? history.push('/')
+        : history.push('/user/complete-profile');
+    }
+  }, [userProfile, history, loaded]);
 
   return (
     <Flex bg='#DBE2EF' minH='100vh' minW='full'>
       <Flex
         justify='center'
         align='center'
-        w='full'
         bg='#FCFDFF'
         boxShadow='lg'
+        flex={1}
         p={5}>
         <Button
           disabled={!loaded}
@@ -58,7 +62,7 @@ export const Login = () => {
         </Button>
       </Flex>
 
-      <Box display={['none', 'block']} p={5} py={10} w='full'>
+      <Box display={['none', 'block']} p={5} py={10} flex={1}>
         <Heading>Co-Help</Heading>
         <Text fontSize='xl'>
           Find doctors, beds, oxygen and other medical needs.
