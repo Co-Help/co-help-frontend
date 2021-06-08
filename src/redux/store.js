@@ -2,10 +2,11 @@ import {applyMiddleware, combineReducers, createStore} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import {APP_NAME} from '../constants';
-import {userReducer} from './reducers/user/userReducer';
+import {orgApplyReducer, userReducer} from './reducers/user/userReducer';
 
 const reducer = combineReducers({
   user: userReducer,
+  orgApply: orgApplyReducer,
 });
 
 const middleware = [thunk];

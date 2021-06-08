@@ -1,7 +1,13 @@
 import axios from 'axios';
 import {APP_NAME} from '../../../constants';
 import {getUserCred} from '../../../utils';
-import {COMPLETE_PROFILE, LOGIN, LOGOUT} from './types';
+import {
+  APPLY_FOR_ORG,
+  APPLY_FOR_ORG_FAIL,
+  COMPLETE_PROFILE,
+  LOGIN,
+  LOGOUT,
+} from './types';
 
 export const login = data => async dispatch => {
   dispatch({type: LOGIN, payload: data.user});
@@ -30,5 +36,23 @@ export const completeProfile = data => async dispatch => {
     dispatch({type: COMPLETE_PROFILE});
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const applyForOrg = data => async dispatch => {
+  try {
+    const {access_token} = getUserCred();
+    await axios.post(
+      '/application/apply',
+      {
+        ...data,
+        pinCode: Number(data.pinCode),
+        helpline_no: Number(data.helpline_no),
+      },
+      {headers: {Authorization: `Bearer ${access_token}`}}
+    );
+    dispatch({type: APPLY_FOR_ORG});
+  } catch (err) {
+    dispatch({type: APPLY_FOR_ORG_FAIL, payload: err.response.data.msg});
   }
 };
