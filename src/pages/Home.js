@@ -1,9 +1,5 @@
-import {Heading} from '@chakra-ui/layout';
+import {Box} from '@chakra-ui/layout';
 
 export const Home = () => {
-  return (
-    <div>
-      <Heading>HOME</Heading>
-    </div>
-  );
+  return <Box>HOME</Box>;
 };
