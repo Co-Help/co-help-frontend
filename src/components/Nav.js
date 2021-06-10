@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 
 export const Nav = () => {
   const profile = useSelector(state => state.user.profile);
+  const isAdmin = profile && profile?.role === 'admin';
 
   return (
     <Flex align='center' h={50}>
@@ -30,6 +31,11 @@ export const Nav = () => {
         <Link to='/beds'>
           <Text>Beds</Text>
         </Link>
+        {isAdmin && (
+          <Link to='/admin/dashboard'>
+            <Text>Dashboard</Text>
+          </Link>
+        )}
         {profile ? (
           <Link to='/user/profile'>
             <Text>Profile</Text>
