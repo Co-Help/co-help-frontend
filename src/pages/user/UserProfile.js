@@ -3,11 +3,33 @@ import {Button} from '@chakra-ui/button';
 import {ExternalLinkIcon} from '@chakra-ui/icons';
 import {Box, Center, Container, Heading, Link, Text} from '@chakra-ui/layout';
 import {Table, Tbody, Td, Th, Thead, Tr} from '@chakra-ui/table';
+import axios from 'axios';
+import {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {Link as ReactLink} from 'react-router-dom';
+import {getUserCred} from '../../utils';
+
+const getApplicationStatus = async () => {
+  const {access_token} = getUserCred();
+  try {
+    const {data} = await axios.get('/application', {
+      headers: {Authorization: `Bearer ${access_token}`},
+    });
+    return data?.application;
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 export const UserProfile = () => {
   const {name, email, avatar} = useSelector(state => state.user.profile);
+  const [applicationStatus, setApplicationStatus] = useState();
+
+  useEffect(() => {
+    getApplicationStatus().then(application =>
+      setApplicationStatus(application?.status)
+    );
+  }, []);
 
   return (
     <Container mt={5} px={5} py={10}>
@@ -43,9 +65,16 @@ export const UserProfile = () => {
           </Tbody>
         </Table>
       </Box>
-      <Link as={ReactLink} to='/org/apply' isExternal>
-        Become an Organizer, apply now <ExternalLinkIcon mx='2px' />
-      </Link>
+      {applicationStatus ? (
+        <Text>
+          Your application is still under process, please wait for confirmation
+          email.
+        </Text>
+      ) : (
+        <Link as={ReactLink} to='/org/apply' isExternal>
+          Become an Organizer, apply now <ExternalLinkIcon mx='2px' />
+        </Link>
+      )}
       <Button
         size='sm'
         mt={2}
