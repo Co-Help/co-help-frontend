@@ -1,6 +1,7 @@
 import {Container} from '@chakra-ui/layout';
 import axios from 'axios';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import {Nav} from './components/Nav';
 import {Home} from './pages/Home';
 import {Login} from './pages/Login';
@@ -10,28 +11,33 @@ import {UserProfile} from './pages/user/UserProfile';
 
 axios.defaults.baseURL = 'http://localhost:5000';
 
-const AuthRoutes = [
+const publicRoutes = [
   {path: '/', component: Home},
   {path: '/login', component: Login},
 ];
-const UserRoutes = [
+
+const userRoutes = [
   {path: '/user/complete-profile', component: CompleteProfile},
   {path: '/user/profile', component: UserProfile},
   {path: '/org/apply', component: OrgApply},
 ];
 
 const App = () => {
+  const profile = useSelector(state => state.user.profile);
+
   return (
     <Container maxW='container.xl'>
       <BrowserRouter>
         <Nav />
         <Switch>
-          {AuthRoutes.map(r => (
+          {publicRoutes.map(r => (
             <Route key={r.path} exact path={r.path} component={r.component} />
           ))}
-          {UserRoutes.map(r => (
-            <Route key={r.path} exact path={r.path} component={r.component} />
-          ))}
+          {profile &&
+            userRoutes.map(r => (
+              <Route key={r.path} exact path={r.path} component={r.component} />
+            ))}
+          <Redirect to='/' />
         </Switch>
       </BrowserRouter>
     </Container>

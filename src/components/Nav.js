@@ -1,8 +1,11 @@
 import {Button} from '@chakra-ui/button';
 import {Flex, Heading, Text} from '@chakra-ui/layout';
+import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 export const Nav = () => {
+  const profile = useSelector(state => state.user.profile);
+
   return (
     <Flex align='center' h={50}>
       <Link to='/'>
@@ -27,9 +30,15 @@ export const Nav = () => {
         <Link to='/beds'>
           <Text>Beds</Text>
         </Link>
-        <Link to='/user/profile'>
-          <Text>Profile</Text>
-        </Link>
+        {profile ? (
+          <Link to='/user/profile'>
+            <Text>Profile</Text>
+          </Link>
+        ) : (
+          <Link to='/login'>
+            <Text>Login</Text>
+          </Link>
+        )}
         <Link to='/emergency'>
           <Button
             colorScheme='blue'

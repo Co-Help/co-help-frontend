@@ -12,7 +12,7 @@ export const userReducer = (state = {profile: null}, action) => {
       return {profile: action.payload};
     }
     case LOGOUT: {
-      return {profile: null};
+      return {profile: {}};
     }
     case COMPLETE_PROFILE: {
       return {profile: {...state.profile, is_profile_completed: true}};
