@@ -3,12 +3,14 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import {APP_NAME} from '../constants';
 import {orgApplicationsReducer} from './reducers/admin/adminReducer';
+import {notificationReducer} from './reducers/notifications/notificationReducer';
 import {orgApplyReducer, userReducer} from './reducers/user/userReducer';
 
 const reducer = combineReducers({
   user: userReducer,
   orgApply: orgApplyReducer,
   orgApplications: orgApplicationsReducer,
+  notifications: notificationReducer,
 });
 
 const middleware = [thunk];

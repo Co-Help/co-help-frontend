@@ -3,6 +3,7 @@ import {Badge, Flex, Heading, Text} from '@chakra-ui/layout';
 import {useSelector} from 'react-redux';
 import {Link, useLocation} from 'react-router-dom';
 import {LogoutButton} from './LogoutButton';
+import {NotificationPopup} from './NotificationPopup';
 
 const NavLink = ({to, title}) => {
   const {pathname} = useLocation();
@@ -60,10 +61,13 @@ export const Nav = () => {
             <NavLink to='/beds' title='Beds' />
 
             {(isUser || isOrg) && (
-              <NavLink
-                to={`/${isUser ? 'user' : 'org'}/profile`}
-                title='Profile'
-              />
+              <>
+                <NavLink
+                  to={`/${isUser ? 'user' : 'org'}/profile`}
+                  title='Profile'
+                />
+                <NotificationPopup />
+              </>
             )}
             {!profile && <NavLink to='/login' title='Login' />}
             {!isOrg && (
