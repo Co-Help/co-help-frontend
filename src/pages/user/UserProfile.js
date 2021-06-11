@@ -1,14 +1,12 @@
 import {Avatar} from '@chakra-ui/avatar';
-import {Button} from '@chakra-ui/button';
 import {ExternalLinkIcon} from '@chakra-ui/icons';
 import {Box, Center, Container, Heading, Link, Text} from '@chakra-ui/layout';
 import {Table, Tbody, Td, Th, Thead, Tr} from '@chakra-ui/table';
 import axios from 'axios';
 import {useEffect, useState} from 'react';
-import {GoogleLogout} from 'react-google-login';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {Link as ReactLink} from 'react-router-dom';
-import {logout} from '../../redux/actions/user/userActions';
+import {LogoutButton} from '../../components/LogoutButton';
 import {getUserCred} from '../../utils';
 
 const getApplicationStatus = async () => {
@@ -26,24 +24,12 @@ const getApplicationStatus = async () => {
 export const UserProfile = () => {
   const {name, email, avatar} = useSelector(state => state.user.profile);
   const [applicationStatus, setApplicationStatus] = useState();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     getApplicationStatus().then(application =>
       setApplicationStatus(application?.status)
     );
   }, []);
-
-  const onSuccess = async () => {
-    try {
-      const {refresh_token} = getUserCred();
-      await axios.post('/auth/logout', {refresh_token});
-      dispatch(logout());
-      window.location.reload();
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   return (
     <Container mt={5} px={5} py={10}>
@@ -90,21 +76,7 @@ export const UserProfile = () => {
         </Link>
       )}
 
-      <GoogleLogout
-        clientId={process.env.REACT_APP_CLIENT_ID}
-        icon={false}
-        onLogoutSuccess={onSuccess}
-        render={p => (
-          <Button
-            display='block'
-            rounded='sm'
-            size='sm'
-            mt={3}
-            colorScheme='red'
-            {...p}>
-            Logout
-          </Button>
-        )}></GoogleLogout>
+      <LogoutButton />
     </Container>
   );
 };
