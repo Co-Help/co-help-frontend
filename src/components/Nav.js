@@ -7,6 +7,7 @@ import {LogoutButton} from './LogoutButton';
 export const Nav = () => {
   const profile = useSelector(state => state.user.profile);
   const isAdmin = profile && profile?.role === 'admin';
+  const isOrg = profile && profile?.role === 'org';
   const isUser = profile && profile?.role === 'user';
 
   return (
@@ -32,7 +33,8 @@ export const Nav = () => {
             <LogoutButton />
           </>
         )}
-        {(isUser || !profile) && (
+
+        {!isAdmin && (
           <>
             <Link to='/doctors'>
               <Text>Doctors</Text>
@@ -43,29 +45,32 @@ export const Nav = () => {
             <Link to='/beds'>
               <Text>Beds</Text>
             </Link>
-            <Link to='/user/profile'>
-              <Text>Profile</Text>
+
+            {(isUser || isOrg) && (
+              <>
+                <Link to={`/${isUser ? 'user' : 'org'}/profile`}>
+                  <Text>Profile</Text>
+                </Link>
+              </>
+            )}
+            {!profile && (
+              <>
+                <Link to='/login'>
+                  <Text>Login</Text>
+                </Link>
+              </>
+            )}
+            <Link to='/emergency'>
+              <Button
+                size='sm'
+                colorScheme='blue'
+                rounded='sm'
+                color='white'
+                fontWeight='semibold'>
+                EMERGENCY
+              </Button>
             </Link>
           </>
-        )}
-        {!profile && (
-          <>
-            <Link to='/login'>
-              <Text>Login</Text>
-            </Link>
-          </>
-        )}
-        {!isAdmin && (
-          <Link to='/emergency'>
-            <Button
-              size='sm'
-              colorScheme='blue'
-              rounded='sm'
-              color='white'
-              fontWeight='semibold'>
-              EMERGENCY
-            </Button>
-          </Link>
         )}
       </Flex>
     </Flex>

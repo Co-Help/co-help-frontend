@@ -23,12 +23,15 @@ const userRoutes = [
   {path: '/org/apply', component: OrgApply},
 ];
 
+const orgRoutes = [{path: '/org/profile', component: UserProfile}];
+
 const adminRoutes = [{path: '/admin/dashboard', component: Dashboard}];
 
 const App = () => {
   const profile = useSelector(state => state.user.profile);
   const isAdmin = profile && profile?.role === 'admin';
   const isUser = profile && profile?.role === 'user';
+  const isOrg = profile && profile?.role === 'org';
 
   return (
     <BrowserRouter>
@@ -40,6 +43,10 @@ const App = () => {
           ))}
           {isAdmin &&
             adminRoutes.map(r => (
+              <Route key={r.path} exact path={r.path} component={r.component} />
+            ))}
+          {isOrg &&
+            orgRoutes.map(r => (
               <Route key={r.path} exact path={r.path} component={r.component} />
             ))}
           {isUser &&
