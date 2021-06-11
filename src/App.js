@@ -6,6 +6,7 @@ import {Nav} from './components/Nav';
 import {Dashboard} from './pages/admin/Dashboard';
 import {Home} from './pages/Home';
 import {Login} from './pages/Login';
+import {OrgProfile} from './pages/org/OrgProfile';
 import {CompleteProfile} from './pages/user/CompleteProfile';
 import {OrgApply} from './pages/user/OrgApply';
 import {UserProfile} from './pages/user/UserProfile';
@@ -23,7 +24,7 @@ const userRoutes = [
   {path: '/org/apply', component: OrgApply},
 ];
 
-const orgRoutes = [{path: '/org/profile', component: UserProfile}];
+const orgRoutes = [{path: '/org/profile', component: OrgProfile}];
 
 const adminRoutes = [{path: '/admin/dashboard', component: Dashboard}];
 
