@@ -1,8 +1,24 @@
 import {Button} from '@chakra-ui/button';
 import {Badge, Flex, Heading, Text} from '@chakra-ui/layout';
 import {useSelector} from 'react-redux';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import {LogoutButton} from './LogoutButton';
+
+const NavLink = ({to, title}) => {
+  const {pathname} = useLocation();
+  const isActiveLink = pathname === to;
+  return (
+    <Link to={to}>
+      {isActiveLink ? (
+        <Text color='blue.600' fontWeight='semibold'>
+          {title}
+        </Text>
+      ) : (
+        <Text>{title}</Text>
+      )}
+    </Link>
+  );
+};
 
 export const Nav = () => {
   const profile = useSelector(state => state.user.profile);
@@ -32,39 +48,24 @@ export const Nav = () => {
         }}>
         {isAdmin && (
           <>
-            <Link to='/admin/dashboard'>
-              <Text>Dashboard</Text>
-            </Link>
+            <NavLink to='/admin/dashboard' title='Dashboard' />
             <LogoutButton />
           </>
         )}
 
         {!isAdmin && (
           <>
-            <Link to='/doctors'>
-              <Text>Doctors</Text>
-            </Link>
-            <Link to='/oxygen'>
-              <Text>Oxygen</Text>
-            </Link>
-            <Link to='/beds'>
-              <Text>Beds</Text>
-            </Link>
+            <NavLink to='/doctors' title='Doctors' />
+            <NavLink to='/oxygen' title='Oxygen' />
+            <NavLink to='/beds' title='Beds' />
 
             {(isUser || isOrg) && (
-              <>
-                <Link to={`/${isUser ? 'user' : 'org'}/profile`}>
-                  <Text>Profile</Text>
-                </Link>
-              </>
+              <NavLink
+                to={`/${isUser ? 'user' : 'org'}/profile`}
+                title='Profile'
+              />
             )}
-            {!profile && (
-              <>
-                <Link to='/login'>
-                  <Text>Login</Text>
-                </Link>
-              </>
-            )}
+            {!profile && <NavLink to='/login' title='Login' />}
             {!isOrg && (
               <Link to='/emergency'>
                 <Button
