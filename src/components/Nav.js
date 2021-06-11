@@ -2,6 +2,7 @@ import {Button} from '@chakra-ui/button';
 import {Flex, Heading, Text} from '@chakra-ui/layout';
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
+import {LogoutButton} from './LogoutButton';
 
 export const Nav = () => {
   const profile = useSelector(state => state.user.profile);
@@ -23,39 +24,48 @@ export const Nav = () => {
             paddingRight: '1rem',
           },
         }}>
-        <Link to='/doctors'>
-          <Text>Doctors</Text>
-        </Link>
-        <Link to='/oxygen'>
-          <Text>Oxygen</Text>
-        </Link>
-        <Link to='/beds'>
-          <Text>Beds</Text>
-        </Link>
         {isAdmin && (
-          <Link to='/admin/dashboard'>
-            <Text>Dashboard</Text>
-          </Link>
+          <>
+            <Link to='/admin/dashboard'>
+              <Text>Dashboard</Text>
+            </Link>
+            <LogoutButton />
+          </>
         )}
-        {isUser && (
-          <Link to='/user/profile'>
-            <Text>Profile</Text>
-          </Link>
+        {(isUser || !profile) && (
+          <>
+            <Link to='/doctors'>
+              <Text>Doctors</Text>
+            </Link>
+            <Link to='/oxygen'>
+              <Text>Oxygen</Text>
+            </Link>
+            <Link to='/beds'>
+              <Text>Beds</Text>
+            </Link>
+            <Link to='/user/profile'>
+              <Text>Profile</Text>
+            </Link>
+          </>
         )}
         {!profile && (
-          <Link to='/login'>
-            <Text>Login</Text>
+          <>
+            <Link to='/login'>
+              <Text>Login</Text>
+            </Link>
+          </>
+        )}
+        {!isAdmin && (
+          <Link to='/emergency'>
+            <Button
+              colorScheme='blue'
+              rounded='sm'
+              color='white'
+              fontWeight='semibold'>
+              EMERGENCY
+            </Button>
           </Link>
         )}
-        <Link to='/emergency'>
-          <Button
-            colorScheme='blue'
-            rounded='sm'
-            color='white'
-            fontWeight='semibold'>
-            EMERGENCY
-          </Button>
-        </Link>
       </Flex>
     </Flex>
   );

@@ -76,7 +76,9 @@ export const UserProfile = () => {
         </Link>
       )}
 
-      <LogoutButton />
+      <Box mt={5}>
+        <LogoutButton />
+      </Box>
     </Container>
   );
 };

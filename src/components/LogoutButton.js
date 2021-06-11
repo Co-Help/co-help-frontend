@@ -24,13 +24,7 @@ export const LogoutButton = () => {
       clientId={process.env.REACT_APP_CLIENT_ID}
       onLogoutSuccess={onSuccess}
       render={p => (
-        <Button
-          display='block'
-          rounded='sm'
-          size='sm'
-          mt={3}
-          colorScheme='red'
-          {...p}>
+        <Button display='block' rounded='sm' size='sm' colorScheme='red' {...p}>
           Logout
         </Button>
       )}></GoogleLogout>
