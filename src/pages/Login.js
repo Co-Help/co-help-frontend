@@ -18,6 +18,7 @@ export const Login = () => {
     try {
       const {data} = await axios.post('/auth/login', {idToken: res.tokenId});
       if (data?.user) dispatch(login(data));
+      window.location.reload();
     } catch (err) {
       console.error(err);
     }
