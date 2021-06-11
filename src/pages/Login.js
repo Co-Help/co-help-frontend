@@ -12,6 +12,7 @@ export const Login = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const userProfile = useSelector(state => state.user.profile);
+  const isAdmin = userProfile && userProfile?.role === 'admin';
 
   const onSuccess = async res => {
     try {
@@ -35,11 +36,11 @@ export const Login = () => {
 
   useEffect(() => {
     if (loaded && userProfile) {
-      userProfile.is_profile_completed
+      userProfile.is_profile_completed || isAdmin
         ? history.push('/')
         : history.push('/user/complete-profile');
     }
-  }, [userProfile, history, loaded]);
+  }, [userProfile, history, loaded, isAdmin]);
 
   return (
     <Flex bg='#DBE2EF' minH='100vh' minW='full'>
