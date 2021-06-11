@@ -17,8 +17,11 @@ import {
   Wrap,
 } from '@chakra-ui/layout';
 import {Collapse} from '@chakra-ui/transition';
+import {useDispatch} from 'react-redux';
+import {approveApplication} from '../redux/actions/admin/adminActions';
 
 export const ApplicationCard = ({application}) => {
+  const dispatch = useDispatch();
   const {
     name,
     user,
@@ -97,6 +100,10 @@ export const ApplicationCard = ({application}) => {
           <Divider my={2} />
           <ButtonGroup>
             <Button
+              onClick={() =>
+                dispatch(approveApplication(application._id, user._id))
+              }
+              disabled={status === 'approved'}
               size='sm'
               rounded='sm'
               leftIcon={<CheckIcon />}
