@@ -65,16 +65,18 @@ export const Nav = () => {
                 </Link>
               </>
             )}
-            <Link to='/emergency'>
-              <Button
-                size='sm'
-                colorScheme='blue'
-                rounded='sm'
-                color='white'
-                fontWeight='semibold'>
-                EMERGENCY
-              </Button>
-            </Link>
+            {!isOrg && (
+              <Link to='/emergency'>
+                <Button
+                  size='sm'
+                  colorScheme='blue'
+                  rounded='sm'
+                  color='white'
+                  fontWeight='semibold'>
+                  EMERGENCY
+                </Button>
+              </Link>
+            )}
           </>
         )}
       </Flex>
