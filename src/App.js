@@ -28,6 +28,7 @@ const adminRoutes = [{path: '/admin/dashboard', component: Dashboard}];
 const App = () => {
   const profile = useSelector(state => state.user.profile);
   const isAdmin = profile && profile?.role === 'admin';
+  const isUser = profile && profile?.role === 'user';
 
   return (
     <Container maxW='container.xl'>
@@ -41,7 +42,7 @@ const App = () => {
             adminRoutes.map(r => (
               <Route key={r.path} exact path={r.path} component={r.component} />
             ))}
-          {profile &&
+          {isUser &&
             userRoutes.map(r => (
               <Route key={r.path} exact path={r.path} component={r.component} />
             ))}
