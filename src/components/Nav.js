@@ -59,7 +59,7 @@ export const Nav = () => {
             <NavLink to='/doctors' title='Doctors' />
             <NavLink to='/oxygen' title='Oxygen' />
             <NavLink to='/beds' title='Beds' />
-
+            {!profile && <NavLink to='/login' title='Login' />}
             {(isUser || isOrg) && (
               <>
                 <NavLink
@@ -69,10 +69,10 @@ export const Nav = () => {
                 <NotificationPopup />
               </>
             )}
-            {!profile && <NavLink to='/login' title='Login' />}
             {!isOrg && (
               <Link to='/emergency'>
                 <Button
+                  ml={2}
                   size='sm'
                   colorScheme='blue'
                   rounded='sm'
