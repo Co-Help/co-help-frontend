@@ -31,9 +31,9 @@ const App = () => {
   const isUser = profile && profile?.role === 'user';
 
   return (
-    <Container maxW='container.xl'>
-      <BrowserRouter>
-        <Nav />
+    <BrowserRouter>
+      <Nav />
+      <Container mt={3} maxW='container.xl'>
         <Switch>
           {publicRoutes.map(r => (
             <Route key={r.path} exact path={r.path} component={r.component} />
@@ -48,8 +48,8 @@ const App = () => {
             ))}
           <Redirect to='/' />
         </Switch>
-      </BrowserRouter>
-    </Container>
+      </Container>
+    </BrowserRouter>
   );
 };
 

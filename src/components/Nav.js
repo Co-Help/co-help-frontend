@@ -10,7 +10,7 @@ export const Nav = () => {
   const isUser = profile && profile?.role === 'user';
 
   return (
-    <Flex align='center' h={50}>
+    <Flex px={10} borderBottomWidth='1px' shadow='sm' align='center' h={50}>
       <Link to='/'>
         <Heading fontSize='xl' fontWeight='semibold'>
           Co.Help
@@ -58,6 +58,7 @@ export const Nav = () => {
         {!isAdmin && (
           <Link to='/emergency'>
             <Button
+              size='sm'
               colorScheme='blue'
               rounded='sm'
               color='white'
