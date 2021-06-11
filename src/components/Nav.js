@@ -1,5 +1,5 @@
 import {Button} from '@chakra-ui/button';
-import {Flex, Heading, Text} from '@chakra-ui/layout';
+import {Badge, Flex, Heading, Text} from '@chakra-ui/layout';
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {LogoutButton} from './LogoutButton';
@@ -14,7 +14,12 @@ export const Nav = () => {
     <Flex px={10} borderBottomWidth='1px' shadow='sm' align='center' h={50}>
       <Link to='/'>
         <Heading fontSize='xl' fontWeight='semibold'>
-          Co.Help
+          Co.Help{' '}
+          {(isOrg || isAdmin) && (
+            <Badge mb={3} colorScheme='blue'>
+              {profile?.role}
+            </Badge>
+          )}
         </Heading>
       </Link>
       <Flex
