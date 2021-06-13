@@ -1,6 +1,7 @@
 import {Avatar} from '@chakra-ui/avatar';
 import {ExternalLinkIcon} from '@chakra-ui/icons';
 import {Box, Center, Container, Heading, Link, Text} from '@chakra-ui/layout';
+import {Button} from '@chakra-ui/react';
 import {Table, Tbody, Td, Th, Thead, Tr} from '@chakra-ui/table';
 import axios from 'axios';
 import {useEffect, useState} from 'react';
@@ -30,6 +31,18 @@ export const UserProfile = () => {
       setApplicationStatus(application?.status)
     );
   }, []);
+
+  const deleteApplication = async () => {
+    try {
+      const {access_token} = getUserCred();
+      await axios.delete('/application', {
+        headers: {Authorization: `Bearer ${access_token}`},
+      });
+      setApplicationStatus(undefined);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <Container mt={5} px={5} py={10}>
@@ -66,12 +79,24 @@ export const UserProfile = () => {
         </Table>
       </Box>
       {applicationStatus ? (
-        <Text>
-          Your application is still under process, please wait for confirmation
-          email.
-        </Text>
+        <>
+          <Text>
+            Your application is still under process, please wait for
+            confirmation email.
+          </Text>
+          {applicationStatus === 'pending' && (
+            <Button
+              onClick={deleteApplication}
+              mt={2}
+              size='sm'
+              colorScheme='red'
+              rounded='sm'>
+              Delete Application
+            </Button>
+          )}
+        </>
       ) : (
-        <Link as={ReactLink} to='/org/apply' isExternal>
+        <Link as={ReactLink} to='/org/apply'>
           Become an Organizer, apply now <ExternalLinkIcon mx='2px' />
         </Link>
       )}
