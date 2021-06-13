@@ -42,7 +42,10 @@ const publicLinks = [
   {to: '/beds', title: 'Beds'},
 ];
 const userLinks = [...publicLinks, {to: '/user/profile', title: 'Profile'}];
-const orgLinks = [{to: '/org/profile', title: 'Profile'}];
+const orgLinks = [
+  {to: '/org/profile', title: 'Profile'},
+  {to: '/org/dashboard', title: 'Dashboard'},
+];
 
 export const Nav = () => {
   const profile = useSelector(state => state.user.profile);
