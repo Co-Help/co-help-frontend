@@ -1,9 +1,9 @@
-import {Button} from '@chakra-ui/button';
 import {Badge, Flex, Heading, Text} from '@chakra-ui/layout';
+import {Button} from '@chakra-ui/react';
 import {useSelector} from 'react-redux';
 import {Link, useLocation} from 'react-router-dom';
+import {NotificationPopup} from '../components/NotificationPopup';
 import {LogoutButton} from './LogoutButton';
-import {NotificationPopup} from './NotificationPopup';
 
 const NavLink = ({to, title}) => {
   const {pathname} = useLocation();
@@ -21,11 +21,35 @@ const NavLink = ({to, title}) => {
   );
 };
 
+const EmergencyButton = () => (
+  <Link to='/emergency'>
+    <Button
+      ml={2}
+      size='sm'
+      colorScheme='blue'
+      rounded='sm'
+      color='white'
+      fontWeight='semibold'>
+      EMERGENCY
+    </Button>
+  </Link>
+);
+
+const adminLinks = [{to: '/admin/dashboard', title: 'Dashboard'}];
+const publicLinks = [
+  {to: '/doctors', title: 'Doctors'},
+  {to: '/oxygen', title: 'Oxygen'},
+  {to: '/beds', title: 'Beds'},
+];
+const userLinks = [...publicLinks, {to: '/user/profile', title: 'Profile'}];
+const orgLinks = [{to: '/org/profile', title: 'Profile'}];
+
 export const Nav = () => {
   const profile = useSelector(state => state.user.profile);
   const isAdmin = profile && profile?.role === 'admin';
   const isOrg = profile && profile?.role === 'org';
   const isUser = profile && profile?.role === 'user';
+  const isPublic = !profile;
 
   return (
     <Flex px={10} borderBottomWidth='1px' shadow='sm' align='center' h={50}>
@@ -47,41 +71,41 @@ export const Nav = () => {
             paddingRight: '1rem',
           },
         }}>
-        {isAdmin && (
+        {isPublic && (
           <>
-            <NavLink to='/admin/dashboard' title='Dashboard' />
-            <LogoutButton />
+            {publicLinks.map(({title, to}) => (
+              <NavLink key={to} to={to} title={title} />
+            ))}
+            <NavLink to='/login' title='Login' />
+            <EmergencyButton />
           </>
         )}
 
-        {!isAdmin && (
+        {isUser && (
           <>
-            <NavLink to='/doctors' title='Doctors' />
-            <NavLink to='/oxygen' title='Oxygen' />
-            <NavLink to='/beds' title='Beds' />
-            {!profile && <NavLink to='/login' title='Login' />}
-            {(isUser || isOrg) && (
-              <>
-                <NavLink
-                  to={`/${isUser ? 'user' : 'org'}/profile`}
-                  title='Profile'
-                />
-                <NotificationPopup />
-              </>
-            )}
-            {!isOrg && (
-              <Link to='/emergency'>
-                <Button
-                  ml={2}
-                  size='sm'
-                  colorScheme='blue'
-                  rounded='sm'
-                  color='white'
-                  fontWeight='semibold'>
-                  EMERGENCY
-                </Button>
-              </Link>
-            )}
+            {userLinks.map(({title, to}) => (
+              <NavLink key={to} to={to} title={title} />
+            ))}
+            <EmergencyButton />
+            <NotificationPopup />
+          </>
+        )}
+
+        {isOrg && (
+          <>
+            {orgLinks.map(({title, to}) => (
+              <NavLink key={to} to={to} title={title} />
+            ))}
+            <NotificationPopup />
+          </>
+        )}
+
+        {isAdmin && (
+          <>
+            {adminLinks.map(({title, to}) => (
+              <NavLink key={to} to={to} title={title} />
+            ))}
+            <LogoutButton />
           </>
         )}
       </Flex>
