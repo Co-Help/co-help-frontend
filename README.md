@@ -1,6 +1,14 @@
+![Logo](https://avatars.githubusercontent.com/u/84613367?s=200&v=4)
+
 # Co-Help
 
-A platform where anyone can book appointment for doctors, oxygen, vaccine, beds and other emergency services and a platform for organizations to provide those services.
+A platform where anyone can book appointments for doctors, oxygen, vaccine, beds, and other emergency services and a platform for organizations to provide those services.
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`REACT_APP_CLIENT_ID=google-auth-client-id`
 
 ## Run Locally
 
