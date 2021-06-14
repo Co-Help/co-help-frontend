@@ -9,6 +9,7 @@ import {Login} from './pages/Login';
 import {OrgDashboard} from './pages/org/Dashboard';
 import {OrgProfile} from './pages/org/OrgProfile';
 import {CompleteProfile} from './pages/user/CompleteProfile';
+import {JoinAsDoctor} from './pages/user/JoinAsDoctor';
 import {OrgApply} from './pages/user/OrgApply';
 import {UserProfile} from './pages/user/UserProfile';
 
@@ -20,6 +21,7 @@ const userRoutes = [
   {path: '/user/complete-profile', component: CompleteProfile},
   {path: '/user/profile', component: UserProfile},
   {path: '/org/apply', component: OrgApply},
+  {path: '/doctor/join', component: JoinAsDoctor},
 ];
 
 const orgRoutes = [
