@@ -1,6 +1,7 @@
 import {Container} from '@chakra-ui/layout';
 import axios from 'axios';
-import {useSelector} from 'react-redux';
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import {Nav} from './components/Nav';
 import {Dashboard} from './pages/admin/Dashboard';
@@ -14,6 +15,7 @@ import {CompleteProfile} from './pages/user/CompleteProfile';
 import {JoinAsDoctor} from './pages/user/JoinAsDoctor';
 import {OrgApply} from './pages/user/OrgApply';
 import {UserProfile} from './pages/user/UserProfile';
+import {fetchProfile} from './redux/actions/user/userActions';
 
 axios.defaults.baseURL = 'http://localhost:5000';
 
@@ -39,11 +41,16 @@ const orgRoutes = [
 const adminRoutes = [{path: '/admin/dashboard', component: Dashboard}];
 
 const App = () => {
+  const dispatch = useDispatch();
   const profile = useSelector(state => state.user.profile);
   const isAdmin = profile && profile?.role === 'admin';
   const isUser = profile && profile?.role === 'user';
   const isOrg = profile && profile?.role === 'org';
   const isDoctor = profile && profile?.role === 'doctor';
+
+  useEffect(() => {
+    dispatch(fetchProfile());
+  }, [dispatch]);
 
   return (
     <BrowserRouter>

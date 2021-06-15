@@ -2,13 +2,15 @@ import {
   APPLY_FOR_ORG,
   APPLY_FOR_ORG_FAIL,
   COMPLETE_PROFILE,
+  FETCH_PROFILE,
   LOGIN,
   LOGOUT,
 } from '../../actions/user/types';
 
 export const userReducer = (state = {profile: null}, action) => {
   switch (action.type) {
-    case LOGIN: {
+    case LOGIN:
+    case FETCH_PROFILE: {
       return {profile: action.payload};
     }
     case LOGOUT: {
