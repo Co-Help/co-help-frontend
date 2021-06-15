@@ -9,6 +9,7 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from '@chakra-ui/popover';
+import {Tooltip} from '@chakra-ui/react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -21,6 +22,7 @@ export const NotificationPopup = () => {
   const notifications = useSelector(state => state.notifications.items);
 
   const unreadNotifications = notifications?.filter(n => !n.read);
+  const notificationsCount = unreadNotifications?.length;
 
   useEffect(() => {
     dispatch(getNotifications());
@@ -36,19 +38,27 @@ export const NotificationPopup = () => {
           variant='solid'
           aria-label='Show Notifications'
           icon={
-            <BellIcon
-              color={unreadNotifications?.length ? 'blue.500' : 'gray.500'}
-              fontSize='xl'
-            />
+            <>
+              <Tooltip
+                hasArrow
+                label={
+                  notificationsCount
+                    ? `${notificationsCount} new notifications`
+                    : 'No new Notifications'
+                }>
+                <BellIcon
+                  color={notificationsCount ? 'blue.500' : 'gray.500'}
+                  fontSize='xl'
+                />
+              </Tooltip>
+            </>
           }
         />
       </PopoverTrigger>
       <PopoverContent>
         <PopoverHeader fontWeight='semibold'>
           <Flex align='center' justify='space-between'>
-            <Heading size='sm'>
-              Notifications ({unreadNotifications?.length})
-            </Heading>
+            <Heading size='sm'>Notifications ({notificationsCount})</Heading>
             <IconButton
               bg='transparent'
               size='sm'
@@ -62,7 +72,7 @@ export const NotificationPopup = () => {
         </PopoverHeader>
         <PopoverArrow />
         <PopoverBody>
-          {unreadNotifications?.length ? (
+          {notificationsCount ? (
             <Stack spacing={2}>
               {unreadNotifications.map(n => (
                 <Flex
