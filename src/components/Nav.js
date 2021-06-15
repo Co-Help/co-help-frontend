@@ -46,12 +46,14 @@ const orgLinks = [
   {to: '/org/profile', title: 'Profile'},
   {to: '/org/dashboard', title: 'Dashboard'},
 ];
+const doctorRoutes = [{to: '/doc/profile', title: 'Profile'}];
 
 export const Nav = () => {
   const profile = useSelector(state => state.user.profile);
   const isAdmin = profile && profile?.role === 'admin';
   const isOrg = profile && profile?.role === 'org';
   const isUser = profile && profile?.role === 'user';
+  const isDoctor = profile && profile?.role === 'doctor';
   const isPublic = !profile;
 
   return (
@@ -59,7 +61,7 @@ export const Nav = () => {
       <Link to='/'>
         <Heading fontSize='xl' fontWeight='semibold'>
           Co.Help{' '}
-          {(isOrg || isAdmin) && (
+          {(isOrg || isAdmin || isDoctor) && (
             <Badge mb={3} colorScheme='blue'>
               {profile?.role}
             </Badge>
@@ -90,6 +92,15 @@ export const Nav = () => {
               <NavLink key={to} to={to} title={title} />
             ))}
             <EmergencyButton />
+            <NotificationPopup />
+          </>
+        )}
+
+        {isDoctor && (
+          <>
+            {doctorRoutes.map(({title, to}) => (
+              <NavLink key={to} to={to} title={title} />
+            ))}
             <NotificationPopup />
           </>
         )}

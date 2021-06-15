@@ -24,6 +24,9 @@ const userRoutes = [
   {path: '/doctor/join', component: JoinAsDoctor},
 ];
 
+// TODO: add profile for doc
+const doctorRoutes = [{path: '/doc/profile', component: OrgProfile}];
+
 const orgRoutes = [
   {path: '/org/profile', component: OrgProfile},
   {path: '/org/dashboard', component: OrgDashboard},
@@ -36,6 +39,7 @@ const App = () => {
   const isAdmin = profile && profile?.role === 'admin';
   const isUser = profile && profile?.role === 'user';
   const isOrg = profile && profile?.role === 'org';
+  const isDoctor = profile && profile?.role === 'doctor';
 
   return (
     <BrowserRouter>
@@ -52,6 +56,10 @@ const App = () => {
             ))}
           {isOrg &&
             orgRoutes.map(r => (
+              <Route key={r.path} path={r.path} component={r.component} />
+            ))}
+          {isDoctor &&
+            doctorRoutes.map(r => (
               <Route key={r.path} path={r.path} component={r.component} />
             ))}
           {isUser &&
