@@ -5,6 +5,7 @@ import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import {Nav} from './components/Nav';
 import {Dashboard} from './pages/admin/Dashboard';
 import {DocDashboard} from './pages/doctor/DocDashboard';
+import {DocProfile} from './pages/doctor/DocProfile';
 import {Home} from './pages/Home';
 import {Login} from './pages/Login';
 import {OrgDashboard} from './pages/org/Dashboard';
@@ -26,7 +27,7 @@ const userRoutes = [
 ];
 
 const doctorRoutes = [
-  {path: '/doc/profile', component: OrgProfile},
+  {path: '/doc/profile', component: DocProfile},
   {path: '/doc/dashboard', component: DocDashboard},
 ];
 
