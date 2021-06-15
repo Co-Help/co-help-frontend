@@ -61,7 +61,15 @@ export const Nav = () => {
   const isPublic = !profile;
 
   return (
-    <Flex px={10} borderBottomWidth='1px' shadow='sm' align='center' h={50}>
+    <Flex
+      pos='sticky'
+      bg='white'
+      top={0}
+      px={10}
+      borderBottomWidth='1px'
+      shadow='sm'
+      align='center'
+      h={50}>
       <Link to='/'>
         <Heading fontSize='xl' fontWeight='semibold'>
           Co.Help{' '}
