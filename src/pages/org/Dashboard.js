@@ -1,10 +1,6 @@
-import {Box, Container, Flex, Link, Stack, Text} from '@chakra-ui/react';
-import {
-  Link as ReactLink,
-  Route,
-  Switch,
-  useRouteMatch,
-} from 'react-router-dom';
+import {Box, Container, Flex} from '@chakra-ui/react';
+import {Route, Switch, useRouteMatch} from 'react-router-dom';
+import {Sidebar} from '../../components/Sidebar';
 import {Doctors} from './components/Doctors';
 
 const sideBarLinks = [{title: 'Doctors', to: '/doctors'}];
@@ -15,21 +11,7 @@ export const OrgDashboard = () => {
   return (
     <Container maxW='container.lg'>
       <Flex>
-        <Box flex={1} mr={5}>
-          <Stack>
-            {sideBarLinks.map(({title, to}) => (
-              <Link
-                key={to}
-                p={2}
-                bg='gray.100'
-                rounded='sm'
-                as={ReactLink}
-                to={url + to}>
-                <Text>{title}</Text>
-              </Link>
-            ))}
-          </Stack>
-        </Box>
+        <Sidebar sideBarLinks={sideBarLinks} url={url} />
         <Box flex={3}>
           <Switch>
             <Route exact path={path}>
