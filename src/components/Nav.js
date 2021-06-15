@@ -3,6 +3,7 @@ import {Button} from '@chakra-ui/react';
 import {useSelector} from 'react-redux';
 import {Link, useLocation} from 'react-router-dom';
 import {NotificationPopup} from '../components/NotificationPopup';
+import {DocStatusToggle} from '../pages/doctor/components/DocToggle';
 import {LogoutButton} from './LogoutButton';
 
 const NavLink = ({to, title}) => {
@@ -104,6 +105,7 @@ export const Nav = () => {
             {doctorRoutes.map(({title, to}) => (
               <NavLink key={to} to={to} title={title} />
             ))}
+            <DocStatusToggle />
             <NotificationPopup />
           </>
         )}
