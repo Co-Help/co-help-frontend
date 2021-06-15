@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import axios from 'axios';
 import {useState} from 'react';
-import {getUserCred} from '../../../utils';
+import {getUserCred} from '../../utils';
 
 export const Doctors = () => {
   const [genKey, setGenKey] = useState(true);

@@ -1,12 +1,18 @@
 import {Box, Container, Flex} from '@chakra-ui/react';
+import {useSelector} from 'react-redux';
 import {Route, Switch, useRouteMatch} from 'react-router-dom';
 import {Sidebar} from '../../components/Sidebar';
-import {Doctors} from './components/Doctors';
-
-const sideBarLinks = [{title: 'Doctors', to: '/doctors'}];
+import {getServicesList} from '../../utils';
+import {Doctors} from './Doctors';
+import {Vaccination} from './Vaccination';
 
 export const OrgDashboard = () => {
   let {path, url} = useRouteMatch();
+  const services = useSelector(state => state.user.profile.org.services);
+  const sideBarLinks = getServicesList(services).map(serviceName => ({
+    title: serviceName,
+    to: `/${serviceName}`,
+  }));
 
   return (
     <Container maxW='container.lg'>
@@ -19,7 +25,8 @@ export const OrgDashboard = () => {
                 <h3>Dashboard</h3>
               </div>
             </Route>
-            <Route path={`${path}/doctors`} component={Doctors} />
+            <Route path={`${path}/doctor`} component={Doctors} />
+            <Route path={`${path}/vaccination`} component={Vaccination} />
           </Switch>
         </Box>
       </Flex>

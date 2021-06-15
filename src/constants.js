@@ -143,3 +143,12 @@ export const STATES = [
     state: 'West Bengal',
   },
 ];
+export const VACCINES = [
+  'Covaxin',
+  'Covishield',
+  'Sputnik V',
+  'Pfizer–BioNTech',
+  'Moderna',
+  'Johnson & Johnson',
+  'Sputnik Light',
+];

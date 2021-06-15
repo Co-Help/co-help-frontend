@@ -4,10 +4,12 @@ import thunk from 'redux-thunk';
 import {APP_NAME} from '../constants';
 import {orgApplicationsReducer} from './reducers/admin/adminReducer';
 import {notificationReducer} from './reducers/notifications/notificationReducer';
+import {orgVaccineReducer} from './reducers/org/OrgReducer';
 import {orgApplyReducer, userReducer} from './reducers/user/userReducer';
 
 const reducer = combineReducers({
   user: userReducer,
+  orgVaccine: orgVaccineReducer,
   orgApply: orgApplyReducer,
   orgApplications: orgApplicationsReducer,
   notifications: notificationReducer,
