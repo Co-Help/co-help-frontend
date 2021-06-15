@@ -46,7 +46,10 @@ const orgLinks = [
   {to: '/org/profile', title: 'Profile'},
   {to: '/org/dashboard', title: 'Dashboard'},
 ];
-const doctorRoutes = [{to: '/doc/profile', title: 'Profile'}];
+const doctorRoutes = [
+  {to: '/doc/profile', title: 'Profile'},
+  {to: '/doc/dashboard', title: 'Dashboard'},
+];
 
 export const Nav = () => {
   const profile = useSelector(state => state.user.profile);

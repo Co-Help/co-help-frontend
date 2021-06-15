@@ -4,6 +4,7 @@ import {useSelector} from 'react-redux';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import {Nav} from './components/Nav';
 import {Dashboard} from './pages/admin/Dashboard';
+import {DocDashboard} from './pages/doctor/DocDashboard';
 import {Home} from './pages/Home';
 import {Login} from './pages/Login';
 import {OrgDashboard} from './pages/org/Dashboard';
@@ -24,8 +25,10 @@ const userRoutes = [
   {path: '/doctor/join', component: JoinAsDoctor},
 ];
 
-// TODO: add profile for doc
-const doctorRoutes = [{path: '/doc/profile', component: OrgProfile}];
+const doctorRoutes = [
+  {path: '/doc/profile', component: OrgProfile},
+  {path: '/doc/dashboard', component: DocDashboard},
+];
 
 const orgRoutes = [
   {path: '/org/profile', component: OrgProfile},
