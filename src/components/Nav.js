@@ -47,7 +47,7 @@ const orgLinks = [
   {to: '/org/profile', title: 'Profile'},
   {to: '/org/dashboard', title: 'Dashboard'},
 ];
-const doctorRoutes = [
+const doctorLinks = [
   {to: '/doc/profile', title: 'Profile'},
   {to: '/doc/dashboard', title: 'Dashboard'},
 ];
@@ -102,7 +102,7 @@ export const Nav = () => {
 
         {isDoctor && (
           <>
-            {doctorRoutes.map(({title, to}) => (
+            {doctorLinks.map(({title, to}) => (
               <NavLink key={to} to={to} title={title} />
             ))}
             <DocStatusToggle />
