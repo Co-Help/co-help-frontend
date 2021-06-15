@@ -23,7 +23,7 @@ export const logout = () => async dispatch => {
 export const fetchProfile = () => async dispatch => {
   try {
     const {data} = await axios.get('/user/profile', AUTH_HEADER);
-    const profile = {...data.profile, id: data.profile._id};
+    const profile = {...data.profile, id: data.profile._id, org: data.org};
     dispatch({
       type: FETCH_PROFILE,
       payload: profile,
