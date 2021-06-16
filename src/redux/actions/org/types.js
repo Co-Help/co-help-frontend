@@ -1,1 +1,2 @@
 export const ADD_VACCINE = 'ADD_VACCINE';
+export const GET_ALL_VACCINES = 'GET_ALL_VACCINES';

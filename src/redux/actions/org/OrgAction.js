@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {AUTH_HEADER} from '../../../utils';
-import {ADD_VACCINE} from './types';
+import {ADD_VACCINE, GET_ALL_VACCINES} from './types';
 
 export const addVaccine = data => async dispatch => {
   try {
@@ -19,6 +19,15 @@ export const addVaccine = data => async dispatch => {
     dispatch({type: ADD_VACCINE, payload: true});
   } catch (err) {
     dispatch({type: ADD_VACCINE, payload: false});
+    console.error(err);
+  }
+};
+
+export const getVaccines = () => async dispatch => {
+  try {
+    const {data} = await axios.get('/org/vaccination', AUTH_HEADER);
+    dispatch({type: GET_ALL_VACCINES, payload: data?.services});
+  } catch (err) {
     console.error(err);
   }
 };
