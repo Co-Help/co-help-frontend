@@ -17,12 +17,15 @@ import {
   Textarea,
   useDisclosure,
 } from '@chakra-ui/react';
-import {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {VACCINES} from '../../../../constants';
 import {addVaccine} from '../../../../redux/actions/org/OrgAction';
 
 export const AddVaccineModal = () => {
+  const addVaccineSuccess = useSelector(
+    state => state.orgVaccine.addVaccineSuccess
+  );
   const dispatch = useDispatch();
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [form, setForm] = useState({
@@ -37,6 +40,10 @@ export const AddVaccineModal = () => {
   });
   const onChange = e => setForm({...form, [e.target.name]: e.target.value});
   const onSubmit = () => dispatch(addVaccine(form));
+
+  useEffect(() => {
+    if (addVaccineSuccess) onClose();
+  }, [addVaccineSuccess, onClose]);
 
   return (
     <>
