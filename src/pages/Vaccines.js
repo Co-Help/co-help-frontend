@@ -12,7 +12,7 @@ export const Vaccines = () => {
     axios
       .get('/services/vaccination', AUTH_HEADER)
       .then(({data}) => setVaccines(data.services))
-      .catch(err => console.error(err))
+      .catch(err => console.error(err.message))
       .finally(() => setLoading(false));
   }, []);
 

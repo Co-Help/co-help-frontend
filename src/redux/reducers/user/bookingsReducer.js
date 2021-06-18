@@ -1,12 +1,15 @@
-import {BOOK_VACCINE, GET_BOOKED_VACCINES} from '../../actions/user/types';
+import {
+  CANCEL_VACCINE_BOOKING,
+  GET_BOOKED_VACCINES,
+} from '../../actions/user/types';
 
-export const bookingsReducer = (state = {vaccine: {}}, action) => {
+export const bookingsReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_BOOKED_VACCINES: {
-      return {vaccine: {}};
+      return {vaccines: action.payload};
     }
-    case BOOK_VACCINE: {
-      return {};
+    case CANCEL_VACCINE_BOOKING: {
+      return {vaccines: state.vaccines.filter(v => v._id !== action.payload)};
     }
     default:
       return state;

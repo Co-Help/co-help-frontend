@@ -66,6 +66,7 @@ export const Nav = () => {
 
   return (
     <Flex
+      zIndex={1}
       pos='sticky'
       bg='white'
       top={0}

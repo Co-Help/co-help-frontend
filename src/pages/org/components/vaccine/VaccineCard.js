@@ -1,5 +1,6 @@
 import {Badge, Box, Flex, Heading, HStack, Text} from '@chakra-ui/react';
 import {VaccineBookButton} from './VaccineBookButton';
+import {VaccineCancelButton} from './VaccineCancelButton';
 
 export const VaccineCard = ({
   vaccine: {
@@ -14,13 +15,15 @@ export const VaccineCard = ({
     batch_code,
   },
   isUser,
+  showCancelBtn,
 }) => {
   return (
     <Flex
+      mb={2}
       justify='space-between'
       align='center'
       key={_id}
-      bg='gray.200'
+      bg='gray.100'
       rounded='sm'
       p={3}>
       <Box>
@@ -40,6 +43,7 @@ export const VaccineCard = ({
         <Text>{info}</Text>
       </Box>
       {isUser && <VaccineBookButton batch_code={batch_code} />}
+      {showCancelBtn && <VaccineCancelButton id={_id} />}
     </Flex>
   );
 };
