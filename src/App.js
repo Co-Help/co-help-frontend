@@ -15,6 +15,7 @@ import {CompleteProfile} from './pages/user/CompleteProfile';
 import {JoinAsDoctor} from './pages/user/JoinAsDoctor';
 import {OrgApply} from './pages/user/OrgApply';
 import {UserProfile} from './pages/user/UserProfile';
+import {Vaccines} from './pages/Vaccines';
 import {fetchProfile} from './redux/actions/user/userActions';
 
 axios.defaults.baseURL = 'http://localhost:5000';
@@ -26,6 +27,7 @@ const userRoutes = [
   {path: '/user/profile', component: UserProfile},
   {path: '/org/apply', component: OrgApply},
   {path: '/doctor/join', component: JoinAsDoctor},
+  {path: '/vaccines', component: Vaccines},
 ];
 
 const doctorRoutes = [

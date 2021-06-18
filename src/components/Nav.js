@@ -37,12 +37,16 @@ const EmergencyButton = () => (
 );
 
 const adminLinks = [{to: '/admin/dashboard', title: 'Dashboard'}];
-const publicLinks = [
+const commonLinks = [
   {to: '/doctors', title: 'Doctors'},
   {to: '/oxygen', title: 'Oxygen'},
   {to: '/beds', title: 'Beds'},
 ];
-const userLinks = [...publicLinks, {to: '/user/profile', title: 'Profile'}];
+const userLinks = [
+  ...commonLinks,
+  {to: '/vaccines', title: 'Vaccines'},
+  {to: '/user/profile', title: 'Profile'},
+];
 const orgLinks = [
   {to: '/org/profile', title: 'Profile'},
   {to: '/org/dashboard', title: 'Dashboard'},
@@ -90,7 +94,7 @@ export const Nav = () => {
         }}>
         {isPublic && (
           <>
-            {publicLinks.map(({title, to}) => (
+            {commonLinks.map(({title, to}) => (
               <NavLink key={to} to={to} title={title} />
             ))}
             <NavLink to='/login' title='Login' />

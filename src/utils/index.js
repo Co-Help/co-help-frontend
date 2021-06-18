@@ -11,3 +11,10 @@ export const getServicesList = services =>
   Object.entries(services)
     .filter(s => s[1])
     .map(s => s[0].split('_')[0]);
+
+export const toastOptions = {
+  status: 'success',
+  duration: 5000,
+  isClosable: true,
+  position: 'bottom-right',
+};
