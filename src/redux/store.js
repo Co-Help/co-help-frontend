@@ -5,6 +5,7 @@ import {APP_NAME} from '../constants';
 import {orgApplicationsReducer} from './reducers/admin/adminReducer';
 import {notificationReducer} from './reducers/notifications/notificationReducer';
 import {orgVaccineReducer} from './reducers/org/OrgReducer';
+import {bookingsReducer} from './reducers/user/bookingsReducer';
 import {orgApplyReducer, userReducer} from './reducers/user/userReducer';
 
 const reducer = combineReducers({
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   orgApply: orgApplyReducer,
   orgApplications: orgApplicationsReducer,
   notifications: notificationReducer,
+  bookings: bookingsReducer,
 });
 
 const middleware = [thunk];

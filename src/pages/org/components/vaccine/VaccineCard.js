@@ -1,12 +1,5 @@
-import {
-  Badge,
-  Box,
-  Button,
-  Flex,
-  Heading,
-  HStack,
-  Text,
-} from '@chakra-ui/react';
+import {Badge, Box, Flex, Heading, HStack, Text} from '@chakra-ui/react';
+import {VaccineBookButton} from './VaccineBookButton';
 
 export const VaccineCard = ({
   vaccine: {
@@ -17,9 +10,10 @@ export const VaccineCard = ({
     vaccine_name,
     age_restriction,
     cost,
+    org,
+    batch_code,
   },
   isUser,
-  onBook,
 }) => {
   return (
     <Flex
@@ -40,20 +34,12 @@ export const VaccineCard = ({
           </Text>
           <Text fontSize='sm'>Date: {vaccine_date.split('T')[0]}</Text>
         </HStack>
+        <Text fontSize='sm'>
+          Provider: <strong>{org.name}</strong>
+        </Text>
         <Text>{info}</Text>
       </Box>
-      {isUser && (
-        <Box pl={2}>
-          <Button
-            rounded='sm'
-            size='sm'
-            colorScheme='blue'
-            variant='outline'
-            onClick={onBook}>
-            Book
-          </Button>
-        </Box>
-      )}
+      {isUser && <VaccineBookButton batch_code={batch_code} />}
     </Flex>
   );
 };
