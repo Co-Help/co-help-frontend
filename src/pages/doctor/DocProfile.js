@@ -1,7 +1,19 @@
 import {Avatar} from '@chakra-ui/avatar';
 import {Center, Container, Heading, Text} from '@chakra-ui/layout';
-import {Button, ButtonGroup} from '@chakra-ui/react';
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogCloseButton,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Button,
+  ButtonGroup,
+  useDisclosure,
+} from '@chakra-ui/react';
 import axios from 'axios';
+import {useRef} from 'react';
 import {useSelector} from 'react-redux';
 import {LogoutButton} from '../../components/LogoutButton';
 import {AUTH_HEADER} from '../../utils';
@@ -18,6 +30,8 @@ const leaveDoctorRole = async logout => {
 
 export const DocProfile = () => {
   const logout = useLogout();
+  const {isOpen, onOpen, onClose} = useDisclosure();
+  const cancelRef = useRef();
   const {name, email, avatar} = useSelector(state => state.user.profile);
 
   return (
@@ -29,12 +43,37 @@ export const DocProfile = () => {
         {/* TODO: add org details n other stuffs */}
         <ButtonGroup mt={2} size='sm'>
           <LogoutButton />
-          <Button
-            onClick={() => leaveDoctorRole(logout)}
-            rounded='sm'
-            colorScheme='red'>
+
+          <Button rounded='sm' onClick={onOpen} colorScheme='red'>
             Leave doctor role
           </Button>
+          <AlertDialog
+            motionPreset='slideInBottom'
+            leastDestructiveRef={cancelRef}
+            isOpen={isOpen}
+            onClose={onClose}
+            isCentered>
+            <AlertDialogOverlay />
+
+            <AlertDialogContent>
+              <AlertDialogHeader>Confirmation</AlertDialogHeader>
+              <AlertDialogCloseButton />
+              <AlertDialogBody>
+                You're about to leave doctor role, Continue?
+              </AlertDialogBody>
+              <AlertDialogFooter>
+                <Button ref={cancelRef} onClick={onClose}>
+                  No
+                </Button>
+                <Button
+                  colorScheme='red'
+                  ml={3}
+                  onClick={() => leaveDoctorRole(logout)}>
+                  Yes
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </ButtonGroup>
       </Center>
     </Container>
