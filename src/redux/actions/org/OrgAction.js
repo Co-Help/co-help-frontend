@@ -1,6 +1,14 @@
 import axios from 'axios';
 import {AUTH_HEADER} from '../../../utils';
-import {ADD_VACCINE, DEL_ALL_VACCINES, GET_ALL_VACCINES} from './types';
+import {
+  ADD_VACCINE,
+  DEL_ALL_VACCINES,
+  DEL_VACCINE_FROM_BATCH,
+  FILTER_VACCINE_BATCH,
+  GET_ALL_VACCINES,
+  GET_VACCINE_BY_BATCH,
+  GET_VACCINE_BY_BATCH_FAIL,
+} from './types';
 
 export const addVaccine = data => async dispatch => {
   try {
@@ -39,4 +47,57 @@ export const deleteVaccines = () => async dispatch => {
   } catch (err) {
     console.error(err);
   }
+};
+
+export const getVaccineBatch = batch_code => async dispatch => {
+  try {
+    const {data} = await axios.get(
+      `/org/vaccination/by_batch_code?batch_code=${batch_code}`,
+      AUTH_HEADER
+    );
+    dispatch({type: GET_VACCINE_BY_BATCH, payload: data.services});
+  } catch (err) {
+    dispatch({type: GET_VACCINE_BY_BATCH_FAIL, payload: err.message});
+    console.error(err);
+  }
+};
+
+export const vaccineBatchFilter = filter => async (dispatch, getState) => {
+  const vaccineBatch = getState()?.orgVaccine?.vaccineBatch;
+
+  const FilterValues = {
+    all: 'all',
+    booked: 'booked',
+    nonBooked: 'non-booked',
+  };
+
+  switch (filter) {
+    case FilterValues.booked: {
+      dispatch({
+        type: FILTER_VACCINE_BATCH,
+        payload: vaccineBatch.filter(v => v.booked),
+      });
+      break;
+    }
+    case FilterValues.nonBooked: {
+      dispatch({
+        type: FILTER_VACCINE_BATCH,
+        payload: vaccineBatch.filter(v => !v.booked),
+      });
+      break;
+    }
+    default: {
+      dispatch({
+        type: FILTER_VACCINE_BATCH,
+        payload: [],
+      });
+      break;
+    }
+  }
+};
+
+export const deleteVaccineFromBatch = id => async dispatch => {
+  try {
+    dispatch({type: DEL_VACCINE_FROM_BATCH, payload: id});
+  } catch (err) {}
 };

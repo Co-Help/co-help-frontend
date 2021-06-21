@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux';
 import {Route, Switch, useRouteMatch} from 'react-router-dom';
 import {Sidebar} from '../../components/Sidebar';
 import {getServicesList} from '../../utils';
+import {VaccineBatch} from './components/vaccine/VaccineBatch';
 import {Doctors} from './Doctors';
 import {Vaccination} from './Vaccination';
 
@@ -26,7 +27,11 @@ export const OrgDashboard = () => {
               </div>
             </Route>
             <Route path={`${path}/doctor`} component={Doctors} />
-            <Route path={`${path}/vaccination`} component={Vaccination} />
+            <Route exact path={`${path}/vaccination`} component={Vaccination} />
+            <Route
+              path={`${path}/vaccination/:batch_code`}
+              component={VaccineBatch}
+            />
           </Switch>
         </Box>
       </Flex>

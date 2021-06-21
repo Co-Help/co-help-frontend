@@ -1,4 +1,5 @@
 import {Badge, Box, Flex, Heading, HStack, Text} from '@chakra-ui/react';
+import {Link as RLink, useRouteMatch} from 'react-router-dom';
 import {VaccineBookButton} from './VaccineBookButton';
 import {VaccineCancelButton} from './VaccineCancelButton';
 
@@ -17,6 +18,8 @@ export const VaccineCard = ({
   isUser,
   showCancelBtn,
 }) => {
+  const {url} = useRouteMatch();
+
   return (
     <Flex
       mb={2}
@@ -27,9 +30,12 @@ export const VaccineCard = ({
       rounded='sm'
       p={3}>
       <Box>
-        <Heading size='md'>
-          {vaccine_name} <Badge colorScheme='yellow'>{vaccine_doze} Dose</Badge>
-        </Heading>
+        <RLink to={!isUser ? `${url}/${batch_code}` : '/vaccines'}>
+          <Heading size='md'>
+            {vaccine_name}{' '}
+            <Badge colorScheme='yellow'>{vaccine_doze} Dose</Badge>
+          </Heading>
+        </RLink>
         <HStack>
           <Text fontSize='sm'>Price: Rs. {cost}</Text>
           <Text fontSize='sm'>
@@ -37,9 +43,11 @@ export const VaccineCard = ({
           </Text>
           <Text fontSize='sm'>Date: {vaccine_date.split('T')[0]}</Text>
         </HStack>
-        <Text fontSize='sm'>
-          Provider: <strong>{org.name}</strong>
-        </Text>
+        {isUser && (
+          <Text fontSize='sm'>
+            Provider: <strong>{org.name}</strong>
+          </Text>
+        )}
         <Text>{info}</Text>
       </Box>
       {isUser && <VaccineBookButton batch_code={batch_code} />}
