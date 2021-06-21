@@ -1,26 +1,28 @@
 import {Container, Text} from '@chakra-ui/react';
-import axios from 'axios';
-import {useEffect, useState} from 'react';
-import {AUTH_HEADER} from '../utils';
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {getAllVaccines} from '../redux/actions/user/vaccineActions';
 import {VaccineCard} from './org/components/vaccine/VaccineCard';
 
 export const Vaccines = () => {
-  const [vaccines, setVaccines] = useState();
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const vaccines = useSelector(state => state.vaccines);
 
   useEffect(() => {
-    axios
-      .get('/services/vaccination', AUTH_HEADER)
-      .then(({data}) => setVaccines(data.services))
-      .catch(err => console.error(err.message))
-      .finally(() => setLoading(false));
-  }, []);
+    dispatch(getAllVaccines());
+  }, [dispatch]);
 
-  if (loading) return <Text>Loading....</Text>;
+  if (vaccines?.error) return <Text>Something went wrong, refresh!</Text>;
+  if (!vaccines?.items) return <Text>Loading...</Text>;
 
   return (
     <Container>
-      {vaccines?.map(v => (
+      {!vaccines?.items.length && (
+        <Text textAlign='center' mt={50}>
+          Vaccines are unavailable!
+        </Text>
+      )}
+      {vaccines?.items.map(v => (
         <VaccineCard key={v._id} vaccine={v} isUser />
       ))}
     </Container>

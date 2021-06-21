@@ -13,17 +13,21 @@ import {
 } from '@chakra-ui/react';
 import axios from 'axios';
 import {useRef} from 'react';
+import {useDispatch} from 'react-redux';
+import {getAllVaccines} from '../../../../redux/actions/user/vaccineActions';
 import {AUTH_HEADER, toastOptions} from '../../../../utils';
 
 export const VaccineBookButton = ({batch_code}) => {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const cancelRef = useRef();
   const toast = useToast();
+  const dispatch = useDispatch();
 
   const bookVaccine = async () => {
     try {
       await axios.post('/services/vaccination', {batch_code}, AUTH_HEADER);
       toast({title: 'Vaccine booked successfully.', ...toastOptions});
+      dispatch(getAllVaccines());
     } catch (err) {
       console.error(err);
       toast({title: 'Failed to book.', ...toastOptions, status: 'error'});
