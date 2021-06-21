@@ -5,16 +5,11 @@ import {useParams} from 'react-router-dom';
 import {Loader} from '../../../../components/Loader';
 import {
   deleteVaccineFromBatch,
+  FilterValues,
   getVaccineBatch,
   vaccineBatchFilter,
 } from '../../../../redux/actions/org/OrgAction';
 import {VaccineBatchCard} from './VaccineBatchCard';
-
-const FilterValues = {
-  all: 'all',
-  booked: 'booked',
-  nonBooked: 'non-booked',
-};
 
 export const VaccineBatch = () => {
   const dispatch = useDispatch();
@@ -30,10 +25,7 @@ export const VaccineBatch = () => {
       dispatch(vaccineBatchFilter(e.target.value));
   };
 
-  const onDelete = id => {
-    dispatch(deleteVaccineFromBatch(id));
-    dispatch(vaccineBatchFilter(FilterValues.nonBooked));
-  };
+  const onDelete = id => dispatch(deleteVaccineFromBatch(id));
 
   useEffect(() => {
     dispatch(getVaccineBatch(batch_code));

@@ -62,14 +62,14 @@ export const getVaccineBatch = batch_code => async dispatch => {
   }
 };
 
+export const FilterValues = {
+  all: 'all',
+  booked: 'booked',
+  nonBooked: 'non-booked',
+};
+
 export const vaccineBatchFilter = filter => async (dispatch, getState) => {
   const vaccineBatch = getState()?.orgVaccine?.vaccineBatch;
-
-  const FilterValues = {
-    all: 'all',
-    booked: 'booked',
-    nonBooked: 'non-booked',
-  };
 
   switch (filter) {
     case FilterValues.booked: {
@@ -98,6 +98,10 @@ export const vaccineBatchFilter = filter => async (dispatch, getState) => {
 
 export const deleteVaccineFromBatch = id => async dispatch => {
   try {
+    await axios.delete('/org/vaccination', {...AUTH_HEADER, data: {id}});
     dispatch({type: DEL_VACCINE_FROM_BATCH, payload: id});
-  } catch (err) {}
+    dispatch(vaccineBatchFilter(FilterValues.nonBooked));
+  } catch (err) {
+    console.error(err);
+  }
 };
