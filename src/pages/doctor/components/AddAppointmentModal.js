@@ -51,7 +51,7 @@ export const AddAppointmentModal = () => {
         colorScheme='blue'
         leftIcon={<AddIcon />}
         variant='solid'>
-        Add vaccines
+        Add appointment
       </Button>
       <Modal
         size='lg'

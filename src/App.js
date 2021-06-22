@@ -7,6 +7,7 @@ import {Nav} from './components/Nav';
 import {Dashboard} from './pages/admin/Dashboard';
 import {DocDashboard} from './pages/doctor/DocDashboard';
 import {DocProfile} from './pages/doctor/DocProfile';
+import {Doctors} from './pages/Doctors';
 import {Home} from './pages/Home';
 import {Login} from './pages/Login';
 import {OrgDashboard} from './pages/org/Dashboard';
@@ -28,6 +29,7 @@ const userRoutes = [
   {path: '/org/apply', component: OrgApply},
   {path: '/doctor/join', component: JoinAsDoctor},
   {path: '/vaccines', component: Vaccines},
+  {path: '/doctors', component: Doctors},
 ];
 
 const doctorRoutes = [
