@@ -7,6 +7,7 @@ import {docAppointmentReducer} from './reducers/doctor/docReducer';
 import {notificationReducer} from './reducers/notifications/notificationReducer';
 import {orgVaccineReducer} from './reducers/org/OrgReducer';
 import {bookingsReducer} from './reducers/user/bookingsReducer';
+import {emergencyReducer} from './reducers/user/emergencyReducer';
 import {orgApplyReducer, userReducer} from './reducers/user/userReducer';
 import {vaccinesReducer} from './reducers/user/vaccineReducer';
 
@@ -19,6 +20,7 @@ const reducer = combineReducers({
   bookings: bookingsReducer,
   vaccines: vaccinesReducer,
   docAppointment: docAppointmentReducer,
+  emergency: emergencyReducer,
 });
 
 const middleware = [thunk];
