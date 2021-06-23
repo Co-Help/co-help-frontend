@@ -12,13 +12,13 @@ import {
   Container,
   Flex,
   Heading,
-  HStack,
   Text,
   Tooltip,
 } from '@chakra-ui/react';
 import {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
+import {Loader} from '../components/Loader';
 import {getEmergencyServices} from '../redux/actions/user/emergencyActions';
 
 export const Emergency = () => {
@@ -37,6 +37,8 @@ export const Emergency = () => {
     if (!is_profile_completed) setIsOpen(true);
     else dispatch(getEmergencyServices(address?.city)); // FIXME: handle when profile is incomplete
   }, [is_profile_completed, dispatch, address]);
+
+  if (!emergencyServices) return <Loader />;
 
   return (
     <Container>
@@ -90,9 +92,8 @@ export const Emergency = () => {
               <Badge colorScheme='green'>{s.available && 'Available'}</Badge>
             </Heading>
 
-            <HStack>
-              <Text fontSize='sm'>Price: Rs. {s.cost}</Text>
-            </HStack>
+            <Text fontSize='sm'>{s.info}</Text>
+            <Text fontSize='sm'>Price: Rs. {s.cost}</Text>
           </Box>
           <Tooltip
             hasArrow
