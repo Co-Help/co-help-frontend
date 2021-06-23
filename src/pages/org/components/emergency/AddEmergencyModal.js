@@ -65,6 +65,7 @@ export const AddEmergencyModal = ({editId, data}) => {
         </Button>
       ) : (
         <IconButton
+          size='sm'
           onClick={onOpen}
           aria-label='Edit service'
           title='Edit service'

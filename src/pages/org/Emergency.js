@@ -1,5 +1,6 @@
 import {DeleteIcon} from '@chakra-ui/icons';
 import {
+  Badge,
   Box,
   Button,
   IconButton,
@@ -49,22 +50,31 @@ export const Emergency = () => {
             <Th isNumeric>Cost</Th>
             <Th isNumeric>Helpline</Th>
             <Th>Info</Th>
+            <Th>Status</Th>
             <Th>Actions</Th>
           </Tr>
         </Thead>
         <Tbody>
           {emergencyServices?.map((s, idx) => (
-            <Tr bg={s.available ? 'green.100' : 'red.100'} key={s._id}>
+            <Tr key={s._id}>
               <Td>{idx + 1}</Td>
-              <Td>{s.cost}</Td>
-              <Td>{s.emergency_no}</Td>
+              <Td isNumeric>{s.cost}</Td>
+              <Td isNumeric>{s.emergency_no}</Td>
               <Td>{s.info}</Td>
+              <Td>
+                {s.available ? (
+                  <Badge colorScheme='green'>Available</Badge>
+                ) : (
+                  <Badge colorScheme='red'>Not Available</Badge>
+                )}
+              </Td>
               <Td>
                 <AddEmergencyModal editId={s._id} data={s} />
                 <Popover>
                   <PopoverTrigger>
                     <IconButton
                       ml={2}
+                      size='sm'
                       aria-label='Delete this Service'
                       title='Delete this Service'
                       icon={<DeleteIcon color='red.500' />}
