@@ -12,7 +12,6 @@ import {
   PopoverHeader,
   PopoverTrigger,
   Table,
-  TableCaption,
   Tbody,
   Td,
   Th,
@@ -44,9 +43,6 @@ export const Emergency = () => {
   return (
     <Box pos='relative' minH='85vh'>
       <Table size='sm'>
-        <TableCaption placement='top' fontSize='lg' mb={2}>
-          All Services
-        </TableCaption>
         <Thead>
           <Tr>
             <Th>No.</Th>
