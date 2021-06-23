@@ -5,7 +5,10 @@ import {APP_NAME} from '../constants';
 import {orgApplicationsReducer} from './reducers/admin/adminReducer';
 import {docAppointmentReducer} from './reducers/doctor/docReducer';
 import {notificationReducer} from './reducers/notifications/notificationReducer';
-import {orgVaccineReducer} from './reducers/org/OrgReducer';
+import {
+  orgEmergencyReducer,
+  orgVaccineReducer,
+} from './reducers/org/OrgReducer';
 import {bookingsReducer} from './reducers/user/bookingsReducer';
 import {emergencyReducer} from './reducers/user/emergencyReducer';
 import {orgApplyReducer, userReducer} from './reducers/user/userReducer';
@@ -14,6 +17,7 @@ import {vaccinesReducer} from './reducers/user/vaccineReducer';
 const reducer = combineReducers({
   user: userReducer,
   orgVaccine: orgVaccineReducer,
+  orgEmergency: orgEmergencyReducer,
   orgApply: orgApplyReducer,
   orgApplications: orgApplicationsReducer,
   notifications: notificationReducer,
