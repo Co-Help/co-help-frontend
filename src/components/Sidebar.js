@@ -10,7 +10,7 @@ export const Sidebar = ({sideBarLinks, url}) => {
           <Link
             key={to}
             p={2}
-            bg={location.pathname.includes(title) ? 'blue.200' : 'gray.100'}
+            bg={location.pathname.includes(to) ? 'blue.200' : 'gray.100'}
             rounded='sm'
             as={ReactLink}
             to={url + to}>

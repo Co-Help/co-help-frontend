@@ -10,7 +10,10 @@ export const AUTH_HEADER = {headers: {Authorization: `Bearer ${access_token}`}};
 export const getServicesList = services =>
   Object.entries(services)
     .filter(s => s[1])
-    .map(s => s[0].split('_')[0]);
+    .map(s => {
+      const splitted = s[0].split('_');
+      return {title: splitted[0] + ' ' + (splitted[1] ?? ''), to: `/${s[0]}`};
+    });
 
 export const toastOptions = {
   status: 'success',

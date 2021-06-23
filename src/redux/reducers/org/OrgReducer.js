@@ -6,9 +6,13 @@ import {
   GET_ALL_VACCINES,
   GET_VACCINE_BY_BATCH,
   GET_VACCINE_BY_BATCH_FAIL,
+  ORG_ADD_BLOOD,
   ORG_ADD_EMERGENCY,
+  ORG_DELETE_BLOOD,
   ORG_DELETE_EMERGENCY_SERVICE,
+  ORG_EDIT_BLOOD,
   ORG_EDIT_EMERGENCY,
+  ORG_GET_BLOOD_PROVIDE_SERVICES,
   ORG_GET_EMERGENCY_SERVICES,
 } from '../../actions/org/types';
 
@@ -55,6 +59,25 @@ export const orgEmergencyReducer = (state = {}, action) => {
       return {services: action.payload};
     }
     case ORG_DELETE_EMERGENCY_SERVICE: {
+      return {services: state.services.filter(s => s._id !== action.payload)};
+    }
+    default:
+      return state;
+  }
+};
+
+export const orgBloodReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ORG_ADD_BLOOD: {
+      return {...state, addBloodSuccess: action.payload};
+    }
+    case ORG_EDIT_BLOOD: {
+      return {...state, editBloodSuccess: action.payload};
+    }
+    case ORG_GET_BLOOD_PROVIDE_SERVICES: {
+      return {services: action.payload};
+    }
+    case ORG_DELETE_BLOOD: {
       return {services: state.services.filter(s => s._id !== action.payload)};
     }
     default:

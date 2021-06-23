@@ -152,3 +152,14 @@ export const VACCINES = [
   'Johnson & Johnson',
   'Sputnik Light',
 ];
+
+export const BLOOD_GROUPS = [
+  'O positive',
+  'O negative',
+  'A positive',
+  'A negative',
+  'B positive',
+  'B negative',
+  'AB positive',
+  'AB negative',
+];
