@@ -22,6 +22,7 @@ import {
 } from '@chakra-ui/react';
 import {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {Loader} from '../../components/Loader';
 import {deleteVaccines, getVaccines} from '../../redux/actions/org/OrgAction';
 import {AddVaccineModal} from './components/vaccine/AddVaccineModal';
 import {VaccineCard} from './components/vaccine/VaccineCard';
@@ -38,6 +39,8 @@ export const Vaccination = () => {
   useEffect(() => {
     dispatch(getVaccines());
   }, [dispatch, addVaccineSuccess]);
+
+  if (!vaccines) return <Loader />;
 
   return (
     <Box pos='relative' minH='85vh'>
