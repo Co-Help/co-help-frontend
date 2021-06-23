@@ -1,6 +1,7 @@
 import {Container, Text} from '@chakra-ui/react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {Loader} from '../components/Loader';
 import {getAllVaccines} from '../redux/actions/user/vaccineActions';
 import {VaccineCard} from './org/components/vaccine/VaccineCard';
 
@@ -13,7 +14,7 @@ export const Vaccines = () => {
   }, [dispatch]);
 
   if (vaccines?.error) return <Text>Something went wrong, refresh!</Text>;
-  if (!vaccines?.items) return <Text>Loading...</Text>;
+  if (!vaccines?.items) return <Loader />;
 
   return (
     <Container>
