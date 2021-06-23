@@ -79,7 +79,7 @@ export const Emergency = () => {
                     <PopoverCloseButton />
                     <PopoverHeader>Confirmation!</PopoverHeader>
                     <PopoverBody>
-                      Are you sure you want to have that milkshake?
+                      Are you sure you want to delete this service?
                     </PopoverBody>
                     <PopoverFooter d='flex' justifyContent='flex-end'>
                       <Button
