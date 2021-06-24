@@ -6,6 +6,7 @@ import {orgApplicationsReducer} from './reducers/admin/adminReducer';
 import {docAppointmentReducer} from './reducers/doctor/docReducer';
 import {notificationReducer} from './reducers/notifications/notificationReducer';
 import {
+  orgBedsReducer,
   orgBloodReducer,
   orgEmergencyReducer,
   orgOxygenReducer,
@@ -24,6 +25,7 @@ const reducer = combineReducers({
   orgEmergency: orgEmergencyReducer,
   orgBlood: orgBloodReducer,
   orgO2: orgOxygenReducer,
+  beds: orgBedsReducer,
   orgApply: orgApplyReducer,
   orgApplications: orgApplicationsReducer,
   notifications: notificationReducer,
