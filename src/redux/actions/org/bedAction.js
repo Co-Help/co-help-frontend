@@ -1,10 +1,6 @@
 import axios from 'axios';
 import {AUTH_HEADER} from '../../../utils';
-import {
-  ORG_ADD_BEDS,
-  ORG_DELETE_BED_SERVICES,
-  ORG_GET_BEDS_SERVICES,
-} from './types';
+import {ORG_DELETE_BED_SERVICES, ORG_GET_BEDS_SERVICES} from './types';
 
 export const getBedsServices = () => async dispatch => {
   try {
@@ -24,11 +20,9 @@ export const addBedService = (form, cb) => async dispatch => {
       available_beds: +form.available_beds,
     };
     await axios.post('/org/bed_provide', data, AUTH_HEADER);
-    dispatch({type: ORG_ADD_BEDS, payload: true});
     cb();
     dispatch(getBedsServices());
   } catch (err) {
-    dispatch({type: ORG_ADD_BEDS, payload: false});
     console.error(err);
   }
 };

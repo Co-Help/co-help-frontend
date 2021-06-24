@@ -8,7 +8,6 @@ import {
   GET_VACCINE_BY_BATCH_FAIL,
   ORG_ADD_BLOOD,
   ORG_ADD_EMERGENCY,
-  ORG_ADD_OXYGEN,
   ORG_DELETE_BED_SERVICES,
   ORG_DELETE_BLOOD,
   ORG_DELETE_EMERGENCY_SERVICE,
@@ -92,9 +91,6 @@ export const orgBloodReducer = (state = {}, action) => {
 
 export const orgOxygenReducer = (state = {}, action) => {
   switch (action.type) {
-    case ORG_ADD_OXYGEN: {
-      return {...state, addOxygenSuccess: action.payload};
-    }
     case ORG_GET_OXYGEN_SERVICES: {
       return {services: action.payload};
     }

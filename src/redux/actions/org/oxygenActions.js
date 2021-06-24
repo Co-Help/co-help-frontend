@@ -1,10 +1,6 @@
 import axios from 'axios';
 import {AUTH_HEADER} from '../../../utils';
-import {
-  ORG_ADD_OXYGEN,
-  ORG_DELETE_OXYGEN_SERVICES,
-  ORG_GET_OXYGEN_SERVICES,
-} from './types';
+import {ORG_DELETE_OXYGEN_SERVICES, ORG_GET_OXYGEN_SERVICES} from './types';
 
 export const addOxygenService = (form, cb) => async dispatch => {
   try {
@@ -15,11 +11,9 @@ export const addOxygenService = (form, cb) => async dispatch => {
       quantity: +form.quantity,
     };
     await axios.post('/org/oxygen_provide', data, AUTH_HEADER);
-    dispatch({type: ORG_ADD_OXYGEN, payload: true});
     cb();
     dispatch(getOxygenServices());
   } catch (err) {
-    dispatch({type: ORG_ADD_OXYGEN, payload: false});
     console.error(err);
   }
 };
