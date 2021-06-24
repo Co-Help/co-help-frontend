@@ -8,6 +8,7 @@ import {notificationReducer} from './reducers/notifications/notificationReducer'
 import {
   orgBloodReducer,
   orgEmergencyReducer,
+  orgOxygenReducer,
   orgVaccineReducer,
 } from './reducers/org/OrgReducer';
 import {bloodReducer} from './reducers/user/bloodReducer';
@@ -22,6 +23,7 @@ const reducer = combineReducers({
   orgVaccine: orgVaccineReducer,
   orgEmergency: orgEmergencyReducer,
   orgBlood: orgBloodReducer,
+  orgO2: orgOxygenReducer,
   orgApply: orgApplyReducer,
   orgApplications: orgApplicationsReducer,
   notifications: notificationReducer,

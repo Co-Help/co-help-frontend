@@ -7,6 +7,7 @@ import {BloodProvide} from './BloodProvide';
 import {VaccineBatch} from './components/vaccine/VaccineBatch';
 import {Doctors} from './Doctors';
 import {Emergency} from './Emergency';
+import {Oxygen} from './Oxygen';
 import {Vaccination} from './Vaccination';
 
 export const OrgDashboard = () => {
@@ -28,6 +29,7 @@ export const OrgDashboard = () => {
             {/* TODO: if a org does not provide a service make sure they cant access that route */}
             <Route path={`${path}/doctor_appointment`} component={Doctors} />
             <Route path={`${path}/emergency_provide`} component={Emergency} />
+            <Route path={`${path}/oxygen_provide`} component={Oxygen} />
             <Route path={`${path}/blood_provide`} component={BloodProvide} />
             <Route exact path={`${path}/vaccination`} component={Vaccination} />
             <Route
