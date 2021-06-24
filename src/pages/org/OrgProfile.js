@@ -11,7 +11,7 @@ export const OrgProfile = () => {
       <Center py={5} flexDirection='column'>
         <Avatar src={avatar} name={name ?? 'User'} size='2xl' />
         <Heading pt={2}>{name}</Heading>
-        <Text>{email}</Text>
+        <Text mb={2}>{email}</Text>
         {/* TODO: add org details n other stuffs */}
         <LogoutButton />
       </Center>
