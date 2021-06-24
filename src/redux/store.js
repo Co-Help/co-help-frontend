@@ -10,6 +10,7 @@ import {
   orgEmergencyReducer,
   orgVaccineReducer,
 } from './reducers/org/OrgReducer';
+import {bloodReducer} from './reducers/user/bloodReducer';
 import {bookingsReducer} from './reducers/user/bookingsReducer';
 import {doctorReducer} from './reducers/user/doctorReducer';
 import {emergencyReducer} from './reducers/user/emergencyReducer';
@@ -28,6 +29,7 @@ const reducer = combineReducers({
   vaccines: vaccinesReducer,
   docAppointment: docAppointmentReducer,
   emergency: emergencyReducer,
+  blood: bloodReducer,
   doctors: doctorReducer,
 });
 

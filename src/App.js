@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import {Nav} from './components/Nav';
 import {Dashboard} from './pages/admin/Dashboard';
+import {BloodProvide} from './pages/BloodProvide';
 import {DocDashboard} from './pages/doctor/DocDashboard';
 import {DocProfile} from './pages/doctor/DocProfile';
 import {Doctors} from './pages/Doctors';
@@ -32,6 +33,7 @@ const userRoutes = [
   {path: '/vaccines', component: Vaccines},
   {path: '/doctors', component: Doctors},
   {path: '/emergency', component: Emergency},
+  {path: '/blood', component: BloodProvide},
 ];
 
 const doctorRoutes = [

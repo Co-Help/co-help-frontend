@@ -39,8 +39,7 @@ const EmergencyButton = () => (
 const adminLinks = [{to: '/admin/dashboard', title: 'Dashboard'}];
 const commonLinks = [
   {to: '/doctors', title: 'Doctors'},
-  {to: '/oxygen', title: 'Oxygen'},
-  {to: '/beds', title: 'Beds'},
+  {to: '/blood', title: 'Blood'},
 ];
 const userLinks = [
   ...commonLinks,
