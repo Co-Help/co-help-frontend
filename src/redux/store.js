@@ -11,6 +11,7 @@ import {
   orgVaccineReducer,
 } from './reducers/org/OrgReducer';
 import {bookingsReducer} from './reducers/user/bookingsReducer';
+import {doctorReducer} from './reducers/user/doctorReducer';
 import {emergencyReducer} from './reducers/user/emergencyReducer';
 import {orgApplyReducer, userReducer} from './reducers/user/userReducer';
 import {vaccinesReducer} from './reducers/user/vaccineReducer';
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   vaccines: vaccinesReducer,
   docAppointment: docAppointmentReducer,
   emergency: emergencyReducer,
+  doctors: doctorReducer,
 });
 
 const middleware = [thunk];
