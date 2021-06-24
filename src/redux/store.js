@@ -8,6 +8,7 @@ import {notificationReducer} from './reducers/notifications/notificationReducer'
 import {
   orgBedsReducer,
   orgBloodReducer,
+  orgBloodTestReducer,
   orgEmergencyReducer,
   orgOxygenReducer,
   orgVaccineReducer,
@@ -25,7 +26,8 @@ const reducer = combineReducers({
   orgEmergency: orgEmergencyReducer,
   orgBlood: orgBloodReducer,
   orgO2: orgOxygenReducer,
-  beds: orgBedsReducer,
+  beds: orgBedsReducer, //FIXME: beds => orgBeds
+  orgBloodTest: orgBloodTestReducer,
   orgApply: orgApplyReducer,
   orgApplications: orgApplicationsReducer,
   notifications: notificationReducer,

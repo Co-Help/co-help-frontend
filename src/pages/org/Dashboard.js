@@ -5,6 +5,7 @@ import {Sidebar} from '../../components/Sidebar';
 import {getServicesList} from '../../utils';
 import {BedProvide} from './BedProvide';
 import {BloodProvide} from './BloodProvide';
+import {BloodTest} from './BloodTest';
 import {VaccineBatch} from './components/vaccine/VaccineBatch';
 import {Doctors} from './Doctors';
 import {Emergency} from './Emergency';
@@ -32,6 +33,7 @@ export const OrgDashboard = () => {
             <Route path={`${path}/emergency_provide`} component={Emergency} />
             <Route path={`${path}/oxygen_provide`} component={Oxygen} />
             <Route path={`${path}/bed_provide`} component={BedProvide} />
+            <Route path={`${path}/blood_test`} component={BloodTest} />
             <Route path={`${path}/blood_provide`} component={BloodProvide} />
             <Route exact path={`${path}/vaccination`} component={Vaccination} />
             <Route

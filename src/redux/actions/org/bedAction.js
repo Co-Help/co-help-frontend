@@ -29,7 +29,6 @@ export const addBedService = (form, cb) => async dispatch => {
 
 export const editBedService = (form, cb) => async dispatch => {
   try {
-    // FIXME: mark as not available not working
     const data = {
       ...form,
       cost: +form.cost,

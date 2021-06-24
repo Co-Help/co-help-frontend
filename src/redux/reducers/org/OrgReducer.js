@@ -10,12 +10,14 @@ import {
   ORG_ADD_EMERGENCY,
   ORG_DELETE_BED_SERVICES,
   ORG_DELETE_BLOOD,
+  ORG_DELETE_BLOOD_TEST_SERVICES,
   ORG_DELETE_EMERGENCY_SERVICE,
   ORG_DELETE_OXYGEN_SERVICES,
   ORG_EDIT_BLOOD,
   ORG_EDIT_EMERGENCY,
   ORG_GET_BEDS_SERVICES,
   ORG_GET_BLOOD_PROVIDE_SERVICES,
+  ORG_GET_BLOOD_TEST_SERVICES,
   ORG_GET_EMERGENCY_SERVICES,
   ORG_GET_OXYGEN_SERVICES,
 } from '../../actions/org/types';
@@ -112,6 +114,21 @@ export const orgBedsReducer = (state = {}, action) => {
     case ORG_DELETE_BED_SERVICES: {
       return {
         services: state.services.filter(s => s._id !== action.payload),
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+export const orgBloodTestReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ORG_GET_BLOOD_TEST_SERVICES: {
+      return {services: action.payload};
+    }
+    case ORG_DELETE_BLOOD_TEST_SERVICES: {
+      return {
+        services: state.services.filter(s => s.batch_code !== action.payload),
       };
     }
     default:
