@@ -1,15 +1,8 @@
 import {PhoneIcon} from '@chakra-ui/icons';
-import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  Heading,
-  Text,
-  Tooltip,
-} from '@chakra-ui/react';
+import {Box, Button, Container, Heading, Text, Tooltip} from '@chakra-ui/react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {CardContainer} from '../components/CardContainer';
 import {Loader} from '../components/Loader';
 import {getBloodServices} from '../redux/actions/user/bloodActions';
 
@@ -30,14 +23,7 @@ export const BloodProvide = () => {
         List of organization providing blood in <strong>{address?.city}</strong>
       </Text>
       {bloodServices?.map(s => (
-        <Flex
-          key={s._id}
-          mb={2}
-          justify='space-between'
-          align='center'
-          bg='gray.100'
-          rounded='sm'
-          p={3}>
+        <CardContainer key={s._id}>
           <Box>
             <Heading size='md'>{s.group} </Heading>
             <Text fontSize='sm'>
@@ -60,7 +46,7 @@ export const BloodProvide = () => {
               Call us
             </Button>
           </Tooltip>
-        </Flex>
+        </CardContainer>
       ))}
     </Container>
   );

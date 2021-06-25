@@ -4,7 +4,6 @@ import {
   AvatarBadge,
   Button,
   Container,
-  Flex,
   Heading,
   HStack,
   Stack,
@@ -13,6 +12,7 @@ import {
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link, Route, Switch, useRouteMatch} from 'react-router-dom';
+import {CardContainer} from '../components/CardContainer';
 import {Loader} from '../components/Loader';
 import {fetchDoctors} from '../redux/actions/user/doctorActions';
 import {DoctorDetails} from './user/components/DoctorDetails';
@@ -38,14 +38,7 @@ export const Doctors = () => {
             </Text>
           )}
           {doctors?.map(({_id: id, name, avatar, doctor_info}) => (
-            <Flex
-              mb={2}
-              justify='space-between'
-              align='center'
-              key={id}
-              bg='gray.100'
-              rounded='sm'
-              p={3}>
+            <CardContainer key={id}>
               <HStack>
                 <Avatar mr={2} name={name} src={avatar}>
                   <AvatarBadge
@@ -70,7 +63,7 @@ export const Doctors = () => {
                   Details
                 </Button>
               </Link>
-            </Flex>
+            </CardContainer>
           ))}
         </Route>
         <Route path={`${path}/:docId`} component={DoctorDetails} />

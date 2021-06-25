@@ -1,13 +1,6 @@
 import {DeleteIcon} from '@chakra-ui/icons';
-import {
-  Badge,
-  Box,
-  Flex,
-  Heading,
-  HStack,
-  IconButton,
-  Text,
-} from '@chakra-ui/react';
+import {Badge, Box, Heading, HStack, IconButton, Text} from '@chakra-ui/react';
+import {CardContainer} from '../../../../components/CardContainer';
 
 export const VaccineBatchCard = ({
   onDelete,
@@ -23,14 +16,7 @@ export const VaccineBatchCard = ({
   },
 }) => {
   return (
-    <Flex
-      mb={2}
-      justify='space-between'
-      align='center'
-      key={_id}
-      bg='gray.100'
-      rounded='sm'
-      p={3}>
+    <CardContainer key={_id}>
       <Box>
         <Heading size='md'>
           {vaccine_name} <Badge colorScheme='yellow'>{vaccine_doze} Dose</Badge>{' '}
@@ -56,6 +42,6 @@ export const VaccineBatchCard = ({
           />
         )}
       </Box>
-    </Flex>
+    </CardContainer>
   );
 };

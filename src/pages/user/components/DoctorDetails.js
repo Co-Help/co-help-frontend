@@ -1,7 +1,8 @@
-import {Box, Flex, Heading, Stack, Text} from '@chakra-ui/react';
+import {Box, Heading, Stack, Text} from '@chakra-ui/react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
+import {CardContainer} from '../../../components/CardContainer';
 import {Loader} from '../../../components/Loader';
 import {getAvailableAppointments} from '../../../redux/actions/user/doctorActions';
 import {BookAppointmentModal} from './BookAppointmentModal';
@@ -32,19 +33,13 @@ export const DoctorDetails = () => {
       )}
       <Stack mt={2} spacing={2}>
         {appointments?.map(a => (
-          <Flex
-            justify='space-between'
-            align='center'
-            key={a._id}
-            bg='gray.100'
-            rounded='sm'
-            p={3}>
+          <CardContainer key={a._id}>
             <Box>
               <Text>{a.info}</Text>
               <Text>Date: {a.appointment_date.split('T')[0]}</Text>
             </Box>
             <BookAppointmentModal a={a} />
-          </Flex>
+          </CardContainer>
         ))}
       </Stack>
     </Box>

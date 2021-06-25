@@ -1,4 +1,4 @@
-import {ChakraProvider} from '@chakra-ui/react';
+import {ChakraProvider, ColorModeScript} from '@chakra-ui/react';
 import '@fontsource/poppins';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -12,6 +12,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ChakraProvider theme={theme}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <App />
       </ChakraProvider>
     </Provider>

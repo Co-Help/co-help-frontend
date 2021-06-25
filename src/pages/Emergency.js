@@ -10,7 +10,6 @@ import {
   Box,
   Button,
   Container,
-  Flex,
   Heading,
   Text,
   Tooltip,
@@ -18,6 +17,7 @@ import {
 import {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
+import {CardContainer} from '../components/CardContainer';
 import {Loader} from '../components/Loader';
 import {getEmergencyServices} from '../redux/actions/user/emergencyActions';
 
@@ -78,14 +78,7 @@ export const Emergency = () => {
         List of emergency services in <strong>{address?.city}</strong>
       </Text>
       {emergencyServices?.map(s => (
-        <Flex
-          key={s._id}
-          mb={2}
-          justify='space-between'
-          align='center'
-          bg='gray.100'
-          rounded='sm'
-          p={3}>
+        <CardContainer key={s._id}>
           <Box>
             <Heading size='md'>
               {s.org.name}{' '}
@@ -110,7 +103,7 @@ export const Emergency = () => {
               Call us
             </Button>
           </Tooltip>
-        </Flex>
+        </CardContainer>
       ))}
     </Container>
   );

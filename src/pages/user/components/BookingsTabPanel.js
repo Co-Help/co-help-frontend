@@ -5,12 +5,12 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
-  Flex,
   Stack,
   Text,
 } from '@chakra-ui/react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {CardContainer} from '../../../components/CardContainer';
 import {Loader} from '../../../components/Loader';
 import {getBookedServices} from '../../../redux/actions/user/bookingsAction';
 import {VaccineCard} from '../../org/components/vaccine/VaccineCard';
@@ -58,21 +58,17 @@ export const BookingsTabPanel = () => {
         </h2>
         <AccordionPanel pb={4}>
           <Stack spacing={2}>
-            {services?.appointments.map(a => (
-              <Flex
-                justify='space-between'
-                align='center'
-                key={a._id}
-                bg='gray.100'
-                rounded='sm'
-                p={2}>
-                <Box>
-                  <Text>{a.info}</Text>
-                  <Text>Date: {a.appointment_date.split('T')[0]}</Text>
-                </Box>
-                <AppointmentCancelBtn id={a._id} />
-              </Flex>
-            ))}
+            {services?.appointments
+              .filter(s => !s.done)
+              .map(a => (
+                <CardContainer key={a._id}>
+                  <Box>
+                    <Text>{a.info}</Text>
+                    <Text>Date: {a.appointment_date.split('T')[0]}</Text>
+                  </Box>
+                  <AppointmentCancelBtn id={a._id} />
+                </CardContainer>
+              ))}
           </Stack>
           {!services?.appointments.length && (
             <Text textAlign='center'>No appointment bookings available</Text>

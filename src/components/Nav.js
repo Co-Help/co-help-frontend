@@ -1,9 +1,10 @@
 import {Badge, Flex, Heading, Text} from '@chakra-ui/layout';
-import {Button} from '@chakra-ui/react';
+import {Button, useColorModeValue} from '@chakra-ui/react';
 import {useSelector} from 'react-redux';
 import {Link, useLocation} from 'react-router-dom';
 import {NotificationPopup} from '../components/NotificationPopup';
 import {DocStatusToggle} from '../pages/doctor/components/DocToggle';
+import {DarkModeButton} from './DarkModeButton';
 import {LogoutButton} from './LogoutButton';
 
 const NavLink = ({to, title}) => {
@@ -29,7 +30,6 @@ const EmergencyButton = () => (
       size='sm'
       colorScheme='blue'
       rounded='sm'
-      color='white'
       fontWeight='semibold'>
       EMERGENCY
     </Button>
@@ -63,11 +63,13 @@ export const Nav = () => {
   const isDoctor = profile && profile?.role === 'doctor';
   const isPublic = !profile;
 
+  const bg = useColorModeValue('white', 'gray.800');
+
   return (
     <Flex
-      zIndex={1}
+      bg={bg}
+      zIndex='docked'
       pos='sticky'
-      bg='white'
       top={0}
       px={10}
       borderBottomWidth='1px'
@@ -139,6 +141,7 @@ export const Nav = () => {
             <LogoutButton />
           </>
         )}
+        <DarkModeButton />
       </Flex>
     </Flex>
   );

@@ -1,5 +1,6 @@
 import {Button} from '@chakra-ui/button';
 import {Box, Flex, Heading, Text} from '@chakra-ui/layout';
+import {useColorModeValue} from '@chakra-ui/react';
 import axios from 'axios';
 import {useEffect} from 'react';
 import {useGoogleLogin} from 'react-google-login';
@@ -43,12 +44,15 @@ export const Login = () => {
     }
   }, [userProfile, history, loaded, isAdmin]);
 
+  const bg = useColorModeValue('#FCFDFF', 'gray.800');
+  const bg2 = useColorModeValue('#DBE2EF', 'gray.600');
+
   return (
-    <Flex bg='#DBE2EF' minH='100vh' minW='full'>
+    <Flex bg={bg2} minH='100vh' minW='full'>
       <Flex
         justify='center'
         align='center'
-        bg='#FCFDFF'
+        bg={bg}
         boxShadow='lg'
         flex={1}
         p={5}>

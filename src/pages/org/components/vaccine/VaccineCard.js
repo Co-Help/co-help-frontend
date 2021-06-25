@@ -1,5 +1,6 @@
-import {Badge, Box, Flex, Heading, HStack, Text} from '@chakra-ui/react';
+import {Badge, Box, Heading, HStack, Text} from '@chakra-ui/react';
 import {Link as RLink, useRouteMatch} from 'react-router-dom';
+import {CardContainer} from '../../../../components/CardContainer';
 import {VaccineBookButton} from './VaccineBookButton';
 import {VaccineCancelButton} from './VaccineCancelButton';
 
@@ -21,14 +22,7 @@ export const VaccineCard = ({
   const {url} = useRouteMatch();
 
   return (
-    <Flex
-      mb={2}
-      justify='space-between'
-      align='center'
-      key={_id}
-      bg='gray.100'
-      rounded='sm'
-      p={3}>
+    <CardContainer key={_id}>
       <Box>
         <RLink to={!isUser ? `${url}/${batch_code}` : '/vaccines'}>
           <Heading size='md'>
@@ -52,6 +46,6 @@ export const VaccineCard = ({
       </Box>
       {isUser && <VaccineBookButton batch_code={batch_code} />}
       {showCancelBtn && <VaccineCancelButton id={_id} />}
-    </Flex>
+    </CardContainer>
   );
 };

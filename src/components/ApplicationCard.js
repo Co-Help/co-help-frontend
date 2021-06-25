@@ -7,18 +7,11 @@ import {
   ChevronUpIcon,
   CloseIcon,
 } from '@chakra-ui/icons';
-import {
-  Badge,
-  Box,
-  Divider,
-  Flex,
-  Heading,
-  Text,
-  Wrap,
-} from '@chakra-ui/layout';
+import {Badge, Box, Divider, Heading, Text, Wrap} from '@chakra-ui/layout';
 import {Collapse} from '@chakra-ui/transition';
 import {useDispatch} from 'react-redux';
 import {approveApplication} from '../redux/actions/admin/adminActions';
+import {CardContainer} from './CardContainer';
 
 export const ApplicationCard = ({application}) => {
   const dispatch = useDispatch();
@@ -36,13 +29,7 @@ export const ApplicationCard = ({application}) => {
 
   return (
     <Box>
-      <Flex
-        align='center'
-        justify='space-between'
-        p={5}
-        shadow='sm'
-        _hover={{shadow: 'md'}}
-        borderWidth='1px'>
+      <CardContainer>
         <Box>
           <Heading size='md'>
             {name} <Badge colorScheme='blue'>{status}</Badge>
@@ -53,18 +40,13 @@ export const ApplicationCard = ({application}) => {
         <Button
           onClick={onToggle}
           size='sm'
+          colorScheme='blue'
           rightIcon={!isOpen ? <ChevronDownIcon /> : <ChevronUpIcon />}>
           View details
         </Button>
-      </Flex>
+      </CardContainer>
       <Collapse in={isOpen} animateOpacity>
-        <Box
-          p={5}
-          color='black'
-          mt='2'
-          borderWidth='1px'
-          rounded='md'
-          shadow='md'>
+        <Box p={5} mt='2' borderWidth='1px' rounded='md' shadow='md'>
           <Heading size='sm'>Info</Heading>
           <Divider my={2} />
           <Text fontSize='sm'>{info}</Text>
