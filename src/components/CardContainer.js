@@ -8,6 +8,7 @@ export const CardContainer = ({children, ...props}) => {
   return (
     <Flex
       mb={2}
+      transition='0.3s all ease-in-out'
       border='1px'
       _hover={hover}
       borderColor={borderColor}
