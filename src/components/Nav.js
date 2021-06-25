@@ -37,12 +37,11 @@ const EmergencyButton = () => (
 );
 
 const adminLinks = [{to: '/admin/dashboard', title: 'Dashboard'}];
-const commonLinks = [
-  {to: '/doctors', title: 'Doctors'},
-  {to: '/blood', title: 'Blood'},
-];
+const commonLinks = [];
 const userLinks = [
   ...commonLinks,
+  {to: '/doctors', title: 'Doctors'},
+  {to: '/blood', title: 'Blood'},
   {to: '/vaccines', title: 'Vaccines'},
   {to: '/user/profile', title: 'Profile'},
 ];
@@ -100,7 +99,6 @@ export const Nav = () => {
               <NavLink key={to} to={to} title={title} />
             ))}
             <NavLink to='/login' title='Login' />
-            <EmergencyButton />
           </>
         )}
 
