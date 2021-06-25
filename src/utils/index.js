@@ -7,7 +7,7 @@ export const getUserCred = () => {
 export const access_token = getUserCred()?.access_token;
 export const AUTH_HEADER = {headers: {Authorization: `Bearer ${access_token}`}};
 
-export const formatDate = dateString => dateString.split('T')[0];
+export const formatDate = dateString => dateString?.split('T')[0];
 
 export const getServicesList = services =>
   Object.entries(services)

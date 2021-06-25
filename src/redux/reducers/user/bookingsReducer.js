@@ -1,5 +1,6 @@
 import {
   CANCEL_APPOINTMENT,
+  CANCEL_BLOOD_TEST_BOOKING,
   CANCEL_VACCINE_BOOKING,
   GET_BOOKED_SERVICES,
 } from '../../actions/user/types';
@@ -14,6 +15,16 @@ export const bookingsReducer = (state = {}, action) => {
         services: {
           ...state.services,
           appointments: state.services.appointments.filter(
+            a => a._id !== action.payload
+          ),
+        },
+      };
+    }
+    case CANCEL_BLOOD_TEST_BOOKING: {
+      return {
+        services: {
+          ...state.services,
+          blood_tests: state.services.blood_tests.filter(
             a => a._id !== action.payload
           ),
         },
