@@ -21,14 +21,13 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {bookAppointment} from '../../../redux/actions/user/doctorActions';
+import {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {bookBloodTest} from '../../../redux/actions/user/bloodTestActions';
 
-export const BookAppointmentModal = ({a}) => {
+export const BookBloodTestModal = ({data}) => {
   const dispatch = useDispatch();
   const {isOpen, onOpen, onClose} = useDisclosure();
-  const {bookedId} = useSelector(state => state.doctors);
 
   const [bookForOthers, setBookForOthers] = useState(false);
   const [form, setForm] = useState({
@@ -36,17 +35,14 @@ export const BookAppointmentModal = ({a}) => {
     age: '',
     name: '',
   });
-  const onChange = e => setForm({...form, [e.target.name]: e.target.value});
 
-  useEffect(() => {
-    onClose();
-  }, [onClose, bookedId]);
+  const onChange = e => setForm({...form, [e.target.name]: e.target.value});
 
   return (
     <>
       <Button
         onClick={onOpen}
-        isDisabled={a.booked}
+        isDisabled={data.booked}
         size='sm'
         rounded='sm'
         colorScheme='blue'>
@@ -56,16 +52,17 @@ export const BookAppointmentModal = ({a}) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Booking appointment</ModalHeader>
+          <ModalHeader>Booking Blood test</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text>You're about to book for an appointment, continue?</Text>
+            <Text>You're about to book for blood test, continue?</Text>
             <Checkbox
               isChecked={bookForOthers}
               onChange={e => setBookForOthers(e.target.checked)}
               mt={2}>
-              Book for someone else?
+              Book for someone else
             </Checkbox>
+
             <Collapse in={bookForOthers} animateOpacity>
               <Box mt={2} p={2}>
                 <FormControl isRequired id='name'>
@@ -115,12 +112,14 @@ export const BookAppointmentModal = ({a}) => {
               size='sm'
               onClick={() => {
                 dispatch(
-                  bookAppointment({
-                    bookingId: a._id,
-                    batch_code: a.batch_code,
-                    form,
-                    self_booking: !bookForOthers,
-                  })
+                  bookBloodTest(
+                    {
+                      batch_code: data.batch_code,
+                      form,
+                      self_booking: !bookForOthers,
+                    },
+                    onClose
+                  )
                 );
               }}
               variant='solid'>

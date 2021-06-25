@@ -42,6 +42,7 @@ const userLinks = [
   ...commonLinks,
   {to: '/doctors', title: 'Doctors'},
   {to: '/blood', title: 'Blood'},
+  {to: '/blood_test', title: 'Blood Test'},
   {to: '/vaccines', title: 'Vaccines'},
   {to: '/user/profile', title: 'Profile'},
 ];
