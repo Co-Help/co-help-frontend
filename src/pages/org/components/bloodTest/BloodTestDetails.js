@@ -29,6 +29,7 @@ export const BloodTestDetails = () => {
             <Th isNumeric>Cost</Th>
             <Th>Info</Th>
             <Th>Test Date</Th>
+            <Th>Actions</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -39,21 +40,23 @@ export const BloodTestDetails = () => {
               <Td>{s.info}</Td>
               <Td>{s.test_date.split('T')[0]}</Td>
               <Td>
-                <IconButton
-                  onClick={() =>
-                    dispatch(
-                      setDoneBloodTest({
-                        id: s._id,
-                        done: !s.done,
-                        batch_code: s.batch_code,
-                      })
-                    )
-                  }
-                  size='sm'
-                  aria-label='Set done/undone'
-                  title='Set done/undone'
-                  icon={!s.done ? <CheckIcon /> : <CloseIcon />}
-                />
+                {s.booked && (
+                  <IconButton
+                    onClick={() =>
+                      dispatch(
+                        setDoneBloodTest({
+                          id: s._id,
+                          done: !s.done,
+                          batch_code: s.batch_code,
+                        })
+                      )
+                    }
+                    size='sm'
+                    aria-label='Set done/undone'
+                    title='Set done/undone'
+                    icon={!s.done ? <CheckIcon /> : <CloseIcon />}
+                  />
+                )}
               </Td>
             </Tr>
           ))}
