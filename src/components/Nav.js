@@ -63,11 +63,12 @@ export const Nav = () => {
   const isDoctor = profile && profile?.role === 'doctor';
   const isPublic = !profile;
 
-  const bg = useColorModeValue('white', 'gray.800');
+  const bg = useColorModeValue('whiteAlpha.600', 'gray.600');
 
   return (
     <Flex
       bg={bg}
+      backdropFilter='blur(10px)'
       zIndex='docked'
       pos='sticky'
       top={0}
