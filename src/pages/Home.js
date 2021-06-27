@@ -17,7 +17,7 @@ import {
 import {useSelector} from 'react-redux';
 import {Link as RLink} from 'react-router-dom';
 
-const DoctorCard = ({name, imageUrl}) => {
+const DoctorCard = ({name, imageUrl, isPublic}) => {
   const bg = useColorModeValue('whiteAlpha.700', 'blackAlpha.500');
 
   return (
@@ -38,7 +38,7 @@ const DoctorCard = ({name, imageUrl}) => {
         <Heading size='lg' textAlign='center'>
           {name}
         </Heading>
-        <Link as={RLink} to='/doctors'>
+        <Link as={RLink} to={isPublic ? '/login' : '/doctors'}>
           View appointments &rarr;
         </Link>
       </Stack>
@@ -48,7 +48,6 @@ const DoctorCard = ({name, imageUrl}) => {
 
 export const Home = () => {
   const profile = useSelector(state => state.user.profile);
-
   const isPublic = !profile;
 
   const bg = useColorModeValue('blue.50', 'gray.700');
@@ -98,19 +97,22 @@ export const Home = () => {
         </Text>
         <HStack spacing='8' mt='5'>
           <DoctorCard
+            isPublic={isPublic}
             name='Dr. Some Name'
             imageUrl='https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?size=338&ext=jpg'
           />
           <DoctorCard
+            isPublic={isPublic}
             name='Dr. Some Name'
             imageUrl='https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?size=338&ext=jpg'
           />
           <DoctorCard
+            isPublic={isPublic}
             name='Dr. Some Name'
             imageUrl='https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?size=338&ext=jpg'
           />
         </HStack>
-        <Link as={RLink} to='/doctors'>
+        <Link as={RLink} to={isPublic ? '/login' : '/doctors'}>
           <Text mt='5' fontSize='lg'>
             See all &rarr;
           </Text>
