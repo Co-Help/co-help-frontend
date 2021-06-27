@@ -13,14 +13,13 @@ import {
   Stack,
   Text,
   useColorModeValue,
-  useToast,
 } from '@chakra-ui/react';
 import axios from 'axios';
 import {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {Link as RLink} from 'react-router-dom';
 import {Loader} from '../components/Loader';
-import {getAddress, getUserPosition, toastOptions} from '../utils';
+import {getAddress, getUserPosition} from '../utils';
 
 const DoctorCard = ({name, imageUrl, isPublic}) => {
   const bg = useColorModeValue('whiteAlpha.700', 'blackAlpha.500');
@@ -58,7 +57,6 @@ const DoctorCard = ({name, imageUrl, isPublic}) => {
 };
 
 export const Home = () => {
-  const toast = useToast();
   const profile = useSelector(state => state.user.profile);
   const isPublic = !profile;
   const [address, setAddress] = useState(profile?.address);
@@ -90,17 +88,11 @@ export const Home = () => {
 
   useEffect(() => {
     if (address && !doctors) {
-      toast({
-        ...toastOptions,
-        status: 'info',
-        title: 'No doctors found in your city, searching in state',
-        isClosable: false,
-      });
       axios
         .get(`/doctor?state=${address?.state}`)
         .then(({data}) => setDoctors(data.users));
     }
-  }, [doctors, address, toast]);
+  }, [doctors, address]);
 
   return (
     <Box>
