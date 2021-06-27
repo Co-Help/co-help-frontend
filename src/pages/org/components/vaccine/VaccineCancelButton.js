@@ -9,32 +9,28 @@ import {
   Box,
   Button,
   useDisclosure,
-  useToast,
 } from '@chakra-ui/react';
-import axios from 'axios';
 import {useRef} from 'react';
 import {useDispatch} from 'react-redux';
-import {CANCEL_VACCINE_BOOKING} from '../../../../redux/actions/user/types';
-import {AUTH_HEADER, toastOptions} from '../../../../utils';
+import {cancelVaccinationBooking} from '../../../../redux/actions/user/bookingsAction';
 
 export const VaccineCancelButton = ({id}) => {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const cancelRef = useRef();
-  const toast = useToast();
   const dispatch = useDispatch();
 
-  const cancelBooking = async () => {
-    try {
-      await axios.delete('/services/vaccination', {data: {id}, ...AUTH_HEADER});
-      dispatch({type: CANCEL_VACCINE_BOOKING, payload: id});
-      toast({title: 'Vaccine booking cancelled.', ...toastOptions});
-    } catch (err) {
-      console.error(err);
-      toast({title: 'Failed to cancel.', ...toastOptions, status: 'error'});
-    } finally {
-      onClose();
-    }
-  };
+  // const cancelBooking = async () => {
+  //   try {
+  //     await axios.delete('/services/vaccination', {data: {id}, ...AUTH_HEADER});
+  //     dispatch({type: CANCEL_VACCINE_BOOKING, payload: id});
+  //     toast({title: 'Vaccine booking cancelled.', ...toastOptions});
+  //   } catch (err) {
+  //     console.error(err);
+  //     toast({title: 'Failed to cancel.', ...toastOptions, status: 'error'});
+  //   } finally {
+  //     onClose();
+  //   }
+  // };
 
   return (
     <Box pl={2}>
@@ -64,7 +60,10 @@ export const VaccineCancelButton = ({id}) => {
             <Button ref={cancelRef} onClick={onClose}>
               No
             </Button>
-            <Button colorScheme='red' ml={3} onClick={() => cancelBooking()}>
+            <Button
+              colorScheme='red'
+              ml={3}
+              onClick={() => dispatch(cancelVaccinationBooking(id, onClose))}>
               Yes
             </Button>
           </AlertDialogFooter>

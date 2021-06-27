@@ -31,8 +31,14 @@ export const bookingsReducer = (state = {}, action) => {
       };
     }
     case CANCEL_VACCINE_BOOKING: {
-      // FIXME: change
-      return {vaccines: state.vaccines.filter(v => v._id !== action.payload)};
+      return {
+        services: {
+          ...state.services,
+          vaccinations: state.services.vaccinations.filter(
+            a => a._id !== action.payload
+          ),
+        },
+      };
     }
     default:
       return state;
