@@ -15,6 +15,7 @@ import {Home} from './pages/Home';
 import {Login} from './pages/Login';
 import {OrgDashboard} from './pages/org/Dashboard';
 import {OrgProfile} from './pages/org/OrgProfile';
+import {Search} from './pages/Search';
 import {CompleteProfile} from './pages/user/CompleteProfile';
 import {JoinAsDoctor} from './pages/user/JoinAsDoctor';
 import {OrgApply} from './pages/user/OrgApply';
@@ -24,13 +25,15 @@ import {fetchProfile} from './redux/actions/user/userActions';
 
 axios.defaults.baseURL = 'http://localhost:5000';
 
-const publicRoutes = [
-  {path: '/login', component: Login},
+const commonRoutes = [
   {path: '/', exact: true, component: Home},
+  {path: '/search/:text', component: Search},
 ];
 
+const publicRoutes = [...commonRoutes, {path: '/login', component: Login}];
+
 const userRoutes = [
-  {path: '/', exact: true, component: Home},
+  ...commonRoutes,
   {path: '/user/complete-profile', component: CompleteProfile},
   {path: '/user/profile', component: UserProfile},
   {path: '/org/apply', component: OrgApply},

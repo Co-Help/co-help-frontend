@@ -65,6 +65,8 @@ export const Home = () => {
   const [address, setAddress] = useState(profile?.address);
   const [doctors, setDoctors] = useState();
   const [err, setErr] = useState();
+  const [search, setSearch] = useState('');
+  const history = useHistory();
 
   const bg = useColorModeValue('blue.50', 'gray.700');
   const color = useColorModeValue('gray.600', 'gray.300');
@@ -115,6 +117,8 @@ export const Home = () => {
         </Heading>
         <InputGroup size='md' maxW='container.sm' mt='10'>
           <Input
+            value={search}
+            onChange={e => setSearch(e.target.value)}
             border='1px'
             borderColor='gray.400'
             p='6'
@@ -124,7 +128,10 @@ export const Home = () => {
             placeholder='Search with city, district or state'
           />
           <InputRightElement width='5.5rem' mr='1' mt='1'>
-            <Button size='md' colorScheme='blue'>
+            <Button
+              onClick={() => search && history.push(`/search/${search}`)}
+              size='md'
+              colorScheme='blue'>
               Search
             </Button>
           </InputRightElement>

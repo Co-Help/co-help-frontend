@@ -5,19 +5,26 @@ import {
   FETCH_PROFILE,
   LOGIN,
   LOGOUT,
+  SEARCH,
 } from '../../actions/user/types';
 
 export const userReducer = (state = {profile: null}, action) => {
   switch (action.type) {
     case LOGIN:
     case FETCH_PROFILE: {
-      return {profile: action.payload};
+      return {...state, profile: action.payload};
     }
     case LOGOUT: {
       return {profile: {}};
     }
     case COMPLETE_PROFILE: {
-      return {profile: {...state.profile, is_profile_completed: true}};
+      return {
+        ...state,
+        profile: {...state.profile, is_profile_completed: true},
+      };
+    }
+    case SEARCH: {
+      return {...state, searchRes: action.payload};
     }
     default:
       return state;

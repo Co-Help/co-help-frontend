@@ -8,6 +8,7 @@ import {
   FETCH_PROFILE,
   LOGIN,
   LOGOUT,
+  SEARCH,
 } from './types';
 
 export const login = data => async dispatch => {
@@ -74,5 +75,17 @@ export const applyForOrg = data => async dispatch => {
     dispatch({type: APPLY_FOR_ORG});
   } catch (err) {
     dispatch({type: APPLY_FOR_ORG_FAIL, payload: err.response.data.msg});
+  }
+};
+
+export const search = what => async dispatch => {
+  try {
+    const {data} = await axios.get(
+      `/services/search?city=${what}`,
+      AUTH_HEADER
+    );
+    dispatch({type: SEARCH, payload: data.results});
+  } catch (err) {
+    console.error(err);
   }
 };
