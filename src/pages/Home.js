@@ -17,11 +17,11 @@ import {
 import axios from 'axios';
 import {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
-import {Link as RLink} from 'react-router-dom';
+import {Link as RLink, useHistory} from 'react-router-dom';
 import {Loader} from '../components/Loader';
 import {getAddress, getUserPosition} from '../utils';
 
-const DoctorCard = ({name, imageUrl, isPublic}) => {
+const DoctorCard = ({doc, isPublic}) => {
   const bg = useColorModeValue('whiteAlpha.700', 'blackAlpha.500');
 
   return (
@@ -29,9 +29,9 @@ const DoctorCard = ({name, imageUrl, isPublic}) => {
       <Image
         objectFit='cover'
         boxSize='300px'
-        src={imageUrl}
+        src={doc?.avatar}
         fallbackSrc='https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?size=338&ext=jpg'
-        alt={name}
+        alt={doc?.name}
       />
       <Stack
         backdropFilter='blur(10px)'
@@ -46,9 +46,12 @@ const DoctorCard = ({name, imageUrl, isPublic}) => {
         bottom='0'
         pos='absolute'>
         <Heading size='md' textAlign='center'>
-          Dr. {name}
+          Dr. {doc?.name}
         </Heading>
-        <Link opacity='0.7' as={RLink} to={isPublic ? '/login' : '/doctors'}>
+        <Link
+          opacity='0.7'
+          as={RLink}
+          to={isPublic ? '/login' : `/doctors/${doc._id}`}>
           View appointments &rarr;
         </Link>
       </Stack>
@@ -149,12 +152,7 @@ export const Home = () => {
                 <Text>No doctors available in your city</Text>
               )}
               {doctors?.map(d => (
-                <DoctorCard
-                  key={d._id}
-                  isPublic={isPublic}
-                  name={d.name}
-                  imageUrl={d.avatar}
-                />
+                <DoctorCard key={d._id} isPublic={isPublic} doc={d} />
               ))}
             </>
           ) : (
@@ -176,7 +174,7 @@ export const Home = () => {
         rounded='md'
         py='10'>
         <Text fontSize='4xl' fontWeight='thin'>
-          <strong>Be an</strong> organizer
+          <strong>Become an</strong> organizer
         </Text>
         <Text opacity='0.8'>
           Apply as organizer to provide various services through our platform.
