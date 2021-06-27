@@ -24,9 +24,13 @@ import {fetchProfile} from './redux/actions/user/userActions';
 
 axios.defaults.baseURL = 'http://localhost:5000';
 
-const publicRoutes = [{path: '/login', component: Login}];
+const publicRoutes = [
+  {path: '/login', component: Login},
+  {path: '/', exact: true, component: Home},
+];
 
 const userRoutes = [
+  {path: '/', exact: true, component: Home},
   {path: '/user/complete-profile', component: CompleteProfile},
   {path: '/user/profile', component: UserProfile},
   {path: '/org/apply', component: OrgApply},
@@ -67,27 +71,15 @@ const App = () => {
       <Nav />
       <Container mt={3} maxW='container.xl'>
         <Switch>
-          <Route exact path='/' component={Home} />
-          {publicRoutes.map(r => (
-            <Route key={r.path} path={r.path} component={r.component} />
-          ))}
-          {isAdmin &&
-            adminRoutes.map(r => (
-              <Route key={r.path} path={r.path} component={r.component} />
-            ))}
-          {isOrg &&
-            orgRoutes.map(r => (
-              <Route key={r.path} path={r.path} component={r.component} />
-            ))}
-          {isDoctor &&
-            doctorRoutes.map(r => (
-              <Route key={r.path} path={r.path} component={r.component} />
-            ))}
-          {isUser &&
-            userRoutes.map(r => (
-              <Route key={r.path} path={r.path} component={r.component} />
-            ))}
-          <Redirect to='/' />
+          {!profile && publicRoutes.map(r => <Route key={r.path} {...r} />)}
+          {isAdmin && adminRoutes.map(r => <Route key={r.path} {...r} />)}
+          {isOrg && orgRoutes.map(r => <Route key={r.path} {...r} />)}
+          {isDoctor && doctorRoutes.map(r => <Route key={r.path} {...r} />)}
+          {isUser && userRoutes.map(r => <Route key={r.path} {...r} />)}
+          {(!profile || isUser) && <Redirect to='/' />}
+          {isOrg && <Redirect to='/org/dashboard' />}
+          {isDoctor && <Redirect to='/doc/dashboard' />}
+          {isAdmin && <Redirect to='/admin/dashboard' />}
         </Switch>
       </Container>
     </BrowserRouter>
