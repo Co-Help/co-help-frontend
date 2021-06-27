@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {APP_NAME} from '../constants';
 
 export const getUserCred = () => {
@@ -22,4 +23,23 @@ export const toastOptions = {
   duration: 5000,
   isClosable: true,
   position: 'bottom-right',
+};
+
+export const getUserPosition = (cb, error) =>
+  navigator.geolocation
+    ? navigator.geolocation.getCurrentPosition(
+        ({coords}) => cb(coords),
+        err => error(err.message)
+      )
+    : error('Geolocation is not supported by this browser');
+
+export const getAddress = async coords => {
+  try {
+    const {data} = await axios.get(
+      `https://nominatim.openstreetmap.org/reverse.php?lat=${coords?.latitude}&lon=${coords?.longitude}&format=jsonv2`
+    );
+    return data?.address;
+  } catch (err) {
+    throw new Error('Failed to get user address');
+  }
 };

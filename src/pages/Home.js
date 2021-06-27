@@ -13,16 +13,27 @@ import {
   Stack,
   Text,
   useColorModeValue,
+  useToast,
 } from '@chakra-ui/react';
+import axios from 'axios';
+import {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {Link as RLink} from 'react-router-dom';
+import {Loader} from '../components/Loader';
+import {getAddress, getUserPosition, toastOptions} from '../utils';
 
 const DoctorCard = ({name, imageUrl, isPublic}) => {
   const bg = useColorModeValue('whiteAlpha.700', 'blackAlpha.500');
 
   return (
     <Box bg='gray.200' pos='relative'>
-      <Image objectFit='cover' boxSize='300px' src={imageUrl} alt={name} />
+      <Image
+        objectFit='cover'
+        boxSize='300px'
+        src={imageUrl}
+        fallbackSrc='https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?size=338&ext=jpg'
+        alt={name}
+      />
       <Stack
         backdropFilter='blur(10px)'
         bg={bg}
@@ -35,10 +46,10 @@ const DoctorCard = ({name, imageUrl, isPublic}) => {
         borderTopRightRadius='2xl'
         bottom='0'
         pos='absolute'>
-        <Heading size='lg' textAlign='center'>
-          {name}
+        <Heading size='md' textAlign='center'>
+          Dr. {name}
         </Heading>
-        <Link as={RLink} to={isPublic ? '/login' : '/doctors'}>
+        <Link opacity='0.7' as={RLink} to={isPublic ? '/login' : '/doctors'}>
           View appointments &rarr;
         </Link>
       </Stack>
@@ -47,11 +58,49 @@ const DoctorCard = ({name, imageUrl, isPublic}) => {
 };
 
 export const Home = () => {
+  const toast = useToast();
   const profile = useSelector(state => state.user.profile);
   const isPublic = !profile;
+  const [address, setAddress] = useState(profile?.address);
+  const [doctors, setDoctors] = useState();
+  const [err, setErr] = useState();
 
   const bg = useColorModeValue('blue.50', 'gray.700');
   const color = useColorModeValue('gray.600', 'gray.300');
+
+  useEffect(() => {
+    if (isPublic) {
+      getUserPosition(coords => {
+        getAddress(coords)
+          .then(data => {
+            setAddress(data);
+          })
+          .catch(setErr);
+      }, setErr);
+    }
+  }, [isPublic, profile]);
+
+  useEffect(() => {
+    if (address) {
+      axios
+        .get(`/doctor?city=${address?.city || address?.town || ''}`)
+        .then(({data}) => setDoctors(data.users));
+    }
+  }, [address]);
+
+  useEffect(() => {
+    if (address && !doctors) {
+      toast({
+        ...toastOptions,
+        status: 'info',
+        title: 'No doctors found in your city, searching in state',
+        isClosable: false,
+      });
+      axios
+        .get(`/doctor?state=${address?.state}`)
+        .then(({data}) => setDoctors(data.users));
+    }
+  }, [doctors, address, toast]);
 
   return (
     <Box>
@@ -96,21 +145,29 @@ export const Home = () => {
           places.
         </Text>
         <HStack spacing='8' mt='5'>
-          <DoctorCard
-            isPublic={isPublic}
-            name='Dr. Some Name'
-            imageUrl='https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?size=338&ext=jpg'
-          />
-          <DoctorCard
-            isPublic={isPublic}
-            name='Dr. Some Name'
-            imageUrl='https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?size=338&ext=jpg'
-          />
-          <DoctorCard
-            isPublic={isPublic}
-            name='Dr. Some Name'
-            imageUrl='https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?size=338&ext=jpg'
-          />
+          {!err ? (
+            <>
+              {!doctors && (
+                <Stack spacing='1'>
+                  <Loader />
+                  <Text>Fetching available doctors in your location</Text>
+                </Stack>
+              )}
+              {doctors && !doctors?.length && (
+                <Text>No doctors available in your city</Text>
+              )}
+              {doctors?.map(d => (
+                <DoctorCard
+                  key={d._id}
+                  isPublic={isPublic}
+                  name={d.name}
+                  imageUrl={d.avatar}
+                />
+              ))}
+            </>
+          ) : (
+            <Text>{err || 'No doctors available in your location'}</Text>
+          )}
         </HStack>
         <Link as={RLink} to={isPublic ? '/login' : '/doctors'}>
           <Text mt='5' fontSize='lg'>
