@@ -1,6 +1,7 @@
 import {Box, Container, Flex} from '@chakra-ui/react';
 import {useSelector} from 'react-redux';
 import {Route, Switch, useRouteMatch} from 'react-router-dom';
+import {Loader} from '../../components/Loader';
 import {Sidebar} from '../../components/Sidebar';
 import {getServicesList} from '../../utils';
 import {BedProvide} from './BedProvide';
@@ -15,9 +16,11 @@ import {Vaccination} from './Vaccination';
 
 export const OrgDashboard = () => {
   let {path, url} = useRouteMatch();
-  const services = useSelector(state => state.user.profile.org.services);
-  const sideBarLinks = getServicesList(services);
+  const services = useSelector(state => state.user.profile.org?.services);
 
+  if (!services) return <Loader />;
+
+  const sideBarLinks = getServicesList(services);
   return (
     <Container maxW='container.lg'>
       <Flex>

@@ -11,8 +11,8 @@ import {
 } from './types';
 
 export const login = data => async dispatch => {
-  dispatch({type: LOGIN, payload: data.user});
   localStorage.setItem(`${APP_NAME}_USER_INFO`, JSON.stringify(data));
+  dispatch({type: LOGIN, payload: data.user});
 };
 
 export const logout = () => async dispatch => {

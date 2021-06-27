@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {getUserCred} from '../../../utils';
+import {AUTH_HEADER} from '../../../utils';
 import {
   MARK_NOTIFICATION_READ,
   NOTIFICATION_FETCH_DONE,
@@ -8,10 +8,7 @@ import {
 
 export const getNotifications = () => async dispatch => {
   try {
-    const {access_token} = getUserCred();
-    const {data} = await axios.get('/notification', {
-      headers: {Authorization: `Bearer ${access_token}`},
-    });
+    const {data} = await axios.get('/notification', AUTH_HEADER);
     dispatch({type: NOTIFICATION_FETCH_DONE, payload: data.notifications});
   } catch (err) {
     dispatch({type: NOTIFICATION_FETCH_FAIL});
@@ -21,12 +18,7 @@ export const getNotifications = () => async dispatch => {
 
 export const markAsRead = id => async dispatch => {
   try {
-    const {access_token} = getUserCred();
-    await axios.put(
-      '/notification',
-      {id, read: true},
-      {headers: {Authorization: `Bearer ${access_token}`}}
-    );
+    await axios.put('/notification', {id, read: true}, AUTH_HEADER);
     dispatch({type: MARK_NOTIFICATION_READ, payload: id});
   } catch (err) {
     console.error(err);
