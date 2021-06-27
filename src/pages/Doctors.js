@@ -17,6 +17,35 @@ import {Loader} from '../components/Loader';
 import {fetchDoctors} from '../redux/actions/user/doctorActions';
 import {DoctorDetails} from './user/components/DoctorDetails';
 
+export const DoctorCard = ({s, url}) => (
+  <CardContainer>
+    <HStack>
+      <Avatar mr={2} name={s.name} src={s.avatar}>
+        <AvatarBadge
+          boxSize='1em'
+          bg={s.doctor_info.active ? 'green.500' : 'red.500'}
+        />
+      </Avatar>
+      <Stack spacing={1}>
+        <Heading size='sm'>Dr. {s.name}</Heading>
+        <Text fontSize='sm'>
+          on <strong>{s.doctor_info.org.name}</strong>
+        </Text>
+      </Stack>
+    </HStack>
+    <Link to={`${url}/${s._id}`}>
+      <Button
+        rightIcon={<ArrowForwardIcon />}
+        isDisabled={!s.doctor_info.active}
+        size='sm'
+        rounded='sm'
+        colorScheme='blue'>
+        Details
+      </Button>
+    </Link>
+  </CardContainer>
+);
+
 export const Doctors = () => {
   const dispatch = useDispatch();
   const doctors = useSelector(state => state.doctors.items);
@@ -37,33 +66,8 @@ export const Doctors = () => {
               Doctors are unavailable!
             </Text>
           )}
-          {doctors?.map(({_id: id, name, avatar, doctor_info}) => (
-            <CardContainer key={id}>
-              <HStack>
-                <Avatar mr={2} name={name} src={avatar}>
-                  <AvatarBadge
-                    boxSize='1em'
-                    bg={doctor_info.active ? 'green.500' : 'red.500'}
-                  />
-                </Avatar>
-                <Stack spacing={1}>
-                  <Heading size='sm'>Dr. {name}</Heading>
-                  <Text fontSize='sm'>
-                    on <strong>{doctor_info.org.name}</strong>
-                  </Text>
-                </Stack>
-              </HStack>
-              <Link to={`${url}/${id}`}>
-                <Button
-                  rightIcon={<ArrowForwardIcon />}
-                  isDisabled={!doctor_info.active}
-                  size='sm'
-                  rounded='sm'
-                  colorScheme='blue'>
-                  Details
-                </Button>
-              </Link>
-            </CardContainer>
+          {doctors?.map(s => (
+            <DoctorCard url={url} key={s._id} s={s} />
           ))}
         </Route>
         <Route path={`${path}/:docId`} component={DoctorDetails} />

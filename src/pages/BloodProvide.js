@@ -6,6 +6,33 @@ import {CardContainer} from '../components/CardContainer';
 import {Loader} from '../components/Loader';
 import {getBloodServices} from '../redux/actions/user/bloodActions';
 
+export const BloodProvideCard = ({s}) => (
+  <CardContainer>
+    <Box>
+      <Heading size='md'>{s.group} </Heading>
+      <Text fontSize='sm'>
+        by <strong>{s.org.name}</strong>
+      </Text>
+      <Text fontSize='sm'>Price: Rs. {s.cost}</Text>
+    </Box>
+    <Tooltip
+      hasArrow
+      placement='top'
+      label={s.org.helpline_no}
+      aria-label='Emergency number'>
+      <Button
+        leftIcon={<PhoneIcon />}
+        colorScheme='blue'
+        variant='solid'
+        size='sm'
+        rounded='sm'
+        isDisabled={!s.available}>
+        Call us
+      </Button>
+    </Tooltip>
+  </CardContainer>
+);
+
 export const BloodProvide = () => {
   const dispatch = useDispatch();
   const {address} = useSelector(state => state.user.profile);
@@ -23,30 +50,7 @@ export const BloodProvide = () => {
         List of organization providing blood in <strong>{address?.city}</strong>
       </Text>
       {bloodServices?.map(s => (
-        <CardContainer key={s._id}>
-          <Box>
-            <Heading size='md'>{s.group} </Heading>
-            <Text fontSize='sm'>
-              by <strong>{s.org.name}</strong>
-            </Text>
-            <Text fontSize='sm'>Price: Rs. {s.cost}</Text>
-          </Box>
-          <Tooltip
-            hasArrow
-            placement='top'
-            label={s.org.helpline_no}
-            aria-label='Emergency number'>
-            <Button
-              leftIcon={<PhoneIcon />}
-              colorScheme='blue'
-              variant='solid'
-              size='sm'
-              rounded='sm'
-              isDisabled={!s.available}>
-              Call us
-            </Button>
-          </Tooltip>
-        </CardContainer>
+        <BloodProvideCard key={s._id} s={s} />
       ))}
     </Container>
   );

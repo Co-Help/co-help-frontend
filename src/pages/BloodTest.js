@@ -7,6 +7,22 @@ import {getBloodTestServices} from '../redux/actions/user/bloodTestActions';
 import {formatDate} from '../utils';
 import {BookBloodTestModal} from './user/components/BookBloodTestModal';
 
+export const BloodTestCard = ({s}) => (
+  <CardContainer>
+    <Box>
+      <Heading size='md'>{s.info} </Heading>
+      <Text fontSize='sm'>
+        by <strong>{s.org.name}</strong>
+      </Text>
+      <HStack>
+        <Text fontSize='sm'>Date: {formatDate(s.test_date)}</Text>
+        <Text fontSize='sm'>Price: Rs. {s.cost}</Text>
+      </HStack>
+    </Box>
+    <BookBloodTestModal data={s} />
+  </CardContainer>
+);
+
 export const BloodTest = () => {
   const dispatch = useDispatch();
   const bloodTestServices = useSelector(state => state.bloodTest.services);
@@ -19,20 +35,8 @@ export const BloodTest = () => {
 
   return (
     <Container>
-      {bloodTestServices?.map(s => (
-        <CardContainer key={s._id}>
-          <Box>
-            <Heading size='md'>{s.info} </Heading>
-            <Text fontSize='sm'>
-              by <strong>{s.org.name}</strong>
-            </Text>
-            <HStack>
-              <Text fontSize='sm'>Date: {formatDate(s.test_date)}</Text>
-              <Text fontSize='sm'>Price: Rs. {s.cost}</Text>
-            </HStack>
-          </Box>
-          <BookBloodTestModal data={s} />
-        </CardContainer>
+      {bloodTestServices?.map(service => (
+        <BloodTestCard key={service._id} s={service} />
       ))}
     </Container>
   );

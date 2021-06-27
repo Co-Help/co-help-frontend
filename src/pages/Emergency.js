@@ -21,6 +21,35 @@ import {CardContainer} from '../components/CardContainer';
 import {Loader} from '../components/Loader';
 import {getEmergencyServices} from '../redux/actions/user/emergencyActions';
 
+export const EmergencyCard = ({s}) => (
+  <CardContainer key={s._id}>
+    <Box>
+      <Heading size='md'>
+        {s.org.name}{' '}
+        <Badge colorScheme='green'>{s.available && 'Available'}</Badge>
+      </Heading>
+
+      <Text fontSize='sm'>{s.info}</Text>
+      <Text fontSize='sm'>Price: Rs. {s.cost}</Text>
+    </Box>
+    <Tooltip
+      hasArrow
+      placement='top'
+      label={s.emergency_no}
+      aria-label='Emergency number'>
+      <Button
+        leftIcon={<PhoneIcon />}
+        colorScheme='blue'
+        variant='solid'
+        size='sm'
+        rounded='sm'
+        isDisabled={!s.available}>
+        Call us
+      </Button>
+    </Tooltip>
+  </CardContainer>
+);
+
 export const Emergency = () => {
   const {is_profile_completed, address} = useSelector(
     state => state.user.profile
@@ -78,32 +107,7 @@ export const Emergency = () => {
         List of emergency services in <strong>{address?.city}</strong>
       </Text>
       {emergencyServices?.map(s => (
-        <CardContainer key={s._id}>
-          <Box>
-            <Heading size='md'>
-              {s.org.name}{' '}
-              <Badge colorScheme='green'>{s.available && 'Available'}</Badge>
-            </Heading>
-
-            <Text fontSize='sm'>{s.info}</Text>
-            <Text fontSize='sm'>Price: Rs. {s.cost}</Text>
-          </Box>
-          <Tooltip
-            hasArrow
-            placement='top'
-            label={s.emergency_no}
-            aria-label='Emergency number'>
-            <Button
-              leftIcon={<PhoneIcon />}
-              colorScheme='blue'
-              variant='solid'
-              size='sm'
-              rounded='sm'
-              isDisabled={!s.available}>
-              Call us
-            </Button>
-          </Tooltip>
-        </CardContainer>
+        <EmergencyCard key={s._id} s={s} />
       ))}
     </Container>
   );
