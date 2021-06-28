@@ -1,6 +1,6 @@
 import {Box, Container, Flex} from '@chakra-ui/react';
 import {useSelector} from 'react-redux';
-import {Route, Switch, useRouteMatch} from 'react-router-dom';
+import {Redirect, Route, Switch, useRouteMatch} from 'react-router-dom';
 import {Loader} from '../../components/Loader';
 import {Sidebar} from '../../components/Sidebar';
 import {getServicesList} from '../../utils';
@@ -28,9 +28,7 @@ export const OrgDashboard = () => {
         <Box flex={3}>
           <Switch>
             <Route exact path={path}>
-              <div>
-                <h3>Dashboard</h3>
-              </div>
+              <Redirect to={`${path}/vaccination`} />
             </Route>
             {/* TODO: if a org does not provide a service make sure they cant access that route */}
             <Route path={`${path}/doctor_appointment`} component={Doctors} />
