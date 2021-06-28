@@ -2,6 +2,7 @@ import {Box, Container, Heading, HStack, Text} from '@chakra-ui/react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {CardContainer} from '../components/CardContainer';
+import {EmptyMessage} from '../components/EmptyMessage';
 import {Loader} from '../components/Loader';
 import {getBloodTestServices} from '../redux/actions/user/bloodTestActions';
 import {formatDate} from '../utils';
@@ -36,7 +37,7 @@ export const BloodTest = () => {
   return (
     <Container>
       {!bloodTestServices?.length ? (
-        <Text textAlign='center'>No bookings available</Text>
+        <EmptyMessage msg='No bookings available' />
       ) : null}
       {bloodTestServices?.map(service => (
         <BloodTestCard key={service._id} s={service} />
