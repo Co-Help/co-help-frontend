@@ -11,6 +11,7 @@ import {
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {CardContainer} from '../../../components/CardContainer';
+import {EmptyMessage} from '../../../components/EmptyMessage';
 import {Loader} from '../../../components/Loader';
 import {getBookedServices} from '../../../redux/actions/user/bookingsAction';
 import {formatDate} from '../../../utils';
@@ -50,7 +51,7 @@ export const BookingsTabPanel = () => {
             <VaccineCard key={v._id} vaccine={v} showCancelBtn />
           ))}
           {!services?.vaccinations.length && (
-            <Text textAlign='center'>No vaccine bookings available</Text>
+            <EmptyMessage msg='No vaccine bookings available' />
           )}
         </AccordionPanel>
       </BookingsItem>
@@ -68,6 +69,9 @@ export const BookingsTabPanel = () => {
                 <AppointmentCancelBtn id={a._id} />
               </CardContainer>
             ))}
+          {!services?.appointments.filter(s => !s.done).length && (
+            <EmptyMessage msg='No appointments are available' />
+          )}
         </Stack>
         {!services?.appointments.length && (
           <Text textAlign='center'>No appointment bookings available</Text>
