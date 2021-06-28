@@ -8,22 +8,33 @@ import {
   GET_APPOINTMENT_BATCH,
 } from './types';
 
-export const addAppointment = data => async dispatch => {
+export const addAppointment = form => async dispatch => {
   try {
-    await axios.post(
-      '/org/appointment',
-      {
-        ...data,
-        appointment_date: new Date(data.appointment_date).getTime().toString(),
-        cost: +data.cost,
-        quantity: +data.quantity,
-      },
-      AUTH_HEADER
-    );
+    const data = {
+      ...form,
+      appointment_date: new Date(form.appointment_date).getTime().toString(),
+      cost: +form.cost,
+      quantity: +form.quantity,
+    };
+    await axios.post('/org/appointment', data, AUTH_HEADER);
     dispatch({type: ADD_APPOINTMENT_SUCCESS, payload: true});
   } catch (err) {
     dispatch({type: ADD_APPOINTMENT_SUCCESS, payload: false});
     console.error(err);
+  }
+};
+
+export const editAppointment = (form, cb, errorCb) => async dispatch => {
+  try {
+    const data = {
+      ...form,
+      appointment_date: new Date(form.appointment_date).getTime().toString(),
+      cost: +form.cost,
+    };
+    await axios.post('/org/appointment/edit', data, AUTH_HEADER);
+    cb?.();
+  } catch (err) {
+    errorCb?.(err);
   }
 };
 

@@ -1,9 +1,10 @@
-import {AddIcon} from '@chakra-ui/icons';
+import {AddIcon, EditIcon} from '@chakra-ui/icons';
 import {
   Button,
   FormControl,
   FormLabel,
   HStack,
+  IconButton,
   Input,
   InputGroup,
   Modal,
@@ -18,23 +19,36 @@ import {
 } from '@chakra-ui/react';
 import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {addAppointment} from '../../../redux/actions/doctor/docActions';
+import {
+  addAppointment,
+  editAppointment,
+  getAppointments,
+} from '../../../redux/actions/doctor/docActions';
+import {TODAY} from '../../../utils';
 
-export const AddAppointmentModal = () => {
+export const AddAppointmentModal = ({editModal, data}) => {
   const addAppointmentSuccess = useSelector(
     state => state.docAppointment.addAppointmentSuccess
   );
   const dispatch = useDispatch();
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [form, setForm] = useState({
-    appointment_date: '',
-    quantity: '',
-    cost: '',
-    info: '',
+    appointment_date: data?.appointment_date.split('T')[0] ?? TODAY,
+    quantity: data?.quantity ?? '',
+    cost: data?.cost ?? '',
+    info: data?.info ?? '',
   });
 
   const onChange = e => setForm({...form, [e.target.name]: e.target.value});
-  const onSubmit = () => dispatch(addAppointment(form));
+  const onSubmit = () =>
+    !editModal
+      ? dispatch(addAppointment(form))
+      : dispatch(
+          editAppointment({batch_code: data?.batch_code, ...form}, () => {
+            dispatch(getAppointments());
+            onClose();
+          })
+        );
 
   useEffect(() => {
     if (addAppointmentSuccess) onClose();
@@ -42,17 +56,27 @@ export const AddAppointmentModal = () => {
 
   return (
     <>
-      <Button
-        onClick={onOpen}
-        pos='absolute'
-        bottom='0'
-        right='0'
-        rounded='full'
-        colorScheme='blue'
-        leftIcon={<AddIcon />}
-        variant='solid'>
-        Add appointment
-      </Button>
+      {!editModal ? (
+        <Button
+          onClick={onOpen}
+          pos='absolute'
+          bottom='0'
+          right='0'
+          rounded='full'
+          colorScheme='blue'
+          leftIcon={<AddIcon />}
+          variant='solid'>
+          Add appointment
+        </Button>
+      ) : (
+        <IconButton
+          mr='2'
+          onClick={onOpen}
+          aria-label='Edit appointment'
+          title='Edit appointment'
+          icon={<EditIcon />}
+        />
+      )}
       <Modal
         size='lg'
         closeOnOverlayClick={false}
@@ -60,7 +84,7 @@ export const AddAppointmentModal = () => {
         onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Add appointment</ModalHeader>
+          <ModalHeader>{editModal ? 'Edit' : 'Add'} appointment</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <FormControl id='appointment_date' mt={3}>
@@ -71,7 +95,7 @@ export const AddAppointmentModal = () => {
                   onChange={onChange}
                   name='appointment_date'
                   type='date'
-                  min='1975-01-01'
+                  min={TODAY}
                 />
               </InputGroup>
             </FormControl>
@@ -85,15 +109,17 @@ export const AddAppointmentModal = () => {
                   type='number'
                 />
               </FormControl>
-              <FormControl id='quantity'>
-                <FormLabel>Quantity</FormLabel>
-                <Input
-                  value={form.quantity}
-                  onChange={onChange}
-                  name='quantity'
-                  type='number'
-                />
-              </FormControl>
+              {!editModal && (
+                <FormControl id='quantity'>
+                  <FormLabel>Quantity</FormLabel>
+                  <Input
+                    value={form.quantity}
+                    onChange={onChange}
+                    name='quantity'
+                    type='number'
+                  />
+                </FormControl>
+              )}
             </HStack>
             <FormControl id='info' mt={3}>
               <FormLabel>Info</FormLabel>
@@ -109,7 +135,7 @@ export const AddAppointmentModal = () => {
 
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={onSubmit}>
-              Add
+              {editModal ? 'Done' : 'Add'}
             </Button>
           </ModalFooter>
         </ModalContent>

@@ -49,3 +49,5 @@ export const getAddress = async coords => {
     throw new Error('Failed to get user address');
   }
 };
+
+export const TODAY = new Date().toISOString().split('T')[0];

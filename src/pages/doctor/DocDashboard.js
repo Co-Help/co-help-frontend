@@ -40,6 +40,7 @@ export const DocDashboard = () => {
                   <Td isNumeric>{ap.cost}</Td>
                   <Td>{ap.info || 'No info'}</Td>
                   <Td>
+                    <AddAppointmentModal editModal data={ap} />
                     <Link as={ReactRouterLink} to={`${url}/${ap.batch_code}`}>
                       <IconButton
                         aria-label='View all appointments'
@@ -53,7 +54,7 @@ export const DocDashboard = () => {
             </AppointmentTable>
             {!appointments?.length && (
               <Text textAlign='center' mt={15}>
-                Nothing here
+                No appointments available
               </Text>
             )}
           </Box>
