@@ -35,6 +35,9 @@ export const BloodTest = () => {
 
   return (
     <Container>
+      {!bloodTestServices?.length ? (
+        <Text textAlign='center'>No bookings available</Text>
+      ) : null}
       {bloodTestServices?.map(service => (
         <BloodTestCard key={service._id} s={service} />
       ))}
