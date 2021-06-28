@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {AUTH_HEADER} from '../../../utils';
 import {
-  ADD_VACCINE,
   DEL_ALL_VACCINES,
   DEL_VACCINE_FROM_BATCH,
   FILTER_VACCINE_BATCH,
@@ -10,24 +9,20 @@ import {
   GET_VACCINE_BY_BATCH_FAIL,
 } from './types';
 
-export const addVaccine = data => async dispatch => {
+export const addVaccine = (form, cb, errorCb) => async dispatch => {
   try {
-    await axios.post(
-      '/org/vaccination',
-      {
-        ...data,
-        vaccine_date: new Date(data.vaccine_date).getTime().toString(),
-        cost: +data.cost,
-        quantity: +data.quantity,
-        min_age: +data.min_age,
-        max_age: +data.max_age,
-      },
-      AUTH_HEADER
-    );
-    dispatch({type: ADD_VACCINE, payload: true});
+    const data = {
+      ...form,
+      vaccine_date: new Date(form.vaccine_date).getTime().toString(),
+      cost: +form.cost,
+      quantity: +form.quantity,
+      min_age: +form.min_age,
+      max_age: +form.max_age,
+    };
+    await axios.post('/org/vaccination', data, AUTH_HEADER);
+    cb?.();
   } catch (err) {
-    dispatch({type: ADD_VACCINE, payload: false});
-    console.error(err);
+    errorCb?.(err);
   }
 };
 

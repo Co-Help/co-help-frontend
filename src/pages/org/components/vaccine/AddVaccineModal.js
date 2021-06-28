@@ -16,17 +16,17 @@ import {
   Select,
   Textarea,
   useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
-import {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useState} from 'react';
+import {useDispatch} from 'react-redux';
 import {VACCINES} from '../../../../constants';
-import {addVaccine} from '../../../../redux/actions/org/OrgAction';
+import {addVaccine, getVaccines} from '../../../../redux/actions/org/OrgAction';
+import {errorToastOptions} from '../../../../utils';
 
 export const AddVaccineModal = () => {
-  const addVaccineSuccess = useSelector(
-    state => state.orgVaccine.addVaccineSuccess
-  );
   const dispatch = useDispatch();
+  const toast = useToast();
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [form, setForm] = useState({
     vaccine_name: '',
@@ -39,11 +39,17 @@ export const AddVaccineModal = () => {
     info: '',
   });
   const onChange = e => setForm({...form, [e.target.name]: e.target.value});
-  const onSubmit = () => dispatch(addVaccine(form));
-
-  useEffect(() => {
-    if (addVaccineSuccess) onClose();
-  }, [addVaccineSuccess, onClose]);
+  const onSubmit = () =>
+    dispatch(
+      addVaccine(
+        form,
+        () => {
+          onClose();
+          dispatch(getVaccines());
+        },
+        () => toast({...errorToastOptions, title: 'Failed to add vaccine'})
+      )
+    );
 
   return (
     <>

@@ -1,5 +1,4 @@
 import {
-  ADD_VACCINE,
   DEL_ALL_VACCINES,
   DEL_VACCINE_FROM_BATCH,
   FILTER_VACCINE_BATCH,
@@ -25,9 +24,6 @@ import {
 
 export const orgVaccineReducer = (state = {}, action) => {
   switch (action.type) {
-    case ADD_VACCINE: {
-      return {addVaccineSuccess: action.payload};
-    }
     case GET_ALL_VACCINES: {
       return {vaccines: action.payload};
     }

@@ -30,15 +30,12 @@ import {VaccineCard} from './components/vaccine/VaccineCard';
 export const Vaccination = () => {
   const dispatch = useDispatch();
   const vaccines = useSelector(state => state.orgVaccine.vaccines);
-  const addVaccineSuccess = useSelector(
-    state => state.orgVaccine.addVaccineSuccess
-  );
   const {isOpen, onOpen, onClose} = useDisclosure();
   const cancelRef = useRef();
 
   useEffect(() => {
     dispatch(getVaccines());
-  }, [dispatch, addVaccineSuccess]);
+  }, [dispatch]);
 
   if (!vaccines) return <Loader />;
 
