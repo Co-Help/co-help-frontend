@@ -96,12 +96,12 @@ export const vaccineBatchFilter = filter => async (dispatch, getState) => {
   }
 };
 
-export const deleteVaccineFromBatch = id => async dispatch => {
+export const deleteVaccineFromBatch = (id, errorCb) => async dispatch => {
   try {
     await axios.delete('/org/vaccination', {...AUTH_HEADER, data: {id}});
     dispatch({type: DEL_VACCINE_FROM_BATCH, payload: id});
     dispatch(vaccineBatchFilter(FilterValues.nonBooked));
   } catch (err) {
-    console.error(err);
+    errorCb(err);
   }
 };

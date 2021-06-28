@@ -49,7 +49,7 @@ export const BloodProvide = () => {
             <Th>Info</Th>
             <Th>Cost</Th>
             <Th>Status</Th>
-            <Th></Th>
+            <Th>actions</Th>
           </Tr>
         </Thead>
         <Tbody>

@@ -25,6 +25,12 @@ export const toastOptions = {
   position: 'bottom-right',
 };
 
+export const errorToastOptions = {
+  ...toastOptions,
+  status: 'error',
+  title: 'Something went wrong',
+};
+
 export const getUserPosition = (cb, error) =>
   navigator.geolocation
     ? navigator.geolocation.getCurrentPosition(

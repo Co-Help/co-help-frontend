@@ -1,4 +1,4 @@
-import {Box, HStack, Radio, RadioGroup, Text} from '@chakra-ui/react';
+import {Box, HStack, Radio, RadioGroup, Text, useToast} from '@chakra-ui/react';
 import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
@@ -9,9 +9,11 @@ import {
   getVaccineBatch,
   vaccineBatchFilter,
 } from '../../../../redux/actions/org/OrgAction';
+import {errorToastOptions} from '../../../../utils';
 import {VaccineBatchCard} from './VaccineBatchCard';
 
 export const VaccineBatch = () => {
+  const toast = useToast();
   const dispatch = useDispatch();
   const {batch_code} = useParams();
   const [filter, setFilter] = useState(FilterValues.all);
@@ -25,7 +27,12 @@ export const VaccineBatch = () => {
       dispatch(vaccineBatchFilter(e.target.value));
   };
 
-  const onDelete = id => dispatch(deleteVaccineFromBatch(id));
+  const onDelete = id =>
+    dispatch(
+      deleteVaccineFromBatch(id, () =>
+        toast({...errorToastOptions, title: 'Failed to delete vaccine'})
+      )
+    );
 
   useEffect(() => {
     dispatch(getVaccineBatch(batch_code));

@@ -49,6 +49,7 @@ export const BloodTest = () => {
             <Th isNumeric>Cost</Th>
             <Th>Info</Th>
             <Th>Test Date</Th>
+            <Th>actions</Th>
           </Tr>
         </Thead>
         <Tbody>
