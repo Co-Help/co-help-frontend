@@ -1,7 +1,7 @@
 import {Box, Container, Text} from '@chakra-ui/react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {useParams} from 'react-router-dom';
+import {Redirect, useParams} from 'react-router-dom';
 import {Loader} from '../components/Loader';
 import {search} from '../redux/actions/user/userActions';
 import {BloodProvideCard} from './BloodProvide';
@@ -13,11 +13,13 @@ export const Search = () => {
   const {text} = useParams();
   const dispatch = useDispatch();
   const searchRes = useSelector(state => state.user.searchRes);
+  const profile = useSelector(state => state.user.profile);
 
   useEffect(() => {
     dispatch(search(text));
   }, [dispatch, text]);
 
+  if (!profile) return <Redirect to='/login' />;
   if (!searchRes) return <Loader />;
 
   return (
