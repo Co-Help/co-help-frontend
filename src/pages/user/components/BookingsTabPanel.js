@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {CallOrgBtn} from '../../../components/CallOrgBtn';
 import {CardContainer} from '../../../components/CardContainer';
 import {EmptyMessage} from '../../../components/EmptyMessage';
 import {Loader} from '../../../components/Loader';
@@ -62,10 +63,14 @@ export const BookingsTabPanel = () => {
             .filter(s => !s.done)
             .map(a => (
               <CardContainer key={a._id}>
-                <Box>
-                  <Text>{a.info}</Text>
+                <Box mr='auto'>
+                  <Text>Info: {a.info}</Text>
                   <Text>Date: {formatDate(a.appointment_date)}</Text>
+                  <Text>
+                    Address: {a.org.name}, {a.org.address.city}
+                  </Text>
                 </Box>
+                <CallOrgBtn helpline_no={a.org.helpline_no} />
                 <AppointmentCancelBtn id={a._id} />
               </CardContainer>
             ))}

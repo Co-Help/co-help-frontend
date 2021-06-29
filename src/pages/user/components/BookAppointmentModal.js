@@ -20,15 +20,19 @@ import {
   NumberInputStepper,
   Text,
   useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
-import {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {useHistory} from 'react-router-dom';
 import {bookAppointment} from '../../../redux/actions/user/doctorActions';
+import {toastOptions} from '../../../utils';
 
 export const BookAppointmentModal = ({a}) => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const toast = useToast();
   const {isOpen, onOpen, onClose} = useDisclosure();
-  const {bookedId} = useSelector(state => state.doctors);
 
   const [bookForOthers, setBookForOthers] = useState(false);
   const [form, setForm] = useState({
@@ -37,10 +41,6 @@ export const BookAppointmentModal = ({a}) => {
     name: '',
   });
   const onChange = e => setForm({...form, [e.target.name]: e.target.value});
-
-  useEffect(() => {
-    onClose();
-  }, [onClose, bookedId]);
 
   return (
     <>
@@ -115,12 +115,19 @@ export const BookAppointmentModal = ({a}) => {
               size='sm'
               onClick={() => {
                 dispatch(
-                  bookAppointment({
-                    bookingId: a._id,
-                    batch_code: a.batch_code,
-                    form,
-                    self_booking: !bookForOthers,
-                  })
+                  bookAppointment(
+                    {
+                      bookingId: a._id,
+                      batch_code: a.batch_code,
+                      form,
+                      self_booking: !bookForOthers,
+                    },
+                    () => {
+                      onClose();
+                      toast({...toastOptions, title: 'Booking successful'});
+                      history.push('/user/profile');
+                    }
+                  )
                 );
               }}
               variant='solid'>

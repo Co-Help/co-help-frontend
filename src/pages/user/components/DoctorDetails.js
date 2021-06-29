@@ -27,7 +27,9 @@ export const DoctorDetails = () => {
         </Text>
       ) : (
         <>
-          <Heading>All available appointments</Heading>
+          <Heading size='lg' fontWeight='semibold'>
+            All available appointments
+          </Heading>
           <Text fontSize='lg'>for Dr. {appointments[0]?.doctor.name}</Text>{' '}
         </>
       )}
