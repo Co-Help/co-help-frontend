@@ -2,6 +2,7 @@ import {Badge, Box, Heading, HStack, Text} from '@chakra-ui/react';
 import {Link as RLink, useRouteMatch} from 'react-router-dom';
 import {CallOrgBtn} from '../../../../components/CallOrgBtn';
 import {CardContainer} from '../../../../components/CardContainer';
+import {getLocalTimeFromDate} from '../../../../utils';
 import {VaccineBookButton} from './VaccineBookButton';
 import {VaccineCancelButton} from './VaccineCancelButton';
 
@@ -32,12 +33,15 @@ export const VaccineCard = ({
           </Heading>
         </RLink>
         <HStack>
-          <Text fontSize='sm'>Price: Rs. {cost}</Text>
+          <Text fontSize='sm'>Price: Rs. {cost} &bull;</Text>
           <Text fontSize='sm'>
-            Age: {age_restriction.min_age} - {age_restriction.max_age}
+            Age group: {age_restriction.min_age} - {age_restriction.max_age}
           </Text>
-          <Text fontSize='sm'>Date: {vaccine_date.split('T')[0]}</Text>
-        </HStack>
+        </HStack>{' '}
+        <Text fontSize='sm'>
+          Date: {vaccine_date.split('T')[0]} &bull; Time:{' '}
+          {getLocalTimeFromDate(vaccine_date)}
+        </Text>
         {isUser && (
           <Text fontSize='sm'>
             Address: {org.name}, {org.address.city}
