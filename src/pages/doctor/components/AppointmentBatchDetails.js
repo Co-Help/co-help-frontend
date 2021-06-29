@@ -25,22 +25,24 @@ export const AppointmentBatchDetails = () => {
     <>
       <AppointmentTable title='Appointment details'>
         {appointmentBatch
-          ?.filter(ap => !ap.done)
-          .map((ap, idx) => (
+          // ?.filter(ap => !ap.done)
+          ?.map((ap, idx) => (
             <Tr key={ap._id}>
               <Td>{idx + 1}</Td>
               <Td>{ap.appointment_date.split('T')[0]}</Td>
               <Td isNumeric>{ap.cost}</Td>
               <Td>{ap.info || 'No info'}</Td>
               <Td>
-                {ap.booked ? (
+                {/* TODO: set as undone */}
+                {ap.booked && !ap.done && (
                   <IconButton
                     onClick={() => dispatch(setAppointmentDone(ap._id))}
                     aria-label='Set done'
                     title='Set done'
                     icon={<CheckCircleIcon />}
                   />
-                ) : (
+                )}
+                {!ap.booked && (
                   <IconButton
                     onClick={() => dispatch(deleteAppointment(ap._id))}
                     aria-label='Delete appointment'
