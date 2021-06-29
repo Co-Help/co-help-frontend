@@ -5,6 +5,7 @@ import {useParams} from 'react-router-dom';
 import {CardContainer} from '../../../components/CardContainer';
 import {Loader} from '../../../components/Loader';
 import {getAvailableAppointments} from '../../../redux/actions/user/doctorActions';
+import {getLocalTimeFromDate} from '../../../utils';
 import {BookAppointmentModal} from './BookAppointmentModal';
 
 export const DoctorDetails = () => {
@@ -38,7 +39,10 @@ export const DoctorDetails = () => {
           <CardContainer key={a._id}>
             <Box>
               <Text>{a.info}</Text>
-              <Text>Date: {a.appointment_date.split('T')[0]}</Text>
+              <Text>
+                Date: {a.appointment_date.split('T')[0]} &bull; Time:{' '}
+                {getLocalTimeFromDate(a.appointment_date)}
+              </Text>
             </Box>
             <BookAppointmentModal a={a} />
           </CardContainer>

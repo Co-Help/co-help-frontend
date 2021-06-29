@@ -65,7 +65,10 @@ export const BookingsTabPanel = () => {
               <CardContainer key={a._id}>
                 <Box mr='auto'>
                   <Text>{a.info}</Text>
-                  <Text>Date: {formatDate(a.appointment_date)}</Text>
+                  <Text>
+                    Date: {formatDate(a.appointment_date)} &bull; Time:{' '}
+                    {getLocalTimeFromDate(a.appointment_date)}
+                  </Text>
                   <Text>
                     Address: {a.org.name}, {a.org.address.city}
                   </Text>
