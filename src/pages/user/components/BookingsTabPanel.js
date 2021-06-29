@@ -15,7 +15,7 @@ import {CardContainer} from '../../../components/CardContainer';
 import {EmptyMessage} from '../../../components/EmptyMessage';
 import {Loader} from '../../../components/Loader';
 import {getBookedServices} from '../../../redux/actions/user/bookingsAction';
-import {formatDate} from '../../../utils';
+import {formatDate, getLocalTimeFromDate} from '../../../utils';
 import {VaccineCard} from '../../org/components/vaccine/VaccineCard';
 import {AppointmentCancelBtn} from './AppointmentCancelBtn';
 import {BloodTestBookingCancelBtn} from './BloodTestBookingCancelBtn';
@@ -88,7 +88,11 @@ export const BookingsTabPanel = () => {
               <CardContainer key={a._id}>
                 <Box mr='auto'>
                   <Text>{a.info}</Text>
-                  <Text>Date: {formatDate(a.test_date)}</Text>
+                  <Text>
+                    Date: {formatDate(a.test_date)} | Time:{' '}
+                    {getLocalTimeFromDate(a.test_date)}
+                  </Text>
+
                   <Text>
                     Address: {a.org.name}, {a.org.address.city}
                   </Text>

@@ -56,6 +56,12 @@ export const parseDateTimeToMilli = (date, time) =>
 export const getInputTimeFromDate = date =>
   date && new Date(date).toTimeString().slice(0, 5);
 
+export const getLocalTimeFromDate = date => {
+  const [time, amPm] = new Date(date).toLocaleTimeString().split(' ');
+  const [h, m] = time.split(':');
+  return `${h}:${m} ${amPm}`;
+};
+
 export const getToday = () => {
   const [m, d, y] = new Date().toLocaleDateString().split('/');
   return `${y}-${m.length === 1 ? '0' : ''}${m}-${
