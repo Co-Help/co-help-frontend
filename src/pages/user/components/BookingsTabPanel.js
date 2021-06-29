@@ -49,7 +49,7 @@ export const BookingsTabPanel = () => {
       <BookingsItem title='Vaccines'>
         <AccordionPanel pb={4}>
           {services?.vaccinations.map(v => (
-            <VaccineCard key={v._id} vaccine={v} showCancelBtn />
+            <VaccineCard isUser key={v._id} vaccine={v} showCancelBtn />
           ))}
           {!services?.vaccinations.length && (
             <EmptyMessage msg='No vaccine bookings available' />

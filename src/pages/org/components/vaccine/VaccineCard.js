@@ -1,5 +1,6 @@
 import {Badge, Box, Heading, HStack, Text} from '@chakra-ui/react';
 import {Link as RLink, useRouteMatch} from 'react-router-dom';
+import {CallOrgBtn} from '../../../../components/CallOrgBtn';
 import {CardContainer} from '../../../../components/CardContainer';
 import {VaccineBookButton} from './VaccineBookButton';
 import {VaccineCancelButton} from './VaccineCancelButton';
@@ -23,7 +24,7 @@ export const VaccineCard = ({
 
   return (
     <CardContainer key={_id}>
-      <Box>
+      <Box mr='auto'>
         <RLink to={!isUser ? `${url}/${batch_code}` : '/vaccines'}>
           <Heading size='md'>
             {vaccine_name}{' '}
@@ -39,13 +40,20 @@ export const VaccineCard = ({
         </HStack>
         {isUser && (
           <Text fontSize='sm'>
-            Provider: <strong>{org.name}</strong>
+            Address: {org.name}, {org.address.city}
           </Text>
         )}
         <Text>{info}</Text>
       </Box>
-      {isUser && <VaccineBookButton batch_code={batch_code} />}
-      {showCancelBtn && <VaccineCancelButton id={_id} />}
+      {isUser && !showCancelBtn && (
+        <VaccineBookButton batch_code={batch_code} />
+      )}
+      {showCancelBtn && (
+        <>
+          <CallOrgBtn helpline_no={org.helpline_no} />
+          <VaccineCancelButton id={_id} />
+        </>
+      )}
     </CardContainer>
   );
 };

@@ -14,11 +14,13 @@ import {
 import axios from 'axios';
 import {useRef} from 'react';
 import {useDispatch} from 'react-redux';
+import {useHistory} from 'react-router-dom';
 import {getAllVaccines} from '../../../../redux/actions/user/vaccineActions';
 import {AUTH_HEADER, toastOptions} from '../../../../utils';
 
 export const VaccineBookButton = ({batch_code}) => {
   const {isOpen, onOpen, onClose} = useDisclosure();
+  const history = useHistory();
   const cancelRef = useRef();
   const toast = useToast();
   const dispatch = useDispatch();
@@ -28,6 +30,7 @@ export const VaccineBookButton = ({batch_code}) => {
       await axios.post('/services/vaccination', {batch_code}, AUTH_HEADER);
       toast({title: 'Vaccine booked successfully.', ...toastOptions});
       dispatch(getAllVaccines());
+      history.push('/user/profile');
     } catch (err) {
       console.error(err);
       toast({title: 'Failed to book.', ...toastOptions, status: 'error'});
