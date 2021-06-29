@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {AUTH_HEADER} from '../../../utils';
+import {AUTH_HEADER, parseDateTimeToMilli} from '../../../utils';
 import {
   ADD_APPOINTMENT_SUCCESS,
   DELETE_APPOINTMENT,
@@ -12,7 +12,10 @@ export const addAppointment = form => async dispatch => {
   try {
     const data = {
       ...form,
-      appointment_date: new Date(form.appointment_date).getTime().toString(),
+      appointment_date: parseDateTimeToMilli(
+        form.appointment_date,
+        form.appointment_time
+      ),
       cost: +form.cost,
       quantity: +form.quantity,
     };
@@ -28,7 +31,10 @@ export const editAppointment = (form, cb, errorCb) => async dispatch => {
   try {
     const data = {
       ...form,
-      appointment_date: new Date(form.appointment_date).getTime().toString(),
+      appointment_date: parseDateTimeToMilli(
+        form.appointment_date,
+        form.appointment_time
+      ),
       cost: +form.cost,
     };
     await axios.post('/org/appointment/edit', data, AUTH_HEADER);

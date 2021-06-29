@@ -24,7 +24,7 @@ import {
   editAppointment,
   getAppointments,
 } from '../../../redux/actions/doctor/docActions';
-import {TODAY} from '../../../utils';
+import {getInputTimeFromDate, TODAY} from '../../../utils';
 
 export const AddAppointmentModal = ({editModal, data}) => {
   const addAppointmentSuccess = useSelector(
@@ -34,6 +34,7 @@ export const AddAppointmentModal = ({editModal, data}) => {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [form, setForm] = useState({
     appointment_date: data?.appointment_date.split('T')[0] ?? TODAY,
+    appointment_time: getInputTimeFromDate(data?.appointment_date) ?? '10:00',
     quantity: data?.quantity ?? '',
     cost: data?.cost ?? '',
     info: data?.info ?? '',
@@ -87,18 +88,30 @@ export const AddAppointmentModal = ({editModal, data}) => {
           <ModalHeader>{editModal ? 'Edit' : 'Add'} appointment</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <FormControl id='appointment_date' mt={3}>
-              <FormLabel>Appointment Date</FormLabel>
-              <InputGroup>
+            <HStack mt='3'>
+              <FormControl id='appointment_date'>
+                <FormLabel>Appointment Date</FormLabel>
+                <InputGroup>
+                  <Input
+                    value={form.appointment_date}
+                    onChange={onChange}
+                    name='appointment_date'
+                    type='date'
+                    min={TODAY}
+                  />
+                </InputGroup>
+              </FormControl>
+              <FormControl id='appointment_time'>
+                <FormLabel>Appointment time</FormLabel>
                 <Input
-                  value={form.appointment_date}
+                  value={form.appointment_time}
                   onChange={onChange}
-                  name='appointment_date'
-                  type='date'
-                  min={TODAY}
+                  name='appointment_time'
+                  type='time'
                 />
-              </InputGroup>
-            </FormControl>
+              </FormControl>
+            </HStack>
+
             <HStack mt={3}>
               <FormControl id='cost'>
                 <FormLabel>Cost</FormLabel>
