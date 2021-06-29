@@ -73,9 +73,6 @@ export const BookingsTabPanel = () => {
             <EmptyMessage msg='No appointments are available' />
           )}
         </Stack>
-        {!services?.appointments.length && (
-          <Text textAlign='center'>No appointment bookings available</Text>
-        )}
       </BookingsItem>
 
       <BookingsItem title='Blood tests'>
