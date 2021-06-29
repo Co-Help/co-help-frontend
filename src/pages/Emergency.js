@@ -30,6 +30,9 @@ export const EmergencyCard = ({s}) => (
       </Heading>
 
       <Text fontSize='sm'>{s.info}</Text>
+      <Text fontSize='sm'>
+        Address: {s.org.name}, {s.org.address.city}
+      </Text>
       <Text fontSize='sm'>Price: Rs. {s.cost}</Text>
     </Box>
     <Tooltip
