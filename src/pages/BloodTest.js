@@ -13,7 +13,10 @@ export const BloodTestCard = ({s}) => (
     <Box>
       <Heading size='md'>{s.info} </Heading>
       <Text fontSize='sm'>
-        by <strong>{s.org.name}</strong>
+        Address:{' '}
+        <strong>
+          {s.org.name}, {s.org.address.city}
+        </strong>
       </Text>
       <HStack>
         <Text fontSize='sm'>Date: {formatDate(s.test_date)}</Text>

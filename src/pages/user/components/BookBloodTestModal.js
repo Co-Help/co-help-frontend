@@ -20,13 +20,18 @@ import {
   NumberInputStepper,
   Text,
   useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 import {useState} from 'react';
 import {useDispatch} from 'react-redux';
+import {useHistory} from 'react-router-dom';
 import {bookBloodTest} from '../../../redux/actions/user/bloodTestActions';
+import {toastOptions} from '../../../utils';
 
 export const BookBloodTestModal = ({data}) => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const toast = useToast();
   const {isOpen, onOpen, onClose} = useDisclosure();
 
   const [bookForOthers, setBookForOthers] = useState(false);
@@ -118,7 +123,11 @@ export const BookBloodTestModal = ({data}) => {
                       form,
                       self_booking: !bookForOthers,
                     },
-                    onClose
+                    () => {
+                      onClose();
+                      toast({...toastOptions, title: 'Booking successful'});
+                      history.push('/user/profile');
+                    }
                   )
                 );
               }}

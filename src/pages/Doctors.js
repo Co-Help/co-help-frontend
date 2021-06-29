@@ -29,7 +29,7 @@ export const DoctorCard = ({s, url}) => (
       <Stack spacing={1}>
         <Heading size='sm'>Dr. {s.name}</Heading>
         <Text fontSize='sm'>
-          on{' '}
+          Address:{' '}
           <strong>
             {s.doctor_info.org.name}, {s.address.city}
           </strong>

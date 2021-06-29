@@ -23,7 +23,7 @@ export const bookBloodTest =
           : {}),
       };
       await axios.post('/services/blood_test', data, AUTH_HEADER);
-      cb();
+      cb?.();
       dispatch(getBloodTestServices());
     } catch (err) {
       console.error(err);

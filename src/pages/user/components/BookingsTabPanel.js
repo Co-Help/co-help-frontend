@@ -64,7 +64,7 @@ export const BookingsTabPanel = () => {
             .map(a => (
               <CardContainer key={a._id}>
                 <Box mr='auto'>
-                  <Text>Info: {a.info}</Text>
+                  <Text>{a.info}</Text>
                   <Text>Date: {formatDate(a.appointment_date)}</Text>
                   <Text>
                     Address: {a.org.name}, {a.org.address.city}
@@ -86,10 +86,14 @@ export const BookingsTabPanel = () => {
             .filter(s => !s.done)
             .map(a => (
               <CardContainer key={a._id}>
-                <Box>
+                <Box mr='auto'>
                   <Text>{a.info}</Text>
                   <Text>Date: {formatDate(a.test_date)}</Text>
+                  <Text>
+                    Address: {a.org.name}, {a.org.address.city}
+                  </Text>
                 </Box>
+                <CallOrgBtn helpline_no={a.org.helpline_no} />
                 <BloodTestBookingCancelBtn id={a._id} />
               </CardContainer>
             ))}
