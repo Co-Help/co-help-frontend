@@ -3,11 +3,13 @@ import {Link as RLink, useRouteMatch} from 'react-router-dom';
 import {CallOrgBtn} from '../../../../components/CallOrgBtn';
 import {CardContainer} from '../../../../components/CardContainer';
 import {getLocalTimeFromDate} from '../../../../utils';
+import {AddVaccineModal} from './AddVaccineModal';
 import {VaccineBookButton} from './VaccineBookButton';
 import {VaccineCancelButton} from './VaccineCancelButton';
 
-export const VaccineCard = ({
-  vaccine: {
+export const VaccineCard = ({vaccine, isUser, showCancelBtn}) => {
+  const {url} = useRouteMatch();
+  const {
     _id,
     info,
     vaccine_date,
@@ -17,11 +19,7 @@ export const VaccineCard = ({
     cost,
     org,
     batch_code,
-  },
-  isUser,
-  showCancelBtn,
-}) => {
-  const {url} = useRouteMatch();
+  } = vaccine;
 
   return (
     <CardContainer key={_id}>
@@ -61,6 +59,8 @@ export const VaccineCard = ({
           <VaccineCancelButton id={_id} />
         </>
       )}
+
+      {!isUser && <AddVaccineModal data={vaccine} editModal />}
     </CardContainer>
   );
 };

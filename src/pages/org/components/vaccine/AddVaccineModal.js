@@ -1,9 +1,10 @@
-import {AddIcon} from '@chakra-ui/icons';
+import {AddIcon, EditIcon} from '@chakra-ui/icons';
 import {
   Button,
   FormControl,
   FormLabel,
   HStack,
+  IconButton,
   Input,
   InputGroup,
   Modal,
@@ -21,50 +22,81 @@ import {
 import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {VACCINES} from '../../../../constants';
-import {addVaccine, getVaccines} from '../../../../redux/actions/org/OrgAction';
-import {errorToastOptions, TODAY} from '../../../../utils';
+import {
+  addVaccine,
+  editVaccine,
+  getVaccines,
+} from '../../../../redux/actions/org/OrgAction';
+import {
+  errorToastOptions,
+  getInputTimeFromDate,
+  TODAY,
+} from '../../../../utils';
 
-export const AddVaccineModal = () => {
+export const AddVaccineModal = ({editModal, data}) => {
   const dispatch = useDispatch();
   const toast = useToast();
   const {isOpen, onOpen, onClose} = useDisclosure();
+
   const [form, setForm] = useState({
-    vaccine_name: '',
-    vaccine_doze: '',
-    vaccine_date: TODAY,
-    vaccine_time: '10:00',
-    min_age: '',
-    max_age: '',
+    vaccine_name: data?.vaccine_name ?? '',
+    vaccine_doze: data?.vaccine_doze ?? '',
+    vaccine_date: data?.vaccine_date.split('T')[0] ?? TODAY,
+    vaccine_time: getInputTimeFromDate(data?.vaccine_date) ?? '10:00',
+    min_age: data?.age_restriction.min_age ?? '',
+    max_age: data?.age_restriction.max_age ?? '',
     quantity: '',
-    cost: '',
-    info: '',
+    cost: data?.cost ?? '',
+    info: data?.info ?? '',
   });
+
   const onChange = e => setForm({...form, [e.target.name]: e.target.value});
   const onSubmit = () =>
-    dispatch(
-      addVaccine(
-        form,
-        () => {
-          onClose();
-          dispatch(getVaccines());
-        },
-        () => toast({...errorToastOptions, title: 'Failed to add vaccine'})
-      )
-    );
+    !editModal
+      ? dispatch(
+          addVaccine(
+            form,
+            () => {
+              onClose();
+              dispatch(getVaccines());
+            },
+            () => toast({...errorToastOptions, title: 'Failed to add vaccine'})
+          )
+        )
+      : dispatch(
+          editVaccine(
+            {batch_code: data?.batch_code, ...form},
+            () => {
+              onClose();
+              dispatch(getVaccines());
+            },
+            () => toast({...errorToastOptions, title: 'Failed to edit vaccine'})
+          )
+        );
 
   return (
     <>
-      <Button
-        onClick={onOpen}
-        pos='absolute'
-        bottom='0'
-        right='0'
-        rounded='full'
-        colorScheme='blue'
-        leftIcon={<AddIcon />}
-        variant='solid'>
-        Add vaccines
-      </Button>
+      {!editModal ? (
+        <Button
+          onClick={onOpen}
+          pos='absolute'
+          bottom='0'
+          right='0'
+          rounded='full'
+          colorScheme='blue'
+          leftIcon={<AddIcon />}
+          variant='solid'>
+          Add vaccines
+        </Button>
+      ) : (
+        <IconButton
+          onClick={onOpen}
+          aria-label='Edit vaccine'
+          title='Edit vaccine'
+          icon={<EditIcon />}
+        />
+      )}
+
       <Modal
         size='lg'
         closeOnOverlayClick={false}
@@ -72,7 +104,7 @@ export const AddVaccineModal = () => {
         onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Add vaccines</ModalHeader>
+          <ModalHeader>{editModal ? 'Edit' : 'Add'} vaccines</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <FormControl id='vaccine_name'>
@@ -154,15 +186,17 @@ export const AddVaccineModal = () => {
                   type='number'
                 />
               </FormControl>
-              <FormControl id='quantity'>
-                <FormLabel>Quantity</FormLabel>
-                <Input
-                  value={form.quantity}
-                  onChange={onChange}
-                  name='quantity'
-                  type='number'
-                />
-              </FormControl>
+              {!editModal && (
+                <FormControl id='quantity'>
+                  <FormLabel>Quantity</FormLabel>
+                  <Input
+                    value={form.quantity}
+                    onChange={onChange}
+                    name='quantity'
+                    type='number'
+                  />
+                </FormControl>
+              )}
             </HStack>
             <FormControl id='info' mt={3}>
               <FormLabel>Info</FormLabel>
@@ -178,7 +212,7 @@ export const AddVaccineModal = () => {
 
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={onSubmit}>
-              Add
+              {editModal ? 'Done' : 'Add'}
             </Button>
           </ModalFooter>
         </ModalContent>

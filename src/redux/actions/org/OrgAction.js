@@ -26,6 +26,23 @@ export const addVaccine = (form, cb, errorCb) => async dispatch => {
   }
 };
 
+export const editVaccine = (form, cb, errorCb) => async dispatch => {
+  try {
+    const data = {
+      ...form,
+      vaccine_date: parseDateTimeToMilli(form.vaccine_date, form.vaccine_time),
+      cost: +form.cost,
+      quantity: +form.quantity,
+      min_age: +form.min_age,
+      max_age: +form.max_age,
+    };
+    await axios.post('/org/vaccination/edit', data, AUTH_HEADER);
+    cb?.();
+  } catch (err) {
+    errorCb?.(err);
+  }
+};
+
 export const getVaccines = () => async dispatch => {
   try {
     const {data} = await axios.get('/org/vaccination', AUTH_HEADER);
