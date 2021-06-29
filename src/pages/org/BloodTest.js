@@ -62,6 +62,7 @@ export const BloodTest = () => {
               <Td>
                 <HStack spacing={1}>
                   <AddBloodTestModal editId={s._id} data={s} />
+                  {/* FIXME: if booked is true, hide delete btn */}
                   <Popover>
                     <PopoverTrigger>
                       <IconButton

@@ -50,4 +50,17 @@ export const getAddress = async coords => {
   }
 };
 
-export const TODAY = new Date().toISOString().split('T')[0];
+export const parseDateTimeToMilli = (date, time) =>
+  Date.parse(date + 'T' + time).toString();
+
+export const getInputTimeFromDate = date =>
+  date && new Date(date).toTimeString().slice(0, 5);
+
+export const getToday = () => {
+  const [m, d, y] = new Date().toLocaleDateString().split('/');
+  return `${y}-${m.length === 1 ? '0' : ''}${m}-${
+    d.length === 1 ? '0' : ''
+  }${d}`;
+};
+
+export const TODAY = getToday();

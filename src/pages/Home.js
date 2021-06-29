@@ -122,7 +122,7 @@ export const Home = () => {
             border='1px'
             borderColor='gray.400'
             p='6'
-            type='text'
+            type='search'
             shadow='sm'
             _focus={{shadow: 'lg'}}
             placeholder='Search with city, district or state'

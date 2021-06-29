@@ -27,8 +27,7 @@ import {
   addBloodTest,
   editBloodTest,
 } from '../../../../redux/actions/org/bloodTestAction';
-
-const today = new Date().toISOString().split('T')[0];
+import {getInputTimeFromDate, TODAY} from '../../../../utils';
 
 export const AddBloodTestModal = ({editId, data}) => {
   const dispatch = useDispatch();
@@ -37,7 +36,8 @@ export const AddBloodTestModal = ({editId, data}) => {
     cost: data?.cost ?? '',
     info: data?.info ?? '',
     quantity: data?.quantity ?? '',
-    test_date: data?.test_date.split('T')[0] ?? today,
+    test_time: getInputTimeFromDate(data?.test_date) ?? '10:00',
+    test_date: data?.test_date.split('T')[0] ?? TODAY,
   });
 
   const onChange = e =>
@@ -102,7 +102,7 @@ export const AddBloodTestModal = ({editId, data}) => {
               {!editId && (
                 <FormControl id='quantity'>
                   <FormLabel>Quantity</FormLabel>
-                  <NumberInput defaultValue={form.quantity} min={0}>
+                  <NumberInput defaultValue={form.quantity} min={1}>
                     <NumberInputField
                       name='quantity'
                       value={form.quantity}
@@ -126,16 +126,27 @@ export const AddBloodTestModal = ({editId, data}) => {
                 placeholder='Short info'
               />
             </FormControl>
-            <FormControl id='test_date' mt={3}>
-              <FormLabel>Test Date</FormLabel>
-              <Input
-                min={today}
-                value={form.test_date}
-                onChange={onChange}
-                name='test_date'
-                type='date'
-              />
-            </FormControl>
+            <HStack mt='3'>
+              <FormControl id='test_date'>
+                <FormLabel>Test Date</FormLabel>
+                <Input
+                  min={TODAY}
+                  value={form.test_date}
+                  onChange={onChange}
+                  name='test_date'
+                  type='date'
+                />
+              </FormControl>
+              <FormControl id='test_time'>
+                <FormLabel>Test time</FormLabel>
+                <Input
+                  value={form.test_time}
+                  onChange={onChange}
+                  name='test_time'
+                  type='time'
+                />
+              </FormControl>
+            </HStack>
           </ModalBody>
 
           <ModalFooter>
