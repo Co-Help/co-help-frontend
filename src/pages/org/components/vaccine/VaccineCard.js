@@ -46,7 +46,10 @@ export const VaccineCard = ({
         <Text>{info}</Text>
       </Box>
       {isUser && !showCancelBtn && (
-        <VaccineBookButton batch_code={batch_code} />
+        <>
+          <CallOrgBtn helpline_no={org.helpline_no} />
+          <VaccineBookButton batch_code={batch_code} />
+        </>
       )}
       {showCancelBtn && (
         <>

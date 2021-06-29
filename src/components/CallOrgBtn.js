@@ -8,6 +8,7 @@ export const CallOrgBtn = ({helpline_no}) => (
     label={helpline_no}
     aria-label='Call organization'>
     <IconButton
+      mr='1'
       colorScheme='blue'
       size='sm'
       rounded='sm'

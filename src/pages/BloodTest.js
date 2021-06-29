@@ -1,6 +1,7 @@
 import {Box, Container, Heading, HStack, Text} from '@chakra-ui/react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {CallOrgBtn} from '../components/CallOrgBtn';
 import {CardContainer} from '../components/CardContainer';
 import {EmptyMessage} from '../components/EmptyMessage';
 import {Loader} from '../components/Loader';
@@ -10,7 +11,7 @@ import {BookBloodTestModal} from './user/components/BookBloodTestModal';
 
 export const BloodTestCard = ({s}) => (
   <CardContainer>
-    <Box>
+    <Box mr='auto'>
       <Heading size='md'>{s.info} </Heading>
       <Text fontSize='sm'>
         Address:{' '}
@@ -23,6 +24,7 @@ export const BloodTestCard = ({s}) => (
         <Text fontSize='sm'>Price: Rs. {s.cost}</Text>
       </HStack>
     </Box>
+    <CallOrgBtn helpline_no={s.org.helpline_no} />
     <BookBloodTestModal data={s} />
   </CardContainer>
 );
