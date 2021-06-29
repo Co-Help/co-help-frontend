@@ -11,8 +11,12 @@ export const BloodProvideCard = ({s}) => (
   <CardContainer>
     <Box>
       <Heading size='md'>{s.group} </Heading>
+      <Text fontSize='sm'>Info: {s.info}</Text>
       <Text fontSize='sm'>
-        by <strong>{s.org.name}</strong>
+        Address:{' '}
+        <strong>
+          {s.org.name}, {s.org.address.city}
+        </strong>
       </Text>
       <Text fontSize='sm'>Price: Rs. {s.cost}</Text>
     </Box>
