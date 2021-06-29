@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {AUTH_HEADER} from '../../../utils';
+import {AUTH_HEADER, parseDateTimeToMilli} from '../../../utils';
 import {
   DEL_ALL_VACCINES,
   DEL_VACCINE_FROM_BATCH,
@@ -13,7 +13,7 @@ export const addVaccine = (form, cb, errorCb) => async dispatch => {
   try {
     const data = {
       ...form,
-      vaccine_date: new Date(form.vaccine_date).getTime().toString(),
+      vaccine_date: parseDateTimeToMilli(form.vaccine_date, form.vaccine_time),
       cost: +form.cost,
       quantity: +form.quantity,
       min_age: +form.min_age,

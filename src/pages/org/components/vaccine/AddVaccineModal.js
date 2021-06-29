@@ -22,7 +22,7 @@ import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {VACCINES} from '../../../../constants';
 import {addVaccine, getVaccines} from '../../../../redux/actions/org/OrgAction';
-import {errorToastOptions} from '../../../../utils';
+import {errorToastOptions, TODAY} from '../../../../utils';
 
 export const AddVaccineModal = () => {
   const dispatch = useDispatch();
@@ -31,7 +31,8 @@ export const AddVaccineModal = () => {
   const [form, setForm] = useState({
     vaccine_name: '',
     vaccine_doze: '',
-    vaccine_date: '',
+    vaccine_date: TODAY,
+    vaccine_time: '10:00',
     min_age: '',
     max_age: '',
     quantity: '',
@@ -99,18 +100,30 @@ export const AddVaccineModal = () => {
                 <option value='2ND'>2ND</option>
               </Select>
             </FormControl>
-            <FormControl id='vaccine_date' mt={3}>
-              <FormLabel>Vaccine Date</FormLabel>
-              <InputGroup>
+            <HStack mt='3'>
+              <FormControl id='vaccine_date'>
+                <FormLabel>Vaccine Date</FormLabel>
+                <InputGroup>
+                  <Input
+                    value={form.vaccine_date}
+                    onChange={onChange}
+                    name='vaccine_date'
+                    type='date'
+                    min={TODAY}
+                  />
+                </InputGroup>
+              </FormControl>
+              <FormControl id='vaccine_time'>
+                <FormLabel>Vaccine time</FormLabel>
                 <Input
-                  value={form.vaccine_date}
+                  value={form.vaccine_time}
                   onChange={onChange}
-                  name='vaccine_date'
-                  type='date'
-                  min='1975-01-01'
+                  name='vaccine_time'
+                  type='time'
                 />
-              </InputGroup>
-            </FormControl>
+              </FormControl>
+            </HStack>
+
             <HStack mt={3}>
               <FormControl id='min_age'>
                 <FormLabel>Min age</FormLabel>
