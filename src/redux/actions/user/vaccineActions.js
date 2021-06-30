@@ -10,3 +10,21 @@ export const getAllVaccines = () => async dispatch => {
     dispatch({type: GET_ALL_VACCINES_FAIL, payload: err.message});
   }
 };
+
+export const bookVaccine =
+  ({batch_code, form, self_booking}, cb, errCb) =>
+  async () => {
+    try {
+      const data = {
+        batch_code,
+        self_booking,
+        ...(!self_booking
+          ? {...form, age: +form.age, mobile_no: +form.mobile_no}
+          : {}),
+      };
+      await axios.post('/services/vaccination', data, AUTH_HEADER);
+      cb?.();
+    } catch (err) {
+      errCb?.();
+    }
+  };

@@ -48,6 +48,7 @@ export const BookingsTabPanel = () => {
     <Accordion allowMultiple defaultIndex={[0]}>
       <BookingsItem title='Vaccines'>
         <AccordionPanel pb={4}>
+          {/* TODO: add patient name in card */}
           {services?.vaccinations.map(v => (
             <VaccineCard isUser key={v._id} vaccine={v} showCancelBtn />
           ))}
