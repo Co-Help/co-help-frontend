@@ -47,15 +47,15 @@ export const BookingsTabPanel = () => {
   return (
     <Accordion allowMultiple defaultIndex={[0]}>
       <BookingsItem title='Vaccines'>
-        <AccordionPanel pb={4}>
-          {/* TODO: add patient name in card */}
-          {services?.vaccinations.map(v => (
+        {/* TODO: add patient name in card */}
+        {services?.vaccinations
+          .filter(s => !s.done)
+          .map(v => (
             <VaccineCard isUser key={v._id} vaccine={v} showCancelBtn />
           ))}
-          {!services?.vaccinations.length && (
-            <EmptyMessage msg='No vaccine bookings available' />
-          )}
-        </AccordionPanel>
+        {!services?.vaccinations.filter(s => !s.done).length && (
+          <EmptyMessage msg='No vaccine bookings available' />
+        )}
       </BookingsItem>
 
       <BookingsItem title='Appointments'>
