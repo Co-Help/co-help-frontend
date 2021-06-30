@@ -20,6 +20,7 @@ import {
   ORG_GET_BLOOD_TEST_SERVICES,
   ORG_GET_EMERGENCY_SERVICES,
   ORG_GET_OXYGEN_SERVICES,
+  SET_DONE_UNDONE_VACCINE,
 } from '../../actions/org/types';
 
 export const orgVaccineReducer = (state = {}, action) => {
@@ -44,6 +45,14 @@ export const orgVaccineReducer = (state = {}, action) => {
     }
     case FILTER_VACCINE_BATCH: {
       return {...state, filteredBatch: action.payload};
+    }
+    case SET_DONE_UNDONE_VACCINE: {
+      return {
+        ...state,
+        vaccineBatch: state.vaccineBatch.map(v =>
+          v._id === action.payload ? {...v, done: !v.done} : v
+        ),
+      };
     }
     default:
       return state;

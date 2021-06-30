@@ -7,6 +7,7 @@ import {
   GET_ALL_VACCINES,
   GET_VACCINE_BY_BATCH,
   GET_VACCINE_BY_BATCH_FAIL,
+  SET_DONE_UNDONE_VACCINE,
 } from './types';
 
 export const addVaccine = (form, cb, errorCb) => async dispatch => {
@@ -40,6 +41,16 @@ export const editVaccine = (form, cb, errorCb) => async dispatch => {
     cb?.();
   } catch (err) {
     errorCb?.(err);
+  }
+};
+
+export const setDoneVaccine = (data, cb) => async dispatch => {
+  try {
+    await axios.post('/org/vaccination/done', data, AUTH_HEADER);
+    dispatch({type: SET_DONE_UNDONE_VACCINE, payload: data.id});
+    cb?.();
+  } catch (err) {
+    console.error(err);
   }
 };
 

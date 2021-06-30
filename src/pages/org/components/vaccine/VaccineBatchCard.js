@@ -1,12 +1,15 @@
-import {DeleteIcon} from '@chakra-ui/icons';
+import {CheckIcon, CloseIcon, DeleteIcon} from '@chakra-ui/icons';
 import {Badge, Box, Heading, HStack, IconButton, Text} from '@chakra-ui/react';
+import {useDispatch} from 'react-redux';
 import {CardContainer} from '../../../../components/CardContainer';
+import {setDoneVaccine} from '../../../../redux/actions/org/OrgAction';
 
 export const VaccineBatchCard = ({
   onDelete,
   vaccine: {
     _id,
     info,
+    done,
     vaccine_date,
     vaccine_doze,
     vaccine_name,
@@ -15,6 +18,8 @@ export const VaccineBatchCard = ({
     booked,
   },
 }) => {
+  const dispatch = useDispatch();
+
   return (
     <CardContainer key={_id}>
       <Box>
@@ -34,6 +39,15 @@ export const VaccineBatchCard = ({
         <Text>{info}</Text>
       </Box>
       <Box>
+        {booked && (
+          <IconButton
+            onClick={() => dispatch(setDoneVaccine({id: _id, done: !done}))}
+            size='sm'
+            aria-label='Set done/undone'
+            title='Set done/undone'
+            icon={!done ? <CheckIcon /> : <CloseIcon />}
+          />
+        )}
         {!booked && (
           <IconButton
             onClick={() => onDelete(_id)}
