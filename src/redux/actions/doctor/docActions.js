@@ -3,7 +3,7 @@ import {AUTH_HEADER, parseDateTimeToMilli} from '../../../utils';
 import {
   ADD_APPOINTMENT_SUCCESS,
   DELETE_APPOINTMENT,
-  DONE_APPOINTMENT,
+  DONE_UNDONE_APPOINTMENT,
   GET_APPOINTMENTS,
   GET_APPOINTMENT_BATCH,
 } from './types';
@@ -53,10 +53,12 @@ export const getAppointments = () => async dispatch => {
   }
 };
 
-export const setAppointmentDone = id => async dispatch => {
+export const setAppointmentDone = (data, cb) => async dispatch => {
   try {
-    await axios.post('/org/appointment/done', {id, done: true}, AUTH_HEADER);
-    dispatch({type: DONE_APPOINTMENT, payload: id});
+    // FIXME: undone not working
+    await axios.post('/org/appointment/done', data, AUTH_HEADER);
+    dispatch({type: DONE_UNDONE_APPOINTMENT, payload: data.id});
+    cb?.();
   } catch (err) {
     console.error(err);
   }

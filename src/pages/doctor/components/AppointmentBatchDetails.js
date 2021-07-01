@@ -1,4 +1,4 @@
-import {CheckCircleIcon, DeleteIcon} from '@chakra-ui/icons';
+import {CheckIcon, CloseIcon, DeleteIcon} from '@chakra-ui/icons';
 import {IconButton, Td, Text, Tr} from '@chakra-ui/react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -33,13 +33,14 @@ export const AppointmentBatchDetails = () => {
               <Td isNumeric>{ap.cost}</Td>
               <Td>{ap.info || 'No info'}</Td>
               <Td>
-                {/* TODO: set as undone */}
-                {ap.booked && !ap.done && (
+                {ap.booked && (
                   <IconButton
-                    onClick={() => dispatch(setAppointmentDone(ap._id))}
-                    aria-label='Set done'
-                    title='Set done'
-                    icon={<CheckCircleIcon />}
+                    onClick={() =>
+                      dispatch(setAppointmentDone({id: ap._id, done: !ap.done}))
+                    }
+                    aria-label='Set done/undone'
+                    title='Set done/undone'
+                    icon={!ap.done ? <CheckIcon /> : <CloseIcon />}
                   />
                 )}
                 {!ap.booked && (
