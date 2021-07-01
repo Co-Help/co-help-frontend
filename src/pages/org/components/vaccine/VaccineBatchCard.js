@@ -16,8 +16,11 @@ export const VaccineBatchCard = ({onDelete, vaccine, slNo}) => {
       <Td>{patient?.age || 'N/A'}</Td>
       <Td>{patient?.mobile_no || 'N/A'}</Td>
       <Td>
-        {formatDate(vaccine?.booking_date)}{' '}
-        {getLocalTimeFromDate(vaccine?.booking_date)}
+        {vaccine?.booking_date
+          ? formatDate(vaccine?.booking_date) +
+            ' ' +
+            getLocalTimeFromDate(vaccine?.booking_date)
+          : 'N/A'}
       </Td>
       <Td>
         <Badge colorScheme={booked ? 'green' : 'red'}>
