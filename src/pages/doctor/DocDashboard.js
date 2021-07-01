@@ -1,5 +1,14 @@
 import {ChevronRightIcon} from '@chakra-ui/icons';
-import {Box, Container, IconButton, Link, Td, Text, Tr} from '@chakra-ui/react';
+import {
+  Badge,
+  Box,
+  Container,
+  IconButton,
+  Link,
+  Td,
+  Text,
+  Tr,
+} from '@chakra-ui/react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -28,7 +37,7 @@ export const DocDashboard = () => {
   if (!appointments) return <Loader />;
 
   return (
-    <Container pos='relative' minH='85vh'>
+    <Container maxW='container.md' pos='relative' minH='85vh'>
       <Switch>
         <Route exact path={path}>
           <Box>
@@ -39,6 +48,11 @@ export const DocDashboard = () => {
                   <Td>{ap.appointment_date.split('T')[0]}</Td>
                   <Td isNumeric>{ap.cost}</Td>
                   <Td>{ap.info || 'No info'}</Td>
+                  <Td>
+                    <Badge colorScheme={ap.booked ? 'green' : 'red'}>
+                      {ap.booked ? 'Booked' : 'Not booked'}
+                    </Badge>
+                  </Td>
                   <Td>
                     <AddAppointmentModal editModal data={ap} />
                     <Link as={ReactRouterLink} to={`${url}/${ap.batch_code}`}>

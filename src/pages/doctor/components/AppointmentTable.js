@@ -9,9 +9,10 @@ export const AppointmentTable = ({children, title}) => {
       <Thead>
         <Tr>
           <Th>No.</Th>
-          <Th>Date</Th>
-          <Th isNumeric>Cost</Th>
-          <Th>Info</Th>
+          <Th>Name</Th>
+          <Th isNumeric>Age</Th>
+          <Th>Booking date</Th>
+          <Th>Status</Th>
           <Th>Actions</Th>
         </Tr>
       </Thead>
