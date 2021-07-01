@@ -42,6 +42,7 @@ export const VaccineBookButton = ({batch_code}) => {
     mobile_no: '',
     age: '',
     name: '',
+    aadhar: '',
   });
 
   const onChange = e => setForm({...form, [e.target.name]: e.target.value});
@@ -114,6 +115,18 @@ export const VaccineBookButton = ({batch_code}) => {
                       <NumberIncrementStepper />
                       <NumberDecrementStepper />
                     </NumberInputStepper>
+                  </NumberInput>
+                </FormControl>
+                <FormControl isRequired id='aadhar' mt={3}>
+                  <FormLabel>Aadhaar no</FormLabel>
+                  <NumberInput>
+                    <NumberInputField
+                      value={form.aadhar}
+                      onChange={onChange}
+                      name='aadhar'
+                      type='number'
+                      placeholder='Aadhaar no'
+                    />
                   </NumberInput>
                 </FormControl>
                 <FormControl isRequired mt={2} id='mobile_no'>

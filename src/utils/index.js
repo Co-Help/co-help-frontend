@@ -70,3 +70,6 @@ export const getToday = () => {
 };
 
 export const TODAY = getToday();
+
+export const formatAadhaarNo = no =>
+  no.substr(0, 4) + ' ' + no.substr(4, 4) + ' ' + no.substr(8, 4);

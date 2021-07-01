@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {AUTH_HEADER} from '../../../utils';
+import {AUTH_HEADER, formatAadhaarNo} from '../../../utils';
 import {GET_ALL_VACCINES, GET_ALL_VACCINES_FAIL} from './types';
 
 export const getAllVaccines = () => async dispatch => {
@@ -19,7 +19,12 @@ export const bookVaccine =
         batch_code,
         self_booking,
         ...(!self_booking
-          ? {...form, age: +form.age, mobile_no: +form.mobile_no}
+          ? {
+              ...form,
+              age: +form.age,
+              mobile_no: +form.mobile_no,
+              aadhar: formatAadhaarNo(form?.aadhar),
+            }
           : {}),
       };
       await axios.post('/services/vaccination', data, AUTH_HEADER);

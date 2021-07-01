@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {APP_NAME} from '../../../constants';
-import {AUTH_HEADER, getUserCred} from '../../../utils';
+import {AUTH_HEADER, formatAadhaarNo, getUserCred} from '../../../utils';
 import {
   APPLY_FOR_ORG,
   APPLY_FOR_ORG_FAIL,
@@ -42,16 +42,9 @@ export const fetchProfile = () => async dispatch => {
 
 export const completeProfile = (form, cb, errorCb) => async dispatch => {
   try {
-    const aadhar =
-      form.aadhar.substr(0, 4) +
-      ' ' +
-      form.aadhar.substr(4, 4) +
-      ' ' +
-      form.aadhar.substr(8, 4);
-
     const data = {
       ...form,
-      aadhar,
+      aadhar: formatAadhaarNo(form?.aadhar),
       dob: new Date(form.dob).getTime(),
       pinCode: Number(form.pinCode),
       mobile_no: Number(form.mobile_no),
