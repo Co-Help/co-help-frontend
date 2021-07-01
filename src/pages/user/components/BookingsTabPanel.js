@@ -19,9 +19,9 @@ import {CallOrgBtn} from '../../../components/CallOrgBtn';
 import {CardContainer} from '../../../components/CardContainer';
 import {EmptyMessage} from '../../../components/EmptyMessage';
 import {Loader} from '../../../components/Loader';
+import {VaccineCard2} from '../../../components/VaccineCard2';
 import {getBookedServices} from '../../../redux/actions/user/bookingsAction';
 import {formatDate, getLocalTimeFromDate} from '../../../utils';
-import {VaccineCard} from '../../org/components/vaccine/VaccineCard';
 import {AppointmentCancelBtn} from './AppointmentCancelBtn';
 import {BloodTestBookingCancelBtn} from './BloodTestBookingCancelBtn';
 
@@ -79,7 +79,7 @@ export const BookingsTabPanel = () => {
         {services?.vaccinations
           .filter(s => !s.done)
           .map(v => (
-            <VaccineCard isUser key={v._id} vaccine={v} showCancelBtn />
+            <VaccineCard2 key={v._id} data={v} showCancelBtn />
           ))}
         {!services?.vaccinations.filter(s => !s.done).length && (
           <EmptyMessage msg='No vaccine bookings available' />
@@ -89,7 +89,7 @@ export const BookingsTabPanel = () => {
           {services?.vaccinations
             .filter(s => s.done)
             .map(v => (
-              <VaccineCard isUser key={v._id} vaccine={v} isDone />
+              <VaccineCard2 key={v._id} data={v} isDone />
             ))}
         </Collapse>
       </BookingsItem>

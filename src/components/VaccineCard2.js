@@ -10,12 +10,15 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import {VaccineBookButton} from '../pages/org/components/vaccine/VaccineBookButton';
+import {VaccineCancelButton} from '../pages/org/components/vaccine/VaccineCancelButton';
 import {getLocalTimeFromDate} from '../utils';
 import {CallOrgBtn} from './CallOrgBtn';
 import {CardContainer} from './CardContainer';
+import {PDFDownloadBtn} from './PDFDownloadBtn';
 
-export const VaccineCard2 = ({data}) => {
+export const VaccineCard2 = ({data, showCancelBtn, isDone}) => {
   const {
+    _id,
     info,
     vaccine_date,
     vaccine_doze,
@@ -78,7 +81,11 @@ export const VaccineCard2 = ({data}) => {
 
         <ButtonGroup>
           <CallOrgBtn helpline_no={org.helpline_no} />
-          <VaccineBookButton batch_code={batch_code} />
+          {!showCancelBtn && !isDone && (
+            <VaccineBookButton batch_code={batch_code} />
+          )}
+          {showCancelBtn && !isDone && <VaccineCancelButton id={_id} />}
+          {isDone && data && <PDFDownloadBtn data={data} />}
         </ButtonGroup>
       </HStack>
     </CardContainer>
