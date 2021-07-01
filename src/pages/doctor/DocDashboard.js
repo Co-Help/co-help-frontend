@@ -5,8 +5,13 @@ import {
   Container,
   IconButton,
   Link,
+  Table,
+  TableCaption,
+  Tbody,
   Td,
   Text,
+  Th,
+  Thead,
   Tr,
 } from '@chakra-ui/react';
 import {useEffect} from 'react';
@@ -22,7 +27,6 @@ import {Loader} from '../../components/Loader';
 import {getAppointments} from '../../redux/actions/doctor/docActions';
 import {AddAppointmentModal} from './components/AddAppointmentModal';
 import {AppointmentBatchDetails} from './components/AppointmentBatchDetails';
-import {AppointmentTable} from './components/AppointmentTable';
 
 export const DocDashboard = () => {
   const dispatch = useDispatch();
@@ -42,31 +46,47 @@ export const DocDashboard = () => {
       <Switch>
         <Route exact path={path}>
           <Box>
-            <AppointmentTable title='All appointments'>
-              {appointments?.map((ap, idx) => (
-                <Tr key={ap._id}>
-                  <Td>{idx + 1}</Td>
-                  <Td>{ap.appointment_date.split('T')[0]}</Td>
-                  <Td isNumeric>{ap.cost}</Td>
-                  <Td>{ap.info || 'No info'}</Td>
-                  <Td>
-                    <Badge colorScheme={ap.booked ? 'green' : 'red'}>
-                      {ap.booked ? 'Booked' : 'Not booked'}
-                    </Badge>
-                  </Td>
-                  <Td>
-                    <AddAppointmentModal editModal data={ap} />
-                    <Link as={ReactRouterLink} to={`${url}/${ap.batch_code}`}>
-                      <FloatingLabel label='See all bookings'>
-                        <IconButton
-                          icon={<ChevronRightIcon fontSize='x-large' />}
-                        />
-                      </FloatingLabel>
-                    </Link>
-                  </Td>
+            <Table size='sm' variant='simple'>
+              <TableCaption placement='top' fontSize='lg' mb={2}>
+                All appointments
+              </TableCaption>
+              <Thead>
+                <Tr>
+                  <Th>No.</Th>
+                  <Th>Date</Th>
+                  <Th isNumeric>Cost</Th>
+                  <Th>Info</Th>
+                  <Th>Status</Th>
+                  <Th>Actions</Th>
                 </Tr>
-              ))}
-            </AppointmentTable>
+              </Thead>
+              <Tbody>
+                {appointments?.map((ap, idx) => (
+                  <Tr key={ap._id}>
+                    <Td>{idx + 1}</Td>
+                    <Td>{ap.appointment_date.split('T')[0]}</Td>
+                    <Td isNumeric>{ap.cost}</Td>
+                    <Td>{ap.info || 'No info'}</Td>
+                    <Td>
+                      <Badge colorScheme={ap.booked ? 'green' : 'red'}>
+                        {ap.booked ? 'Booked' : 'Not booked'}
+                      </Badge>
+                    </Td>
+                    <Td>
+                      <AddAppointmentModal editModal data={ap} />
+                      <Link as={ReactRouterLink} to={`${url}/${ap.batch_code}`}>
+                        <FloatingLabel label='See all bookings'>
+                          <IconButton
+                            icon={<ChevronRightIcon fontSize='x-large' />}
+                          />
+                        </FloatingLabel>
+                      </Link>
+                    </Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+
             {!appointments?.length && (
               <Text textAlign='center' mt={15}>
                 No appointments available
