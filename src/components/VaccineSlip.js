@@ -6,6 +6,7 @@ import {
   Text,
   View,
 } from '@react-pdf/renderer';
+import {TODAY} from '../utils';
 
 Font.register({
   family: 'Roboto',
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
   },
   page: {
     fontFamily: 'Roboto',
-    paddingHorizontal: '150px',
+    paddingHorizontal: '100px',
     paddingVertical: '50px',
   },
   heading: {
@@ -48,48 +49,59 @@ const styles = StyleSheet.create({
   },
 });
 
-export const VaccinationSlip = ({data}) => (
-  <Document title='Vaccination-slip-cohelp-28-06-2021'>
+export const VaccinationSlip = ({
+  data: {
+    patient_details,
+    vaccine_doze,
+    vaccine_date,
+    batch_code,
+    org,
+    vaccine_name,
+  },
+}) => (
+  <Document title={`vaccination-of-${patient_details.name}-cohelp-${TODAY}`}>
     <Page style={styles.page}>
       <Text style={styles.heading}>
-        COVID-19 Vaccination - {data?.vaccine_doze} Dose
+        COVID-19 Vaccination - {vaccine_doze} Dose
       </Text>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Patient Details</Text>
         <View style={styles.propRow}>
           <Text>Name</Text>
-          <Text>Indrajit Sarkar</Text>
+          <Text>{patient_details.name}</Text>
         </View>
         <View style={styles.propRow}>
           <Text>Age</Text>
-          <Text>69</Text>
+          <Text>{patient_details.age}</Text>
         </View>
         <View style={styles.propRow}>
           <Text>Mobile no</Text>
-          <Text>9856785489</Text>
+          <Text>{patient_details.mobile_no}</Text>
         </View>
         <View style={styles.propRow}>
           <Text>Aadhaar no</Text>
-          <Text>588745696584</Text>
+          <Text>{patient_details.aadhar}</Text>
         </View>
       </View>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Vaccination Details</Text>
         <View style={styles.propRow}>
           <Text>Vaccine name</Text>
-          <Text>COVAXIN</Text>
+          <Text>{vaccine_name.toLocaleUpperCase()}</Text>
         </View>
         <View style={styles.propRow}>
           <Text>Date of dose</Text>
-          <Text>20 May 2021</Text>
+          <Text>{new Date(vaccine_date).toDateString().slice(4)}</Text>
         </View>
         <View style={styles.propRow}>
           <Text>Batch No</Text>
-          <Text>85afaa5g8adga5asd</Text>
+          <Text>{batch_code}</Text>
         </View>
         <View style={styles.propRow}>
           <Text>Vaccinated at</Text>
-          <Text>Pro organization, Kalna, PB</Text>
+          <Text>
+            {org.name}, {org.address.city}, {org.address.district}
+          </Text>
         </View>
       </View>
     </Page>

@@ -7,7 +7,7 @@ export const PDFDownloadBtn = ({data}) => {
   return (
     <PDFDownloadLink
       document={<VaccinationSlip data={data} />}
-      fileName={`vaccination-${TODAY}.pdf`}>
+      fileName={`vaccination-of-${data.patient_details.name}-cohelp-${TODAY}.pdf`}>
       {({loading}) => (
         <Button isLoading={loading} rounded='sm' size='sm' colorScheme='blue'>
           Print

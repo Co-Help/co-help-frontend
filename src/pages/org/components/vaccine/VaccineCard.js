@@ -60,7 +60,7 @@ export const VaccineCard = ({vaccine, isUser, showCancelBtn, isDone}) => {
           <VaccineCancelButton id={_id} />
         </>
       )}
-      {isDone && <PDFDownloadBtn data={vaccine} />}
+      {isDone && vaccine && <PDFDownloadBtn data={vaccine} />}
       {!isUser && <AddVaccineModal data={vaccine} editModal />}
     </CardContainer>
   );
