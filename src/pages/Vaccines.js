@@ -2,8 +2,8 @@ import {Container, Text} from '@chakra-ui/react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Loader} from '../components/Loader';
+import {VaccineCard2} from '../components/VaccineCard2';
 import {getAllVaccines} from '../redux/actions/user/vaccineActions';
-import {VaccineCard} from './org/components/vaccine/VaccineCard';
 
 export const Vaccines = () => {
   const dispatch = useDispatch();
@@ -23,8 +23,9 @@ export const Vaccines = () => {
           Vaccines are unavailable!
         </Text>
       )}
+
       {vaccines?.items.map(v => (
-        <VaccineCard key={v._id} vaccine={v} isUser />
+        <VaccineCard2 key={v._id} data={v} />
       ))}
     </Container>
   );

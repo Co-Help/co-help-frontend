@@ -23,7 +23,7 @@ export const VaccineCard = ({vaccine, isUser, showCancelBtn, isDone}) => {
   } = vaccine;
 
   return (
-    <CardContainer key={_id}>
+    <CardContainer>
       <Box mr='auto'>
         <RLink to={!isUser ? `${url}/${batch_code}` : '/vaccines'}>
           <Heading size='md'>
