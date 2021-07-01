@@ -1,3 +1,4 @@
+import {ChevronDownIcon, ChevronUpIcon} from '@chakra-ui/icons';
 import {
   Accordion,
   AccordionButton,
@@ -5,10 +6,14 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
+  Center,
+  Collapse,
+  IconButton,
   Stack,
   Text,
+  Tooltip,
 } from '@chakra-ui/react';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {CallOrgBtn} from '../../../components/CallOrgBtn';
 import {CardContainer} from '../../../components/CardContainer';
@@ -34,9 +39,32 @@ const BookingsItem = ({title, children}) => (
   </AccordionItem>
 );
 
+const ShowDoneBtn = ({onClick, isShown, title}) => (
+  <Center my='3'>
+    <Tooltip
+      hasArrow
+      placement='top'
+      label={title || `${isShown ? 'Hide done' : 'Show done'}`}>
+      <IconButton
+        size='sm'
+        rounded='full'
+        onClick={onClick}
+        icon={
+          !isShown ? (
+            <ChevronDownIcon fontSize='xl' />
+          ) : (
+            <ChevronUpIcon fontSize='xl' />
+          )
+        }
+      />
+    </Tooltip>
+  </Center>
+);
+
 export const BookingsTabPanel = () => {
   const dispatch = useDispatch();
   const services = useSelector(state => state.bookings.services);
+  const [showDone, setShowDone] = useState(false);
 
   useEffect(() => {
     dispatch(getBookedServices());
@@ -56,6 +84,14 @@ export const BookingsTabPanel = () => {
         {!services?.vaccinations.filter(s => !s.done).length && (
           <EmptyMessage msg='No vaccine bookings available' />
         )}
+        <ShowDoneBtn isShown={showDone} onClick={() => setShowDone(v => !v)} />
+        <Collapse in={showDone} animateOpacity>
+          {services?.vaccinations
+            .filter(s => s.done)
+            .map(v => (
+              <VaccineCard isUser key={v._id} vaccine={v} isDone />
+            ))}
+        </Collapse>
       </BookingsItem>
 
       <BookingsItem title='Appointments'>

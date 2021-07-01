@@ -56,8 +56,8 @@ export const VaccineBatch = () => {
   return (
     <Box my={5}>
       <Text fontSize='lg'>
-        Bookings for <strong>{vaccineBatch[0].vaccine_name}</strong> on{' '}
-        <strong>{formatDate(vaccineBatch[0].vaccine_date)}</strong>
+        Bookings for <strong>{vaccineBatch?.[0]?.vaccine_name}</strong> on{' '}
+        <strong>{formatDate(vaccineBatch?.[0]?.vaccine_date)}</strong>
       </Text>
       <RadioGroup defaultValue={FilterValues.all} my={3}>
         <HStack spacing={4}>

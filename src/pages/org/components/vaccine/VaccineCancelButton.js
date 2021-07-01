@@ -19,19 +19,6 @@ export const VaccineCancelButton = ({id}) => {
   const cancelRef = useRef();
   const dispatch = useDispatch();
 
-  // const cancelBooking = async () => {
-  //   try {
-  //     await axios.delete('/services/vaccination', {data: {id}, ...AUTH_HEADER});
-  //     dispatch({type: CANCEL_VACCINE_BOOKING, payload: id});
-  //     toast({title: 'Vaccine booking cancelled.', ...toastOptions});
-  //   } catch (err) {
-  //     console.error(err);
-  //     toast({title: 'Failed to cancel.', ...toastOptions, status: 'error'});
-  //   } finally {
-  //     onClose();
-  //   }
-  // };
-
   return (
     <Box pl={2}>
       <Button

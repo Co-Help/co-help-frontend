@@ -2,12 +2,13 @@ import {Badge, Box, Heading, HStack, Text} from '@chakra-ui/react';
 import {Link as RLink, useRouteMatch} from 'react-router-dom';
 import {CallOrgBtn} from '../../../../components/CallOrgBtn';
 import {CardContainer} from '../../../../components/CardContainer';
+import {PDFDownloadBtn} from '../../../../components/PDFDownloadBtn';
 import {getLocalTimeFromDate} from '../../../../utils';
 import {AddVaccineModal} from './AddVaccineModal';
 import {VaccineBookButton} from './VaccineBookButton';
 import {VaccineCancelButton} from './VaccineCancelButton';
 
-export const VaccineCard = ({vaccine, isUser, showCancelBtn}) => {
+export const VaccineCard = ({vaccine, isUser, showCancelBtn, isDone}) => {
   const {url} = useRouteMatch();
   const {
     _id,
@@ -47,19 +48,19 @@ export const VaccineCard = ({vaccine, isUser, showCancelBtn}) => {
         )}
         <Text>{info}</Text>
       </Box>
-      {isUser && !showCancelBtn && (
+      {isUser && !showCancelBtn && !isDone && (
         <>
           <CallOrgBtn helpline_no={org.helpline_no} />
           <VaccineBookButton batch_code={batch_code} />
         </>
       )}
-      {showCancelBtn && (
+      {showCancelBtn && !isDone && (
         <>
           <CallOrgBtn helpline_no={org.helpline_no} />
           <VaccineCancelButton id={_id} />
         </>
       )}
-
+      {isDone && <PDFDownloadBtn data={vaccine} />}
       {!isUser && <AddVaccineModal data={vaccine} editModal />}
     </CardContainer>
   );
