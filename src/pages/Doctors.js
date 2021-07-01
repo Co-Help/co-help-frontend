@@ -31,7 +31,7 @@ export const DoctorCard = ({s, url}) => (
         <Text fontSize='sm'>
           Address:{' '}
           <strong>
-            {s.doctor_info.org.name}, {s.address.city}
+            {s.doctor_info.org.name}, {s.doctor_info.org.address.city}
           </strong>
         </Text>
       </Stack>
