@@ -3,6 +3,7 @@ import {Badge, IconButton, Td, Text, Tr} from '@chakra-ui/react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
+import {FloatingLabel} from '../../../components/FloatingLabel';
 import {
   deleteAppointment,
   getAppointmentByBatch,
@@ -44,22 +45,22 @@ export const AppointmentBatchDetails = () => {
             </Td>
             <Td>
               {ap.booked && (
-                <IconButton
-                  onClick={() =>
-                    dispatch(setAppointmentDone({id: ap._id, done: !ap.done}))
-                  }
-                  aria-label='Set done/undone'
-                  title='Set done/undone'
-                  icon={!ap.done ? <CheckIcon /> : <CloseIcon />}
-                />
+                <FloatingLabel label='Set done/undone'>
+                  <IconButton
+                    onClick={() =>
+                      dispatch(setAppointmentDone({id: ap._id, done: !ap.done}))
+                    }
+                    icon={!ap.done ? <CheckIcon /> : <CloseIcon />}
+                  />
+                </FloatingLabel>
               )}
               {!ap.booked && (
-                <IconButton
-                  onClick={() => dispatch(deleteAppointment(ap._id))}
-                  aria-label='Delete appointment'
-                  title='Delete appointment'
-                  icon={<DeleteIcon color='red.500' />}
-                />
+                <FloatingLabel label='Delete appointment'>
+                  <IconButton
+                    onClick={() => dispatch(deleteAppointment(ap._id))}
+                    icon={<DeleteIcon color='red.500' />}
+                  />
+                </FloatingLabel>
               )}
             </Td>
           </Tr>

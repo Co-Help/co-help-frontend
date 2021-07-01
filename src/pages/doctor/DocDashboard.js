@@ -17,6 +17,7 @@ import {
   Switch,
   useRouteMatch,
 } from 'react-router-dom';
+import {FloatingLabel} from '../../components/FloatingLabel';
 import {Loader} from '../../components/Loader';
 import {getAppointments} from '../../redux/actions/doctor/docActions';
 import {AddAppointmentModal} from './components/AddAppointmentModal';
@@ -56,11 +57,11 @@ export const DocDashboard = () => {
                   <Td>
                     <AddAppointmentModal editModal data={ap} />
                     <Link as={ReactRouterLink} to={`${url}/${ap.batch_code}`}>
-                      <IconButton
-                        aria-label='View all appointments'
-                        title='View all appointments'
-                        icon={<ChevronRightIcon fontSize='x-large' />}
-                      />
+                      <FloatingLabel label='See all bookings'>
+                        <IconButton
+                          icon={<ChevronRightIcon fontSize='x-large' />}
+                        />
+                      </FloatingLabel>
                     </Link>
                   </Td>
                 </Tr>

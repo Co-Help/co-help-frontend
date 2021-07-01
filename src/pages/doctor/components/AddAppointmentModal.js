@@ -19,6 +19,7 @@ import {
 } from '@chakra-ui/react';
 import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {FloatingLabel} from '../../../components/FloatingLabel';
 import {
   addAppointment,
   editAppointment,
@@ -67,16 +68,18 @@ export const AddAppointmentModal = ({editModal, data}) => {
           colorScheme='blue'
           leftIcon={<AddIcon />}
           variant='solid'>
-          Add appointment
+          Add appointments
         </Button>
       ) : (
-        <IconButton
-          mr='2'
-          onClick={onOpen}
-          aria-label='Edit appointment'
-          title='Edit appointment'
-          icon={<EditIcon />}
-        />
+        <FloatingLabel label='Edit appointment'>
+          <IconButton
+            mr='2'
+            onClick={onOpen}
+            aria-label='Edit appointment'
+            title='Edit appointment'
+            icon={<EditIcon />}
+          />
+        </FloatingLabel>
       )}
       <Modal
         size='lg'
