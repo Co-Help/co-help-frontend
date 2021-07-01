@@ -2,7 +2,7 @@
 
 # Co-Help
 
-A platform where anyone can book appointments for doctors, oxygen, vaccine, beds, and other emergency services and a platform for organizations to provide those services.
+A platform where anyone can book for doctors appointments, oxygen, vaccine, beds, and other emergency services and a platform for organizations to provide those services.
 
 ## Environment Variables
 
