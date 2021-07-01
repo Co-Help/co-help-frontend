@@ -17,6 +17,7 @@ import {
   Td,
   Th,
   Thead,
+  Tooltip,
   Tr,
 } from '@chakra-ui/react';
 import {useEffect} from 'react';
@@ -93,12 +94,9 @@ export const BloodTest = () => {
                     </PopoverContent>
                   </Popover>
                   <Link to={`${url}/${s.batch_code}`}>
-                    <IconButton
-                      size='sm'
-                      aria-label='Show details'
-                      title='Show details'
-                      icon={<ChevronRightIcon />}
-                    />
+                    <Tooltip label='See all bookings' hasArrow>
+                      <IconButton size='sm' icon={<ChevronRightIcon />} />
+                    </Tooltip>
                   </Link>
                 </HStack>
               </Td>

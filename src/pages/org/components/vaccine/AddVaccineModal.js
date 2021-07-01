@@ -16,6 +16,7 @@ import {
   ModalOverlay,
   Select,
   Textarea,
+  Tooltip,
   useDisclosure,
   useToast,
 } from '@chakra-ui/react';
@@ -86,15 +87,12 @@ export const AddVaccineModal = ({editModal, data}) => {
           colorScheme='blue'
           leftIcon={<AddIcon />}
           variant='solid'>
-          Add vaccines
+          Add
         </Button>
       ) : (
-        <IconButton
-          onClick={onOpen}
-          aria-label='Edit vaccine'
-          title='Edit vaccine'
-          icon={<EditIcon />}
-        />
+        <Tooltip label='Edit details' hasArrow>
+          <IconButton onClick={onOpen} icon={<EditIcon />} />
+        </Tooltip>
       )}
 
       <Modal

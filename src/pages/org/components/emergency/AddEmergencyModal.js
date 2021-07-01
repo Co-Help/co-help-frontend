@@ -14,6 +14,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Textarea,
+  Tooltip,
   useDisclosure,
 } from '@chakra-ui/react';
 import {useEffect, useState} from 'react';
@@ -61,16 +62,18 @@ export const AddEmergencyModal = ({editId, data}) => {
           title='Add new emergency service'
           leftIcon={<AddIcon />}
           variant='solid'>
-          Create
+          Add
         </Button>
       ) : (
-        <IconButton
-          size='sm'
-          onClick={onOpen}
-          aria-label='Edit service'
-          title='Edit service'
-          icon={<EditIcon />}
-        />
+        <Tooltip label='Edit details' hasArrow>
+          <IconButton
+            size='sm'
+            onClick={onOpen}
+            aria-label='Edit service'
+            title='Edit service'
+            icon={<EditIcon />}
+          />
+        </Tooltip>
       )}
       <Modal
         size='lg'

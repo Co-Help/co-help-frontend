@@ -15,6 +15,7 @@ import {
   ModalOverlay,
   Select,
   Textarea,
+  Tooltip,
   useDisclosure,
 } from '@chakra-ui/react';
 import {useEffect, useState} from 'react';
@@ -65,13 +66,9 @@ export const AddBloodModal = ({editModal, data}) => {
           Add
         </Button>
       ) : (
-        <IconButton
-          size='sm'
-          onClick={onOpen}
-          aria-label='Edit Service'
-          title='Edit Service'
-          icon={<EditIcon />}
-        />
+        <Tooltip label='Edit details' hasArrow>
+          <IconButton size='sm' onClick={onOpen} icon={<EditIcon />} />
+        </Tooltip>
       )}
       <Modal
         size='lg'

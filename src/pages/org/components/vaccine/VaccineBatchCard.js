@@ -1,5 +1,5 @@
 import {CheckIcon, CloseIcon, DeleteIcon} from '@chakra-ui/icons';
-import {Badge, IconButton, Td, Tr} from '@chakra-ui/react';
+import {Badge, IconButton, Td, Tooltip, Tr} from '@chakra-ui/react';
 import {useDispatch} from 'react-redux';
 import {setDoneVaccine} from '../../../../redux/actions/org/OrgAction';
 import {formatDate, getLocalTimeFromDate} from '../../../../utils';
@@ -29,19 +29,20 @@ export const VaccineBatchCard = ({onDelete, vaccine, slNo}) => {
       </Td>
       <Td>
         {booked && (
-          <IconButton
-            onClick={() => dispatch(setDoneVaccine({id: _id, done: !done}))}
-            aria-label='Set done/undone'
-            title='Set done/undone'
-            icon={!done ? <CheckIcon /> : <CloseIcon />}
-          />
+          <Tooltip label='Set done/undone' hasArrow>
+            <IconButton
+              onClick={() => dispatch(setDoneVaccine({id: _id, done: !done}))}
+              icon={!done ? <CheckIcon /> : <CloseIcon />}
+            />
+          </Tooltip>
         )}
         {!booked && (
-          <IconButton
-            onClick={() => onDelete(_id)}
-            aria-label='Delete Vaccine'
-            icon={<DeleteIcon color='red.600' />}
-          />
+          <Tooltip label='Delete Vaccine' hasArrow>
+            <IconButton
+              onClick={() => onDelete(_id)}
+              icon={<DeleteIcon color='red.600' />}
+            />
+          </Tooltip>
         )}
       </Td>
     </Tr>

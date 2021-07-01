@@ -19,6 +19,7 @@ import {
   NumberInputField,
   NumberInputStepper,
   Textarea,
+  Tooltip,
   useDisclosure,
 } from '@chakra-ui/react';
 import {useState} from 'react';
@@ -60,16 +61,18 @@ export const AddBedsModal = ({editId, data}) => {
           title='Add Beds'
           leftIcon={<AddIcon />}
           variant='solid'>
-          Create
+          Add
         </Button>
       ) : (
-        <IconButton
-          size='sm'
-          onClick={onOpen}
-          aria-label='Edit service'
-          title='Edit service'
-          icon={<EditIcon />}
-        />
+        <Tooltip label='Edit details' hasArrow>
+          <IconButton
+            size='sm'
+            onClick={onOpen}
+            aria-label='Edit service'
+            title='Edit service'
+            icon={<EditIcon />}
+          />
+        </Tooltip>
       )}
       <Modal
         size='lg'
