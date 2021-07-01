@@ -38,9 +38,8 @@ export const DocProfile = () => {
     <Container mt={5} px={5} py={10}>
       <Center py={5} flexDirection='column'>
         <Avatar src={avatar} name={name ?? 'User'} size='2xl' />
-        <Heading pt={2}>{name}</Heading>
+        <Heading pt={2}>Dr. {name}</Heading>
         <Text>{email}</Text>
-        {/* TODO: add org details n other stuffs */}
         <ButtonGroup mt={2} size='sm'>
           <LogoutButton />
 
