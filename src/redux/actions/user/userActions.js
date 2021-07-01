@@ -40,23 +40,27 @@ export const fetchProfile = () => async dispatch => {
   }
 };
 
-export const completeProfile = data => async dispatch => {
+export const completeProfile = (form, cb, errorCb) => async dispatch => {
   try {
-    const dob = new Date(data.dob).getTime();
-    const {access_token} = getUserCred();
-    await axios.post(
-      '/user/profile/setup',
-      {
-        ...data,
-        dob,
-        pinCode: Number(data.pinCode),
-        mobile_no: Number(data.mobile_no),
-      },
-      {headers: {Authorization: `Bearer ${access_token}`}}
-    );
+    const aadhar =
+      form.aadhar.substr(0, 4) +
+      ' ' +
+      form.aadhar.substr(4, 4) +
+      ' ' +
+      form.aadhar.substr(8, 4);
+
+    const data = {
+      ...form,
+      aadhar,
+      dob: new Date(form.dob).getTime(),
+      pinCode: Number(form.pinCode),
+      mobile_no: Number(form.mobile_no),
+    };
+    await axios.post('/user/profile/setup', data, AUTH_HEADER);
     dispatch({type: COMPLETE_PROFILE});
+    cb?.();
   } catch (error) {
-    console.error(error);
+    errorCb?.(error);
   }
 };
 
