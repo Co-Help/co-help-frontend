@@ -4,13 +4,13 @@ import {useSelector} from 'react-redux';
 import {LogoutButton} from '../../components/LogoutButton';
 
 export const OrgProfile = () => {
-  const {name, email, avatar} = useSelector(state => state.user.profile);
+  const {email, avatar, org} = useSelector(state => state.user.profile);
 
   return (
     <Container mt={5} px={5} py={10}>
       <Center py={5} flexDirection='column'>
-        <Avatar src={avatar} name={name ?? 'User'} size='2xl' />
-        <Heading pt={2}>{name}</Heading>
+        <Avatar src={avatar} name={org.name ?? 'User'} size='2xl' />
+        <Heading pt={2}>{org.name}</Heading>
         <Text mb={2}>{email}</Text>
         {/* TODO: add org details n other stuffs */}
         <LogoutButton />
