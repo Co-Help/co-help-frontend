@@ -9,6 +9,7 @@ import {
   ORG_ADD_EMERGENCY,
   ORG_DELETE_BED_SERVICES,
   ORG_DELETE_BLOOD,
+  ORG_DELETE_BLOOD_TEST_BY_ID,
   ORG_DELETE_BLOOD_TEST_SERVICES,
   ORG_DELETE_EMERGENCY_SERVICE,
   ORG_DELETE_OXYGEN_SERVICES,
@@ -135,10 +136,15 @@ export const orgBloodTestReducer = (state = {}, action) => {
     case ORG_GET_BLOOD_TEST_BATCH: {
       return {...state, batches: action.payload};
     }
-
     case ORG_DELETE_BLOOD_TEST_SERVICES: {
       return {
         services: state.services.filter(s => s.batch_code !== action.payload),
+      };
+    }
+    case ORG_DELETE_BLOOD_TEST_BY_ID: {
+      return {
+        ...state,
+        batches: state.batches.filter(s => s._id !== action.payload),
       };
     }
     default:

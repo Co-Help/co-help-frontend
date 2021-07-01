@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {AUTH_HEADER, parseDateTimeToMilli} from '../../../utils';
 import {
+  ORG_DELETE_BLOOD_TEST_BY_ID,
   ORG_DELETE_BLOOD_TEST_SERVICES,
   ORG_GET_BLOOD_TEST_BATCH,
   ORG_GET_BLOOD_TEST_SERVICES,
@@ -73,5 +74,14 @@ export const deleteBloodTest = batch_code => async dispatch => {
     dispatch({type: ORG_DELETE_BLOOD_TEST_SERVICES, payload: batch_code});
   } catch (err) {
     console.error(err);
+  }
+};
+
+export const deleteBloodTestFromBatch = (id, errorCb) => async dispatch => {
+  try {
+    await axios.delete('/org/blood_test', {...AUTH_HEADER, data: {id}});
+    dispatch({type: ORG_DELETE_BLOOD_TEST_BY_ID, payload: id});
+  } catch (err) {
+    errorCb(err);
   }
 };
