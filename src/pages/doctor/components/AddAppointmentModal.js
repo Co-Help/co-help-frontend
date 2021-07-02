@@ -68,7 +68,7 @@ export const AddAppointmentModal = ({editModal, data}) => {
           colorScheme='blue'
           leftIcon={<AddIcon />}
           variant='solid'>
-          Add appointments
+          Add appointment
         </Button>
       ) : (
         <FloatingLabel label='Edit appointment'>

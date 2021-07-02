@@ -25,7 +25,7 @@ export const AppointmentBatchDetails = () => {
 
   return (
     <>
-      <AppointmentTable title='Appointment details'>
+      <AppointmentTable title='All appointment bookings'>
         {appointmentBatch?.map((ap, idx) => (
           <Tr key={ap._id}>
             <Td>{idx + 1}</Td>
@@ -47,6 +47,7 @@ export const AppointmentBatchDetails = () => {
               {ap.booked && (
                 <FloatingLabel label='Set done/undone'>
                   <IconButton
+                    size='sm'
                     onClick={() =>
                       dispatch(setAppointmentDone({id: ap._id, done: !ap.done}))
                     }
@@ -57,6 +58,7 @@ export const AppointmentBatchDetails = () => {
               {!ap.booked && (
                 <FloatingLabel label='Delete appointment'>
                   <IconButton
+                    size='sm'
                     onClick={() => dispatch(deleteAppointment(ap._id))}
                     icon={<DeleteIcon color='red.500' />}
                   />

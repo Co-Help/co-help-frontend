@@ -6,6 +6,7 @@ import {
   LOGIN,
   LOGOUT,
   SEARCH,
+  UPDATE_DOCTOR_INFO,
 } from '../../actions/user/types';
 
 export const userReducer = (state = {profile: null}, action) => {
@@ -25,6 +26,15 @@ export const userReducer = (state = {profile: null}, action) => {
     }
     case SEARCH: {
       return {...state, searchRes: action.payload};
+    }
+    case UPDATE_DOCTOR_INFO: {
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          doctor_info: {...state.profile.doctor_info, ...action.payload},
+        },
+      };
     }
     default:
       return state;

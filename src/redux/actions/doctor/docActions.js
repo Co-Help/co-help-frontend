@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {AUTH_HEADER, parseDateTimeToMilli} from '../../../utils';
+import {UPDATE_DOCTOR_INFO} from '../user/types';
 import {
   ADD_APPOINTMENT_SUCCESS,
   DELETE_APPOINTMENT,
@@ -80,6 +81,29 @@ export const getAppointmentByBatch = batch_code => async dispatch => {
       AUTH_HEADER
     );
     dispatch({type: GET_APPOINTMENT_BATCH, payload: data.services});
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const updateDoctorInfo = form => async dispatch => {
+  try {
+    const data = {
+      ...(form.specialties
+        ? {
+            specialties: form.specialties.split(',').filter(s => s.trim()),
+          }
+        : {}),
+      ...(form.qualifications
+        ? {
+            qualifications: form.qualifications
+              .split(',')
+              .filter(s => s.trim()),
+          }
+        : {}),
+    };
+    await axios.post('/doctor/profile/setup', data, AUTH_HEADER);
+    dispatch({type: UPDATE_DOCTOR_INFO, payload: data});
   } catch (err) {
     console.error(err);
   }
