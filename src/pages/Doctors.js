@@ -2,6 +2,7 @@ import {ArrowForwardIcon} from '@chakra-ui/icons';
 import {
   Avatar,
   AvatarBadge,
+  Badge,
   Button,
   Container,
   Heading,
@@ -28,6 +29,13 @@ export const DoctorCard = ({s, url}) => (
       </Avatar>
       <Stack spacing={1}>
         <Heading size='sm'>Dr. {s.name}</Heading>
+        <HStack>
+          {s.doctor_info.specialties.map(s => (
+            <Badge colorScheme='green' key={s}>
+              {s}
+            </Badge>
+          ))}
+        </HStack>
         <Text fontSize='sm'>
           Address:{' '}
           <strong>
