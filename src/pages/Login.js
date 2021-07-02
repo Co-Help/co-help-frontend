@@ -1,6 +1,6 @@
 import {Button} from '@chakra-ui/button';
 import {Box, Flex, Heading, Text} from '@chakra-ui/layout';
-import {useColorModeValue} from '@chakra-ui/react';
+import {useColorModeValue, useToast} from '@chakra-ui/react';
 import axios from 'axios';
 import {useEffect} from 'react';
 import {useGoogleLogin} from 'react-google-login';
@@ -8,9 +8,11 @@ import {ImGoogle} from 'react-icons/im';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router';
 import {login} from '../redux/actions/user/userActions';
+import {errorToastOptions} from '../utils';
 
 export const Login = () => {
   const dispatch = useDispatch();
+  const toast = useToast();
   const history = useHistory();
   const userProfile = useSelector(state => state.user.profile);
   const isAdmin = userProfile && userProfile?.role === 'admin';
@@ -21,7 +23,12 @@ export const Login = () => {
       if (data?.user) dispatch(login(data));
       window.location.reload();
     } catch (err) {
-      console.error(err);
+      toast({
+        ...errorToastOptions,
+        title:
+          err.response.data?.message ||
+          'Something went wrong, please try again',
+      });
     }
   };
 
