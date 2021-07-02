@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {APP_NAME} from '../../../constants';
-import {AUTH_HEADER, formatAadhaarNo, getUserCred} from '../../../utils';
+import {AUTH_HEADER, formatAadhaarNo} from '../../../utils';
 import {
   APPLY_FOR_ORG,
   APPLY_FOR_ORG_FAIL,
@@ -57,18 +57,14 @@ export const completeProfile = (form, cb, errorCb) => async dispatch => {
   }
 };
 
-export const applyForOrg = data => async dispatch => {
+export const applyForOrg = form => async dispatch => {
   try {
-    const {access_token} = getUserCred();
-    await axios.post(
-      '/application/apply',
-      {
-        ...data,
-        pinCode: Number(data.pinCode),
-        helpline_no: Number(data.helpline_no),
-      },
-      {headers: {Authorization: `Bearer ${access_token}`}}
-    );
+    const data = {
+      ...form,
+      pinCode: Number(form.pinCode),
+      helpline_no: Number(form.helpline_no),
+    };
+    await axios.post('/application/apply', data, AUTH_HEADER);
     dispatch({type: APPLY_FOR_ORG});
   } catch (err) {
     dispatch({type: APPLY_FOR_ORG_FAIL, payload: err.response.data.msg});

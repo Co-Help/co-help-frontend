@@ -30,13 +30,16 @@ const commonRoutes = [
   {path: '/search/:text', component: Search},
 ];
 
-const publicRoutes = [...commonRoutes, {path: '/login', component: Login}];
+const publicRoutes = [
+  ...commonRoutes,
+  {path: '/login', component: Login},
+  {path: '/org/apply', component: OrgApply},
+];
 
 const userRoutes = [
   ...commonRoutes,
   {path: '/user/complete-profile', component: CompleteProfile},
   {path: '/user/profile', component: UserProfile},
-  {path: '/org/apply', component: OrgApply},
   {path: '/doctor/join', component: JoinAsDoctor},
   {path: '/vaccines', component: Vaccines},
   {path: '/doctors', component: Doctors},

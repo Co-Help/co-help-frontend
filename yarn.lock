@@ -12158,6 +12158,11 @@ use-callback-ref@^1.2.1, use-callback-ref@^1.2.3:
   resolved "https://registry.yarnpkg.com/use-callback-ref/-/use-callback-ref-1.2.5.tgz#6115ed242cfbaed5915499c0a9842ca2912f38a5"
   integrity sha512-gN3vgMISAgacF7sqsLPByqoePooY3n2emTH59Ur5d/M8eg4WTWu1xp8i8DHjohftIyEx0S08RiYxbffr4j8Peg==
 
+use-file-upload@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/use-file-upload/-/use-file-upload-1.0.9.tgz#859ab76fae6f495ec212cdfe82e35c197eb91e0b"
+  integrity sha512-coR3p57MFD0TeMszZYHNCFlppusWpAOMDbRmc9xS+ELVZQrl6u50zkJhdw3f1qtWHFDa+YJId7tzcymiqIX/3Q==
+
 use-sidecar@^1.0.1:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/use-sidecar/-/use-sidecar-1.0.5.tgz#ffff2a17c1df42e348624b699ba6e5c220527f2b"

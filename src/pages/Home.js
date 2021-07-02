@@ -174,28 +174,6 @@ export const Home = () => {
       </Flex>
 
       <Flex
-        bg={bg}
-        flexDir='column'
-        align='center'
-        justify='center'
-        rounded='md'
-        py='10'>
-        <Text fontSize='4xl' fontWeight='thin'>
-          <strong>Become an</strong> organizer
-        </Text>
-        <Text opacity='0.8'>
-          Apply as organizer to provide various services through our platform.
-        </Text>
-        <Button colorScheme='blue' rounded='sm' mt='3.5'>
-          {isPublic && (
-            <Link as={RLink} to='/login'>
-              Login to apply
-            </Link>
-          )}
-          {profile?.role === 'user' && <Link href='/org/apply'>Apply now</Link>}
-        </Button>
-      </Flex>
-      <Flex
         mt='5'
         px={10}
         borderTopWidth='1px'
