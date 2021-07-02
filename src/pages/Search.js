@@ -3,11 +3,11 @@ import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Redirect, useParams} from 'react-router-dom';
 import {Loader} from '../components/Loader';
+import {VaccineCard2} from '../components/VaccineCard2';
 import {search} from '../redux/actions/user/userActions';
 import {BloodProvideCard} from './BloodProvide';
 import {BloodTestCard} from './BloodTest';
 import {EmergencyCard} from './Emergency';
-import {VaccineCard} from './org/components/vaccine/VaccineCard';
 
 export const Search = () => {
   const {text} = useParams();
@@ -32,7 +32,7 @@ export const Search = () => {
         <Box mt='2.5'>
           <Text>Vaccinations</Text>
           {searchRes?.vaccinations.map(v => (
-            <VaccineCard key={v._id} vaccine={v} isUser />
+            <VaccineCard2 key={v._id} data={v} />
           ))}
         </Box>
       ) : null}
