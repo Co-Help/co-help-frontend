@@ -2,6 +2,7 @@ import {Container, Heading, Stack, Text} from '@chakra-ui/layout';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {ApplicationCard} from '../../components/ApplicationCard';
+import {Loader} from '../../components/Loader';
 import {fetchOrgApplications} from '../../redux/actions/admin/adminActions';
 
 export const Dashboard = () => {
@@ -12,13 +13,15 @@ export const Dashboard = () => {
     dispatch(fetchOrgApplications());
   }, [dispatch]);
 
+  if (!applications) return <Loader />;
+
   return (
     <Container mt={5} px={5} py={10}>
       <Heading size='md'>Organization Requests</Heading>
 
       {applications?.length ? (
         <Stack mt={5} spacing={3}>
-          {applications?.map(application => (
+          {applications.map(application => (
             <ApplicationCard key={application._id} application={application} />
           ))}
         </Stack>

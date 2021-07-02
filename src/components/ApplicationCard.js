@@ -17,7 +17,7 @@ export const ApplicationCard = ({application}) => {
   const dispatch = useDispatch();
   const {
     name,
-    user,
+    admin,
     status,
     info,
     helpline_no,
@@ -35,7 +35,7 @@ export const ApplicationCard = ({application}) => {
             {name} <Badge colorScheme='blue'>{status}</Badge>
           </Heading>
 
-          <Text fontSize='sm'>by {user.name}</Text>
+          <Text fontSize='sm'>by {admin?.name}</Text>
         </Box>
         <Button
           onClick={onToggle}
@@ -55,6 +55,7 @@ export const ApplicationCard = ({application}) => {
             Other Details
           </Heading>
           <Divider my={2} />
+          <Text fontSize='sm'>Email: {admin?.email}</Text>
           <Text fontSize='sm'>
             Address: {`${city}, ${district}, ${state}, ${pinCode}`}
           </Text>
@@ -82,9 +83,7 @@ export const ApplicationCard = ({application}) => {
           <Divider my={2} />
           <ButtonGroup>
             <Button
-              onClick={() =>
-                dispatch(approveApplication(application._id, user._id))
-              }
+              onClick={() => dispatch(approveApplication(application._id))}
               disabled={status === 'approved'}
               size='sm'
               rounded='sm'
