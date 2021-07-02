@@ -9,7 +9,11 @@ export const OrgProfile = () => {
   return (
     <Container mt={5} px={5} py={10}>
       <Center py={5} flexDirection='column'>
-        <Avatar src={avatar} name={org.name ?? 'User'} size='2xl' />
+        <Avatar
+          src={org?.logo_url ?? avatar}
+          name={org.name ?? 'User'}
+          size='2xl'
+        />
         <Heading pt={2}>{org.name}</Heading>
         <Text mb={2}>{email}</Text>
         {/* TODO: add org details n other stuffs */}
