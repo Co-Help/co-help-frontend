@@ -23,7 +23,7 @@ import {VaccineCard2} from '../../../components/VaccineCard2';
 import {getBookedServices} from '../../../redux/actions/user/bookingsAction';
 import {formatDate, getLocalTimeFromDate} from '../../../utils';
 import {AppointmentCancelBtn} from './AppointmentCancelBtn';
-import {BloodTestBookingCancelBtn} from './BloodTestBookingCancelBtn';
+import {BloodTestCard} from './BloodTestCard';
 import {OxygenCard} from './OxygenCard';
 
 const BookingsItem = ({title, children}) => (
@@ -126,21 +126,7 @@ export const BookingsTabPanel = () => {
           {services?.blood_tests
             .filter(s => !s.done)
             .map(a => (
-              <CardContainer key={a._id}>
-                <Box mr='auto'>
-                  <Text>{a.info}</Text>
-                  <Text>
-                    Date: {formatDate(a.test_date)} | Time:{' '}
-                    {getLocalTimeFromDate(a.test_date)}
-                  </Text>
-
-                  <Text>
-                    Address: {a.org.name}, {a.org.address.city}
-                  </Text>
-                </Box>
-                <CallOrgBtn helpline_no={a.org.helpline_no} />
-                <BloodTestBookingCancelBtn id={a._id} />
-              </CardContainer>
+              <BloodTestCard key={a._id} data={a} showCancelBtn />
             ))}
         </Stack>
         {!services?.blood_tests.length && (

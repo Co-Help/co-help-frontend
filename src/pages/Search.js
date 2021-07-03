@@ -6,8 +6,8 @@ import {Loader} from '../components/Loader';
 import {VaccineCard2} from '../components/VaccineCard2';
 import {search} from '../redux/actions/user/userActions';
 import {BloodProvideCard} from './BloodProvide';
-import {BloodTestCard} from './BloodTest';
 import {EmergencyCard} from './Emergency';
+import {BloodTestCard} from './user/components/BloodTestCard';
 
 export const Search = () => {
   const {text} = useParams();
@@ -41,7 +41,7 @@ export const Search = () => {
         <Box mt='2.5'>
           <Text>Blood tests</Text>
           {searchRes?.blood_tests.map(s => (
-            <BloodTestCard key={s._id} s={s} />
+            <BloodTestCard key={s._id} data={s} />
           ))}
         </Box>
       ) : null}
