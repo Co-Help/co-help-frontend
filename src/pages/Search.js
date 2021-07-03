@@ -5,9 +5,11 @@ import {Redirect, useParams} from 'react-router-dom';
 import {Loader} from '../components/Loader';
 import {VaccineCard2} from '../components/VaccineCard2';
 import {search} from '../redux/actions/user/userActions';
+import {BedsCard} from './user/components/BedsCard';
 import {BloodProvideCard} from './user/components/BloodProvideCard';
 import {BloodTestCard} from './user/components/BloodTestCard';
 import {EmergencyCard} from './user/components/EmergencyCard';
+import {OxygenCard} from './user/components/OxygenCard';
 
 export const Search = () => {
   const {text} = useParams();
@@ -60,6 +62,24 @@ export const Search = () => {
           <Text>Emergencies</Text>
           {searchRes?.emergencies.map(s => (
             <EmergencyCard key={s._id} data={s} />
+          ))}
+        </Box>
+      ) : null}
+
+      {searchRes?.bed_provides.length ? (
+        <Box mt='2.5'>
+          <Text>Beds</Text>
+          {searchRes?.bed_provides.map(s => (
+            <BedsCard key={s._id} data={s} />
+          ))}
+        </Box>
+      ) : null}
+
+      {searchRes?.oxygen_provides.length ? (
+        <Box mt='2.5'>
+          <Text>Oxygen</Text>
+          {searchRes?.oxygen_provides.map(s => (
+            <OxygenCard key={s._id} data={s} />
           ))}
         </Box>
       ) : null}
