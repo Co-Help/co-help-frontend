@@ -5,9 +5,9 @@ import {Redirect, useParams} from 'react-router-dom';
 import {Loader} from '../components/Loader';
 import {VaccineCard2} from '../components/VaccineCard2';
 import {search} from '../redux/actions/user/userActions';
-import {EmergencyCard} from './Emergency';
 import {BloodProvideCard} from './user/components/BloodProvideCard';
 import {BloodTestCard} from './user/components/BloodTestCard';
+import {EmergencyCard} from './user/components/EmergencyCard';
 
 export const Search = () => {
   const {text} = useParams();
@@ -59,7 +59,7 @@ export const Search = () => {
         <Box mt='2.5'>
           <Text>Emergencies</Text>
           {searchRes?.emergencies.map(s => (
-            <EmergencyCard key={s._id} s={s} />
+            <EmergencyCard key={s._id} data={s} />
           ))}
         </Box>
       ) : null}

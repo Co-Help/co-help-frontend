@@ -1,4 +1,3 @@
-import {PhoneIcon} from '@chakra-ui/icons';
 import {
   AlertDialog,
   AlertDialogBody,
@@ -6,52 +5,16 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
-  Badge,
-  Box,
   Button,
   Container,
-  Heading,
   Text,
-  Tooltip,
 } from '@chakra-ui/react';
 import {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
-import {CardContainer} from '../components/CardContainer';
 import {Loader} from '../components/Loader';
 import {getEmergencyServices} from '../redux/actions/user/emergencyActions';
-
-export const EmergencyCard = ({s}) => (
-  <CardContainer key={s._id}>
-    <Box>
-      <Heading size='md'>
-        {s.org.name}{' '}
-        <Badge colorScheme='green'>{s.available && 'Available'}</Badge>
-      </Heading>
-
-      <Text fontSize='sm'>{s.info}</Text>
-      <Text fontSize='sm'>
-        Address: {s.org.name}, {s.org.address.city}
-      </Text>
-      <Text fontSize='sm'>Price: Rs. {s.cost}</Text>
-    </Box>
-    <Tooltip
-      hasArrow
-      placement='top'
-      label={s.emergency_no}
-      aria-label='Emergency number'>
-      <Button
-        leftIcon={<PhoneIcon />}
-        colorScheme='blue'
-        variant='solid'
-        size='sm'
-        rounded='sm'
-        isDisabled={!s.available}>
-        Call us
-      </Button>
-    </Tooltip>
-  </CardContainer>
-);
+import {EmergencyCard} from './user/components/EmergencyCard';
 
 export const Emergency = () => {
   const {is_profile_completed, address} = useSelector(
@@ -110,7 +73,7 @@ export const Emergency = () => {
         List of emergency services in <strong>{address?.city}</strong>
       </Text>
       {emergencyServices?.map(s => (
-        <EmergencyCard key={s._id} s={s} />
+        <EmergencyCard key={s._id} data={s} />
       ))}
     </Container>
   );
