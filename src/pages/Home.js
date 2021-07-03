@@ -99,6 +99,11 @@ export const Home = () => {
     }
   }, [doctors, address]);
 
+  const onSearch = e => {
+    e.preventDefault();
+    search.trim() && history.push(`/search/${search}`);
+  };
+
   return (
     <Box>
       <Flex
@@ -115,27 +120,26 @@ export const Home = () => {
           textAlign='center'>
           Quickly find and book medical services near you.
         </Heading>
-        <InputGroup size='md' maxW='container.sm' mt='10'>
-          <Input
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            border='1px'
-            borderColor='gray.400'
-            p='6'
-            type='search'
-            shadow='sm'
-            _focus={{shadow: 'lg'}}
-            placeholder='Search with city, district or state'
-          />
-          <InputRightElement width='5.5rem' mr='1' mt='1'>
-            <Button
-              onClick={() => search && history.push(`/search/${search}`)}
-              size='md'
-              colorScheme='blue'>
-              Search
-            </Button>
-          </InputRightElement>
-        </InputGroup>
+        <form style={{width: '50%'}} onSubmit={onSearch}>
+          <InputGroup size='md' mt='10'>
+            <Input
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              border='1px'
+              borderColor='gray.400'
+              p='6'
+              type='search'
+              shadow='sm'
+              _focus={{shadow: 'lg'}}
+              placeholder='Search with city, district or state'
+            />
+            <InputRightElement width='5.5rem' mr='1' mt='1'>
+              <Button type='submit' size='md' colorScheme='blue'>
+                Search
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+        </form>
       </Flex>
 
       <Flex py='16' flexDir='column' align='center' justify='center'>
