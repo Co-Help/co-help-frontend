@@ -8,6 +8,7 @@ import {BedProvide} from './BedProvide';
 import {BloodProvide} from './BloodProvide';
 import {BloodTest} from './BloodTest';
 import {BloodTestDetails} from './components/bloodTest/BloodTestDetails';
+import {OxygenDetails} from './components/oxygen/OxygenDetails';
 import {VaccineBatch} from './components/vaccine/VaccineBatch';
 import {Doctors} from './Doctors';
 import {Emergency} from './Emergency';
@@ -33,7 +34,11 @@ export const OrgDashboard = () => {
             {/* TODO: if a org does not provide a service make sure they cant access that route */}
             <Route path={`${path}/doctor_appointment`} component={Doctors} />
             <Route path={`${path}/emergency_provide`} component={Emergency} />
-            <Route path={`${path}/oxygen_provide`} component={Oxygen} />
+            <Route exact path={`${path}/oxygen_provide`} component={Oxygen} />
+            <Route
+              path={`${path}/oxygen_provide/:batch_code`}
+              component={OxygenDetails}
+            />
             <Route path={`${path}/bed_provide`} component={BedProvide} />
             <Route exact path={`${path}/blood_test`} component={BloodTest} />
             <Route

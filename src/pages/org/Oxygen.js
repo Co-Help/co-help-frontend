@@ -1,4 +1,4 @@
-import {DeleteIcon} from '@chakra-ui/icons';
+import {ChevronRightIcon, DeleteIcon} from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -16,10 +16,12 @@ import {
   Td,
   Th,
   Thead,
+  Tooltip,
   Tr,
 } from '@chakra-ui/react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {Link, useRouteMatch} from 'react-router-dom';
 import {Loader} from '../../components/Loader';
 import {
   deleteOxygenService,
@@ -30,6 +32,7 @@ import {AddOxygenModal} from './components/oxygen/AddOxygenModal';
 export const Oxygen = () => {
   const o2Services = useSelector(state => state.orgO2.services);
   const dispatch = useDispatch();
+  let {url} = useRouteMatch();
 
   useEffect(() => {
     dispatch(getOxygenServices());
@@ -88,6 +91,11 @@ export const Oxygen = () => {
                     </PopoverFooter>
                   </PopoverContent>
                 </Popover>
+                <Link to={`${url}/${s.batch_code}`}>
+                  <Tooltip label='See all bookings' hasArrow>
+                    <IconButton ml='1' size='sm' icon={<ChevronRightIcon />} />
+                  </Tooltip>
+                </Link>
               </Td>
             </Tr>
           ))}

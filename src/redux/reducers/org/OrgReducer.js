@@ -12,6 +12,7 @@ import {
   ORG_DELETE_BLOOD_TEST_BY_ID,
   ORG_DELETE_BLOOD_TEST_SERVICES,
   ORG_DELETE_EMERGENCY_SERVICE,
+  ORG_DELETE_OXYGEN_BY_ID,
   ORG_DELETE_OXYGEN_SERVICES,
   ORG_EDIT_BLOOD,
   ORG_EDIT_EMERGENCY,
@@ -20,7 +21,9 @@ import {
   ORG_GET_BLOOD_TEST_BATCH,
   ORG_GET_BLOOD_TEST_SERVICES,
   ORG_GET_EMERGENCY_SERVICES,
+  ORG_GET_OXYGEN_BATCH,
   ORG_GET_OXYGEN_SERVICES,
+  SET_DONE_UNDONE_OXYGEN,
   SET_DONE_UNDONE_VACCINE,
 } from '../../actions/org/types';
 
@@ -106,6 +109,23 @@ export const orgOxygenReducer = (state = {}, action) => {
     case ORG_DELETE_OXYGEN_SERVICES: {
       return {
         services: state.services.filter(s => s.batch_code !== action.payload),
+      };
+    }
+    case ORG_GET_OXYGEN_BATCH: {
+      return {...state, batches: action.payload};
+    }
+    case SET_DONE_UNDONE_OXYGEN: {
+      return {
+        ...state,
+        batches: state.batches.map(o =>
+          o._id === action.payload ? {...o, done: !o.done} : o
+        ),
+      };
+    }
+    case ORG_DELETE_OXYGEN_BY_ID: {
+      return {
+        ...state,
+        batches: state.batches.filter(s => s._id !== action.payload),
       };
     }
     default:
