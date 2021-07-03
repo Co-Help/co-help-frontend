@@ -10,10 +10,12 @@ import {LogoutButton} from './LogoutButton';
 const NavLink = ({to, title}) => {
   const {pathname} = useLocation();
   const isActiveLink = pathname === to;
+  const color = useColorModeValue('blue.600', 'blue.300');
+
   return (
     <Link to={to}>
       {isActiveLink ? (
-        <Text color='blue.600' fontWeight='semibold'>
+        <Text color={color} fontWeight='semibold' letterSpacing='wider'>
           {title}
         </Text>
       ) : (
@@ -65,7 +67,7 @@ export const Nav = () => {
   const isDoctor = profile && profile?.role === 'doctor';
   const isPublic = !profile;
 
-  const bg = useColorModeValue('whiteAlpha.600', 'gray.600');
+  const bg = useColorModeValue('whiteAlpha.600', 'blackAlpha.300');
 
   return (
     <Flex
