@@ -63,6 +63,7 @@ export const Nav = () => {
   const profile = useSelector(state => state.user.profile);
   const isAdmin = profile && profile?.role === 'admin';
   const isOrg = profile && profile?.role === 'org';
+  const isOrgMember = isOrg && profile.org?.members?.includes(profile.email);
   const isUser = profile && profile?.role === 'user';
   const isDoctor = profile && profile?.role === 'doctor';
   const isPublic = !profile;
@@ -85,8 +86,8 @@ export const Nav = () => {
         <Heading fontSize='xl' fontWeight='semibold'>
           Co.Help{' '}
           {(isOrg || isAdmin || isDoctor) && (
-            <Badge mb={3} colorScheme='blue'>
-              {profile?.role}
+            <Badge mb={3} px='1' py='0.5' colorScheme='blue'>
+              {profile?.role} {isOrgMember ? 'MEMBER' : 'ADMIN'}
             </Badge>
           )}
         </Heading>

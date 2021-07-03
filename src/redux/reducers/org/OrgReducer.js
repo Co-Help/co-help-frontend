@@ -1,6 +1,8 @@
 import {
   DEL_ALL_VACCINES,
   DEL_VACCINE_FROM_BATCH,
+  FETCH_ORG_INFO,
+  FETCH_ORG_INFO_ERROR,
   FILTER_VACCINE_BATCH,
   GET_ALL_VACCINES,
   GET_VACCINE_BY_BATCH,
@@ -23,6 +25,7 @@ import {
   ORG_GET_EMERGENCY_SERVICES,
   ORG_GET_OXYGEN_BATCH,
   ORG_GET_OXYGEN_SERVICES,
+  ORG_REMOVE_MEMBER,
   SET_DONE_UNDONE_OXYGEN,
   SET_DONE_UNDONE_VACCINE,
 } from '../../actions/org/types';
@@ -165,6 +168,25 @@ export const orgBloodTestReducer = (state = {}, action) => {
       return {
         ...state,
         batches: state.batches.filter(s => s._id !== action.payload),
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+export const orgInfoReducer = (state = {loading: true}, action) => {
+  switch (action.type) {
+    case FETCH_ORG_INFO: {
+      return {...action.payload, loading: false};
+    }
+    case FETCH_ORG_INFO_ERROR: {
+      return {loading: false, error: action.payload};
+    }
+    case ORG_REMOVE_MEMBER: {
+      return {
+        ...state,
+        members: state.members.filter(m => m.email !== action.payload),
       };
     }
     default:

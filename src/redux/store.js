@@ -10,6 +10,7 @@ import {
   orgBloodReducer,
   orgBloodTestReducer,
   orgEmergencyReducer,
+  orgInfoReducer,
   orgOxygenReducer,
   orgVaccineReducer,
 } from './reducers/org/OrgReducer';
@@ -30,6 +31,7 @@ const reducer = combineReducers({
   orgBlood: orgBloodReducer,
   orgO2: orgOxygenReducer,
   orgBeds: orgBedsReducer,
+  orgInfo: orgInfoReducer,
   orgBloodTest: orgBloodTestReducer,
   orgApply: orgApplyReducer,
   orgApplications: orgApplicationsReducer,

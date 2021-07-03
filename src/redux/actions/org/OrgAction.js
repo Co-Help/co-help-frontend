@@ -3,10 +3,13 @@ import {AUTH_HEADER, parseDateTimeToMilli} from '../../../utils';
 import {
   DEL_ALL_VACCINES,
   DEL_VACCINE_FROM_BATCH,
+  FETCH_ORG_INFO,
+  FETCH_ORG_INFO_ERROR,
   FILTER_VACCINE_BATCH,
   GET_ALL_VACCINES,
   GET_VACCINE_BY_BATCH,
   GET_VACCINE_BY_BATCH_FAIL,
+  ORG_REMOVE_MEMBER,
   SET_DONE_UNDONE_VACCINE,
 } from './types';
 
@@ -126,5 +129,35 @@ export const deleteVaccineFromBatch = (id, errorCb) => async dispatch => {
     dispatch(vaccineBatchFilter(FilterValues.nonBooked));
   } catch (err) {
     errorCb(err);
+  }
+};
+
+export const addMember = (email, cb, errCb) => async () => {
+  try {
+    await axios.post('/org/member', {email}, AUTH_HEADER);
+    cb?.();
+  } catch (err) {
+    errCb?.(err);
+  }
+};
+
+export const deleteMember = (email, errCb) => async dispatch => {
+  try {
+    await axios.delete('/org/member', {...AUTH_HEADER, data: {email}});
+    dispatch({type: ORG_REMOVE_MEMBER, payload: email});
+  } catch (err) {
+    errCb?.(err);
+  }
+};
+
+export const fetchOrgInfo = () => async dispatch => {
+  try {
+    const {data} = await axios.get('/org/info', AUTH_HEADER);
+    dispatch({type: FETCH_ORG_INFO, payload: data?.org});
+  } catch (err) {
+    dispatch({
+      type: FETCH_ORG_INFO_ERROR,
+      payload: err.response?.data.msg || 'Something went wrong',
+    });
   }
 };
