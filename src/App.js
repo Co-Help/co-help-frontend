@@ -15,6 +15,7 @@ import {Home} from './pages/Home';
 import {Login} from './pages/Login';
 import {OrgDashboard} from './pages/org/Dashboard';
 import {OrgProfile} from './pages/org/OrgProfile';
+import {Oxygen} from './pages/Oxygen';
 import {Search} from './pages/Search';
 import {CompleteProfile} from './pages/user/CompleteProfile';
 import {JoinAsDoctor} from './pages/user/JoinAsDoctor';
@@ -46,6 +47,7 @@ const userRoutes = [
   {path: '/emergency', component: Emergency},
   {path: '/blood', component: BloodProvide},
   {path: '/blood_test', component: BloodTest},
+  {path: '/oxygen', component: Oxygen},
 ];
 
 const doctorRoutes = [

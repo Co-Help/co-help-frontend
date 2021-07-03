@@ -44,6 +44,7 @@ const userLinks = [
   {to: '/blood', title: 'Blood'},
   {to: '/blood_test', title: 'Blood Test'},
   {to: '/vaccines', title: 'Vaccines'},
+  {to: '/oxygen', title: 'Oxygen'},
   {to: '/user/profile', title: 'Profile'},
 ];
 const orgLinks = [
