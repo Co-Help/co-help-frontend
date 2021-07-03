@@ -156,8 +156,8 @@ export const BookingsTabPanel = () => {
               <OxygenCard key={a.booking_date} data={a} showCancelBtn />
             ))}
         </Stack>
-        {!services?.oxygen_provides.length && (
-          <Text textAlign='center'>No bookings available</Text>
+        {!services?.oxygen_provides.filter(s => !s.done).length && (
+          <EmptyMessage msg='No bookings available' />
         )}
       </BookingsItem>
     </Accordion>
