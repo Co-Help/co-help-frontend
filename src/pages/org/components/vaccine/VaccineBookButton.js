@@ -74,7 +74,7 @@ export const VaccineBookButton = ({batch_code}) => {
         colorScheme='blue'
         variant='outline'
         onClick={onOpen}>
-        Book
+        Book now
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

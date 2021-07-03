@@ -19,18 +19,17 @@ export const OxygenCard = ({data, showCancelBtn, isDone}) => {
 
   return (
     <CardContainer p='3.5' flexDirection='column' align='start'>
-      <HStack w='full' justify='space-between'>
-        {showCancelBtn ? (
-          <Heading size='md'>Quantity {data?.qty}</Heading>
-        ) : (
-          <Heading size='md'>Capacity {capacity}</Heading>
-        )}
-      </HStack>
-
-      <HStack my='1' w='full' justify='space-between' align='center'>
-        <Text maxW='80%' opacity='0.8'>
-          {info}
-        </Text>
+      <HStack mb='1' w='full' justify='space-between'>
+        <Stack spacing='0'>
+          {showCancelBtn ? (
+            <Heading size='md'>Quantity {data?.qty}</Heading>
+          ) : (
+            <Heading size='md'>Capacity {capacity}</Heading>
+          )}
+          <Text maxW='80%' opacity='0.8'>
+            {info}
+          </Text>
+        </Stack>
         <Heading opacity='0.9' size='lg'>
           <Text mr='1' fontFamily='sans-serif' display='inline' opacity='0.7'>
             ₹

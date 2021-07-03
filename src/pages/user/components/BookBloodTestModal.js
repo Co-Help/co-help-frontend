@@ -49,6 +49,7 @@ export const BookBloodTestModal = ({data}) => {
         onClick={onOpen}
         isDisabled={data.booked}
         size='sm'
+        variant='outline'
         rounded='sm'
         colorScheme='blue'>
         Book now

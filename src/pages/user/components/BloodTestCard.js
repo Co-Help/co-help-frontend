@@ -20,8 +20,8 @@ export const BloodTestCard = ({data, showCancelBtn, isDone}) => {
 
   return (
     <CardContainer p='3.5' flexDirection='column' align='start'>
-      <HStack justify='space-between' w='full'>
-        <Stack>
+      <HStack mb='1' justify='space-between' w='full'>
+        <Stack spacing='0'>
           <Heading size='md'>{info}</Heading>
           <Text opacity='0.95' fontSize='sm'>
             {formatDate(test_date)} | Time: {getLocalTimeFromDate(test_date)}
