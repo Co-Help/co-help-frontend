@@ -5,8 +5,8 @@ import {Redirect, useParams} from 'react-router-dom';
 import {Loader} from '../components/Loader';
 import {VaccineCard2} from '../components/VaccineCard2';
 import {search} from '../redux/actions/user/userActions';
-import {BloodProvideCard} from './BloodProvide';
 import {EmergencyCard} from './Emergency';
+import {BloodProvideCard} from './user/components/BloodProvideCard';
 import {BloodTestCard} from './user/components/BloodTestCard';
 
 export const Search = () => {
@@ -50,7 +50,7 @@ export const Search = () => {
         <Box mt='2.5'>
           <Text>Bloods</Text>
           {searchRes?.blood_provides.map(s => (
-            <BloodProvideCard key={s._id} s={s} />
+            <BloodProvideCard key={s._id} data={s} />
           ))}
         </Box>
       ) : null}

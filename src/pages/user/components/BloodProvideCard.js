@@ -10,18 +10,18 @@ import {
 import {CallOrgBtn} from '../../../components/CallOrgBtn';
 import {CardContainer} from '../../../components/CardContainer';
 
-export const BedsCard = ({data}) => {
-  const {info, cost, org, total_beds, available_beds} = data;
+export const BloodProvideCard = ({data}) => {
+  const {info, group, cost, org} = data;
   const iconColor = useColorModeValue('blue.500', 'blue.200');
 
   return (
     <CardContainer p='3.5' flexDirection='column' align='start'>
       <HStack mb='1' w='full' justify='space-between'>
-        <Stack spacing='0'>
-          <Heading size='md'>{info}</Heading>
-          <Text>
-            Available: {available_beds}/{total_beds}
-          </Text>
+        <Stack maxW='80%' spacing='0'>
+          <Heading fontSize='2xl' letterSpacing='1px'>
+            {group}
+          </Heading>
+          <Text opacity='0.8'>{info}</Text>
         </Stack>
         <Heading opacity='0.9' size='lg'>
           <Text mr='1' fontFamily='sans-serif' display='inline' opacity='0.7'>
