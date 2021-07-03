@@ -28,7 +28,7 @@ const reducer = combineReducers({
   orgEmergency: orgEmergencyReducer,
   orgBlood: orgBloodReducer,
   orgO2: orgOxygenReducer,
-  beds: orgBedsReducer, //FIXME: beds => orgBeds
+  orgBeds: orgBedsReducer,
   orgBloodTest: orgBloodTestReducer,
   orgApply: orgApplyReducer,
   orgApplications: orgApplicationsReducer,

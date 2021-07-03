@@ -29,7 +29,7 @@ import {
 import {AddBedsModal} from './components/beds/AddBedsModal';
 
 export const BedProvide = () => {
-  const bedServices = useSelector(state => state.beds.services);
+  const bedServices = useSelector(state => state.orgBeds.services);
   const dispatch = useDispatch();
 
   useEffect(() => {
