@@ -10,17 +10,21 @@ import {
 } from '@chakra-ui/react';
 import {CallOrgBtn} from '../../../components/CallOrgBtn';
 import {CardContainer} from '../../../components/CardContainer';
-import {VaccineCancelButton} from '../../org/components/vaccine/VaccineCancelButton';
 import {OxygenBookButton} from './OxygenBookModal';
+import {OxygenCancelBtn} from './OxygenCancelBtn';
 
 export const OxygenCard = ({data, showCancelBtn, isDone}) => {
-  const {_id, info, cost, org, batch_code, capacity} = data;
+  const {booking_date, info, cost, org, batch_code, capacity} = data;
   const iconColor = useColorModeValue('blue.500', 'blue.200');
 
   return (
     <CardContainer p='3.5' flexDirection='column' align='start'>
       <HStack w='full' justify='space-between'>
-        <Heading size='md'>Capacity {capacity}</Heading>
+        {showCancelBtn ? (
+          <Heading size='md'>Quantity {data?.qty}</Heading>
+        ) : (
+          <Heading size='md'>Capacity {capacity}</Heading>
+        )}
       </HStack>
 
       <HStack my='1' w='full' justify='space-between' align='center'>
@@ -59,7 +63,9 @@ export const OxygenCard = ({data, showCancelBtn, isDone}) => {
           {!showCancelBtn && !isDone && (
             <OxygenBookButton batch_code={batch_code} />
           )}
-          {showCancelBtn && !isDone && <VaccineCancelButton id={_id} />}
+          {showCancelBtn && !isDone && (
+            <OxygenCancelBtn booking_date={booking_date} />
+          )}
         </ButtonGroup>
       </HStack>
     </CardContainer>

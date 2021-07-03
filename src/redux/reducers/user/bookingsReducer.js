@@ -1,6 +1,7 @@
 import {
   CANCEL_APPOINTMENT,
   CANCEL_BLOOD_TEST_BOOKING,
+  CANCEL_OXYGEN_BOOKING,
   CANCEL_VACCINE_BOOKING,
   GET_BOOKED_SERVICES,
 } from '../../actions/user/types';
@@ -36,6 +37,16 @@ export const bookingsReducer = (state = {}, action) => {
           ...state.services,
           vaccinations: state.services.vaccinations.filter(
             a => a._id !== action.payload
+          ),
+        },
+      };
+    }
+    case CANCEL_OXYGEN_BOOKING: {
+      return {
+        services: {
+          ...state.services,
+          oxygen_provides: state.services.oxygen_provides.filter(
+            a => a.booking_date !== action.payload
           ),
         },
       };

@@ -3,6 +3,7 @@ import {AUTH_HEADER} from '../../../utils';
 import {
   CANCEL_APPOINTMENT,
   CANCEL_BLOOD_TEST_BOOKING,
+  CANCEL_OXYGEN_BOOKING,
   CANCEL_VACCINE_BOOKING,
   GET_BOOKED_SERVICES,
 } from './types';
@@ -45,3 +46,17 @@ export const cancelVaccinationBooking = (id, cb) => async dispatch => {
     console.error(err);
   }
 };
+
+export const cancelOxygenBooking =
+  (booking_date, cb, errorCb) => async dispatch => {
+    try {
+      await axios.delete(`/services/oxygen_provide`, {
+        ...AUTH_HEADER,
+        data: {booking_date},
+      });
+      dispatch({type: CANCEL_OXYGEN_BOOKING, payload: booking_date});
+      cb?.();
+    } catch (err) {
+      errorCb?.(err);
+    }
+  };

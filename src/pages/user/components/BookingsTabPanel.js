@@ -24,6 +24,7 @@ import {getBookedServices} from '../../../redux/actions/user/bookingsAction';
 import {formatDate, getLocalTimeFromDate} from '../../../utils';
 import {AppointmentCancelBtn} from './AppointmentCancelBtn';
 import {BloodTestBookingCancelBtn} from './BloodTestBookingCancelBtn';
+import {OxygenCard} from './OxygenCard';
 
 const BookingsItem = ({title, children}) => (
   <AccordionItem>
@@ -144,6 +145,19 @@ export const BookingsTabPanel = () => {
         </Stack>
         {!services?.blood_tests.length && (
           <Text textAlign='center'>No blood test bookings available</Text>
+        )}
+      </BookingsItem>
+
+      <BookingsItem title='Oxygen'>
+        <Stack spacing={2}>
+          {services?.oxygen_provides
+            .filter(s => !s.done)
+            .map(a => (
+              <OxygenCard key={a.booking_date} data={a} showCancelBtn />
+            ))}
+        </Stack>
+        {!services?.oxygen_provides.length && (
+          <Text textAlign='center'>No bookings available</Text>
         )}
       </BookingsItem>
     </Accordion>
