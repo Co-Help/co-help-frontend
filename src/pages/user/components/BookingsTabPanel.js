@@ -15,14 +15,11 @@ import {
 } from '@chakra-ui/react';
 import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {CallOrgBtn} from '../../../components/CallOrgBtn';
-import {CardContainer} from '../../../components/CardContainer';
 import {EmptyMessage} from '../../../components/EmptyMessage';
 import {Loader} from '../../../components/Loader';
 import {VaccineCard2} from '../../../components/VaccineCard2';
 import {getBookedServices} from '../../../redux/actions/user/bookingsAction';
-import {formatDate, getLocalTimeFromDate} from '../../../utils';
-import {AppointmentCancelBtn} from './AppointmentCancelBtn';
+import {AppointmentCard} from './AppointmentCard';
 import {BloodTestCard} from './BloodTestCard';
 import {OxygenCard} from './OxygenCard';
 
@@ -66,6 +63,9 @@ export const BookingsTabPanel = () => {
   const dispatch = useDispatch();
   const services = useSelector(state => state.bookings.services);
   const [showDone, setShowDone] = useState(false);
+  const [showAppointmentDone, setShowAppointmentDone] = useState(false);
+  const [showBloodTestDone, setShowBloodTestDone] = useState(false);
+  const [showOxygenDone, setShowOxygenDone] = useState(false);
 
   useEffect(() => {
     dispatch(getBookedServices());
@@ -100,24 +100,22 @@ export const BookingsTabPanel = () => {
           {services?.appointments
             .filter(s => !s.done)
             .map(a => (
-              <CardContainer key={a._id}>
-                <Box mr='auto'>
-                  <Text>{a.info}</Text>
-                  <Text>
-                    Date: {formatDate(a.appointment_date)} &bull; Time:{' '}
-                    {getLocalTimeFromDate(a.appointment_date)}
-                  </Text>
-                  <Text>
-                    Address: {a.org.name}, {a.org.address.city}
-                  </Text>
-                </Box>
-                <CallOrgBtn helpline_no={a.org.helpline_no} />
-                <AppointmentCancelBtn id={a._id} />
-              </CardContainer>
+              <AppointmentCard key={a._id} data={a} />
             ))}
           {!services?.appointments.filter(s => !s.done).length && (
             <EmptyMessage msg='No appointments are available' />
           )}
+          <ShowDoneBtn
+            isShown={showAppointmentDone}
+            onClick={() => setShowAppointmentDone(p => !p)}
+          />
+          <Collapse in={showAppointmentDone} animateOpacity>
+            {services?.appointments
+              .filter(s => s.done)
+              .map(a => (
+                <AppointmentCard key={a._id} data={a} isDone />
+              ))}
+          </Collapse>
         </Stack>
       </BookingsItem>
 
@@ -129,9 +127,20 @@ export const BookingsTabPanel = () => {
               <BloodTestCard key={a._id} data={a} showCancelBtn />
             ))}
         </Stack>
-        {!services?.blood_tests.length && (
+        {!services?.blood_tests.filter(s => !s.done).length && (
           <Text textAlign='center'>No blood test bookings available</Text>
         )}
+        <ShowDoneBtn
+          isShown={showBloodTestDone}
+          onClick={() => setShowBloodTestDone(p => !p)}
+        />
+        <Collapse in={showBloodTestDone} animateOpacity>
+          {services?.blood_tests
+            .filter(s => s.done)
+            .map(a => (
+              <BloodTestCard key={a._id} data={a} isDone />
+            ))}
+        </Collapse>
       </BookingsItem>
 
       <BookingsItem title='Oxygen'>
@@ -145,6 +154,17 @@ export const BookingsTabPanel = () => {
         {!services?.oxygen_provides.filter(s => !s.done).length && (
           <EmptyMessage msg='No bookings available' />
         )}
+        <ShowDoneBtn
+          isShown={showOxygenDone}
+          onClick={() => setShowOxygenDone(p => !p)}
+        />
+        <Collapse in={showOxygenDone} animateOpacity>
+          {services?.oxygen_provides
+            .filter(s => s.done)
+            .map(a => (
+              <OxygenCard key={a.booking_date} data={a} isDone />
+            ))}
+        </Collapse>
       </BookingsItem>
     </Accordion>
   );
