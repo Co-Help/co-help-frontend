@@ -87,7 +87,7 @@ export const Nav = () => {
           Co.Help{' '}
           {(isOrg || isAdmin || isDoctor) && (
             <Badge mb={3} px='1' py='0.5' colorScheme='blue'>
-              {profile?.role} {isOrgMember ? 'MEMBER' : 'ADMIN'}
+              {profile?.role} {isOrg ? (isOrgMember ? 'MEMBER' : 'ADMIN') : ''}
             </Badge>
           )}
         </Heading>
