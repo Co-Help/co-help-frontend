@@ -39,7 +39,7 @@ export const JoinAsDoctor = () => {
       </Heading>
       <Input
         variant='outline'
-        placeholder='Enter organization the pass key'
+        placeholder='Enter organization pass key'
         value={passKey}
         onChange={e => setPassKey(e.target.value)}
       />
