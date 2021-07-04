@@ -24,15 +24,11 @@ import {
   useColorModeValue,
   useToast,
 } from '@chakra-ui/react';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {EmptyMessage} from '../../../components/EmptyMessage';
 import {Loader} from '../../../components/Loader';
-import {
-  addMember,
-  deleteMember,
-  fetchOrgInfo,
-} from '../../../redux/actions/org/OrgAction';
+import {addMember, deleteMember} from '../../../redux/actions/org/OrgAction';
 import {errorToastOptions, toastOptions} from '../../../utils';
 
 export const OrgMembersPanel = () => {
@@ -45,10 +41,6 @@ export const OrgMembersPanel = () => {
   const dispatch = useDispatch();
   const toast = useToast();
   const bg = useColorModeValue('gray.200', 'gray.700');
-
-  useEffect(() => {
-    dispatch(fetchOrgInfo());
-  }, [dispatch]);
 
   const onAddMember = () => {
     if (email.trim()) {

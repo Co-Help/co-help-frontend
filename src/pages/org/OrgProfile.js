@@ -1,12 +1,20 @@
 import {Avatar} from '@chakra-ui/avatar';
 import {Center, Container, Heading, Text} from '@chakra-ui/layout';
 import {Box, Tab, TabList, TabPanel, TabPanels, Tabs} from '@chakra-ui/react';
-import {useSelector} from 'react-redux';
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {LogoutButton} from '../../components/LogoutButton';
+import {fetchOrgInfo} from '../../redux/actions/org/OrgAction';
+import {OrgDoctorsPanel} from './components/OrgDoctorsPanel';
 import {OrgMembersPanel} from './components/OrgMembersPanel';
 
 export const OrgProfile = () => {
   const {avatar, org} = useSelector(state => state.user.profile);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchOrgInfo());
+  }, [dispatch]);
 
   return (
     <Container mt={5} px={5} py={10}>
@@ -31,7 +39,9 @@ export const OrgProfile = () => {
             <TabPanel>
               <OrgMembersPanel />
             </TabPanel>
-            <TabPanel>Doctors</TabPanel>
+            <TabPanel>
+              <OrgDoctorsPanel />
+            </TabPanel>
           </TabPanels>
         </Tabs>
       </Box>
