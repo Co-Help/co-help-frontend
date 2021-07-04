@@ -5,7 +5,6 @@ import {
   AlertDescription,
   AlertIcon,
   Button,
-  Link,
   Tab,
   TabList,
   TabPanel,
@@ -13,7 +12,7 @@ import {
   Tabs,
 } from '@chakra-ui/react';
 import {useSelector} from 'react-redux';
-import {Link as RLink} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {BookingsTabPanel} from './components/BookingsTabPanel';
 import {OthersTabPanel} from './components/OthersTabPanel';
 
@@ -21,21 +20,23 @@ export const UserProfile = () => {
   const {name, email, avatar, is_profile_completed} = useSelector(
     state => state.user.profile
   );
+  const history = useHistory();
 
   return (
     <>
       {!is_profile_completed && (
         <Alert rounded='sm' size='md' status='warning'>
           <AlertIcon />
-          <AlertDescription>
-            Seems you haven't completed your profile, please complete to get
-            better search results
+          <AlertDescription mr='auto'>
+            Your profile is incomplete, please complete to get better search
+            results.
           </AlertDescription>
-          <Link ml='auto' as={RLink} to='/user/complete-profile'>
-            <Button colorScheme='blackAlpha' size='sm'>
-              Complete now
-            </Button>
-          </Link>
+          <Button
+            onClick={() => history.push('/user/complete-profile')}
+            colorScheme='orange'
+            size='sm'>
+            Complete now
+          </Button>
         </Alert>
       )}
       <Container mt={5} px={5} py={10}>
