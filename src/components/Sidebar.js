@@ -17,7 +17,9 @@ export const Sidebar = ({sideBarLinks, url}) => {
             rounded='sm'
             as={ReactLink}
             to={url + to}>
-            <Text textTransform='capitalize'>{title}</Text>
+            <Text textTransform='capitalize'>
+              {title.includes('emergency') ? 'Ambulance' : title}
+            </Text>
           </Link>
         ))}
       </Stack>
