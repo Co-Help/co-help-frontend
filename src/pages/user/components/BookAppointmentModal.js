@@ -79,15 +79,15 @@ export const BookAppointmentModal = ({a}) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Booking appointment</ModalHeader>
+          <ModalHeader>Confirmation</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text>You're about to book for an appointment, continue?</Text>
+            <Text>You're about to book an appointment, continue?</Text>
             <Checkbox
               isChecked={bookForOthers}
               onChange={e => setBookForOthers(e.target.checked)}
               mt={2}>
-              Book for someone else?
+              Book for someone else
             </Checkbox>
             <Collapse in={bookForOthers} animateOpacity>
               <Box mt={2} p={2}>
