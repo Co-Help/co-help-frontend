@@ -30,7 +30,7 @@ export const getAvailableAppointments = docID => async dispatch => {
 };
 
 export const bookAppointment =
-  ({bookingId, batch_code, form, self_booking}, cb) =>
+  ({bookingId, batch_code, form, self_booking}, cb, errCb) =>
   async dispatch => {
     try {
       const data = {
@@ -44,6 +44,6 @@ export const bookAppointment =
       dispatch({type: BOOK_APPOINTMENT, payload: bookingId});
       cb?.();
     } catch (err) {
-      console.error(err);
+      errCb?.(err);
     }
   };

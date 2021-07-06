@@ -30,6 +30,6 @@ export const bookVaccine =
       await axios.post('/services/vaccination', data, AUTH_HEADER);
       cb?.();
     } catch (err) {
-      errCb?.();
+      errCb?.(err);
     }
   };

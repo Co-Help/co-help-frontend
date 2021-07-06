@@ -12,7 +12,7 @@ export const getBloodTestServices = () => async dispatch => {
 };
 
 export const bookBloodTest =
-  ({batch_code, form, self_booking}, cb) =>
+  ({batch_code, form, self_booking}, cb, errCb) =>
   async dispatch => {
     try {
       const data = {
@@ -26,6 +26,6 @@ export const bookBloodTest =
       cb?.();
       dispatch(getBloodTestServices());
     } catch (err) {
-      console.error(err);
+      errCb?.(err);
     }
   };

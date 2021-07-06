@@ -9,15 +9,18 @@ import {
   Box,
   Button,
   useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 import {useRef} from 'react';
 import {useDispatch} from 'react-redux';
 import {cancelOxygenBooking} from '../../../redux/actions/user/bookingsAction';
+import {errorToastOptions} from '../../../utils';
 
 export const OxygenCancelBtn = ({booking_date}) => {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const cancelRef = useRef();
   const dispatch = useDispatch();
+  const toast = useToast();
 
   return (
     <Box pl={2}>
@@ -51,7 +54,14 @@ export const OxygenCancelBtn = ({booking_date}) => {
               colorScheme='red'
               ml={3}
               onClick={() =>
-                dispatch(cancelOxygenBooking(booking_date, onClose))
+                dispatch(
+                  cancelOxygenBooking(booking_date, onClose, () =>
+                    toast({
+                      ...errorToastOptions,
+                      title: 'Failed to cancel booking',
+                    })
+                  )
+                )
               }>
               Yes
             </Button>

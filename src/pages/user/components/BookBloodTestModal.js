@@ -26,7 +26,7 @@ import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {bookBloodTest} from '../../../redux/actions/user/bloodTestActions';
-import {toastOptions} from '../../../utils';
+import {errorToastOptions, toastOptions} from '../../../utils';
 
 export const BookBloodTestModal = ({data}) => {
   const dispatch = useDispatch();
@@ -43,6 +43,27 @@ export const BookBloodTestModal = ({data}) => {
 
   const onChange = e => setForm({...form, [e.target.name]: e.target.value});
 
+  const onBook = () => {
+    dispatch(
+      bookBloodTest(
+        {
+          batch_code: data.batch_code,
+          form,
+          self_booking: !bookForOthers,
+        },
+        () => {
+          onClose();
+          toast({...toastOptions, title: 'Booking successful'});
+          history.push('/user/profile');
+        },
+        err =>
+          toast({
+            ...errorToastOptions,
+            title: err.response.data.msg || 'Failed to book, please try again',
+          })
+      )
+    );
+  };
   return (
     <>
       <Button
@@ -116,22 +137,7 @@ export const BookBloodTestModal = ({data}) => {
               colorScheme='blue'
               rounded='sm'
               size='sm'
-              onClick={() => {
-                dispatch(
-                  bookBloodTest(
-                    {
-                      batch_code: data.batch_code,
-                      form,
-                      self_booking: !bookForOthers,
-                    },
-                    () => {
-                      onClose();
-                      toast({...toastOptions, title: 'Booking successful'});
-                      history.push('/user/profile');
-                    }
-                  )
-                );
-              }}
+              onClick={onBook}
               variant='solid'>
               Confirm
             </Button>

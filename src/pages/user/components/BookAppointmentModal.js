@@ -26,7 +26,7 @@ import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {bookAppointment} from '../../../redux/actions/user/doctorActions';
-import {toastOptions} from '../../../utils';
+import {errorToastOptions, toastOptions} from '../../../utils';
 
 export const BookAppointmentModal = ({a}) => {
   const dispatch = useDispatch();
@@ -41,6 +41,29 @@ export const BookAppointmentModal = ({a}) => {
     name: '',
   });
   const onChange = e => setForm({...form, [e.target.name]: e.target.value});
+
+  const onBook = () => {
+    dispatch(
+      bookAppointment(
+        {
+          bookingId: a._id,
+          batch_code: a.batch_code,
+          form,
+          self_booking: !bookForOthers,
+        },
+        () => {
+          onClose();
+          toast({...toastOptions, title: 'Booking successful'});
+          history.push('/user/profile');
+        },
+        err =>
+          toast({
+            ...errorToastOptions,
+            title: err.response.data.msg || 'Failed to book, please try again',
+          })
+      )
+    );
+  };
 
   return (
     <>
@@ -113,23 +136,7 @@ export const BookAppointmentModal = ({a}) => {
               colorScheme='blue'
               rounded='sm'
               size='sm'
-              onClick={() => {
-                dispatch(
-                  bookAppointment(
-                    {
-                      bookingId: a._id,
-                      batch_code: a.batch_code,
-                      form,
-                      self_booking: !bookForOthers,
-                    },
-                    () => {
-                      onClose();
-                      toast({...toastOptions, title: 'Booking successful'});
-                      history.push('/user/profile');
-                    }
-                  )
-                );
-              }}
+              onClick={onBook}
               variant='solid'>
               Confirm
             </Button>

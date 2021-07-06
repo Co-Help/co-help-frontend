@@ -29,7 +29,7 @@ import {
   bookVaccine,
   getAllVaccines,
 } from '../../../../redux/actions/user/vaccineActions';
-import {toastOptions} from '../../../../utils';
+import {errorToastOptions, toastOptions} from '../../../../utils';
 
 export const VaccineBookButton = ({batch_code}) => {
   const {isOpen, onOpen, onClose} = useDisclosure();
@@ -60,8 +60,11 @@ export const VaccineBookButton = ({batch_code}) => {
           dispatch(getAllVaccines());
           history.push('/user/profile');
         },
-        () =>
-          toast({title: 'Failed to book.', ...toastOptions, status: 'error'})
+        err =>
+          toast({
+            ...errorToastOptions,
+            title: err.response.data.msg || 'Failed to book.',
+          })
       )
     );
   };

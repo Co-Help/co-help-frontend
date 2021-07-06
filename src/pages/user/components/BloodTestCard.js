@@ -11,11 +11,11 @@ import {
 import {CallOrgBtn} from '../../../components/CallOrgBtn';
 import {CardContainer} from '../../../components/CardContainer';
 import {formatDate, getLocalTimeFromDate} from '../../../utils';
+import {BloodTestBookingCancelBtn} from './BloodTestBookingCancelBtn';
 import {BookBloodTestModal} from './BookBloodTestModal';
-import {OxygenCancelBtn} from './OxygenCancelBtn';
 
 export const BloodTestCard = ({data, showCancelBtn, isDone}) => {
-  const {booking_date, test_date, info, cost, org} = data;
+  const {test_date, info, cost, org} = data;
   const iconColor = useColorModeValue('blue.500', 'blue.200');
 
   return (
@@ -58,7 +58,7 @@ export const BloodTestCard = ({data, showCancelBtn, isDone}) => {
           <CallOrgBtn helpline_no={org.helpline_no} />
           {!showCancelBtn && !isDone && <BookBloodTestModal data={data} />}
           {showCancelBtn && !isDone && (
-            <OxygenCancelBtn booking_date={booking_date} />
+            <BloodTestBookingCancelBtn id={data._id} />
           )}
         </ButtonGroup>
       </HStack>

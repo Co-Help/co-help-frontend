@@ -9,15 +9,18 @@ import {
   Box,
   Button,
   useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 import {useRef} from 'react';
 import {useDispatch} from 'react-redux';
 import {cancelVaccinationBooking} from '../../../../redux/actions/user/bookingsAction';
+import {errorToastOptions} from '../../../../utils';
 
 export const VaccineCancelButton = ({id}) => {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const cancelRef = useRef();
   const dispatch = useDispatch();
+  const toast = useToast();
 
   return (
     <Box pl={2}>
@@ -50,7 +53,16 @@ export const VaccineCancelButton = ({id}) => {
             <Button
               colorScheme='red'
               ml={3}
-              onClick={() => dispatch(cancelVaccinationBooking(id, onClose))}>
+              onClick={() =>
+                dispatch(
+                  cancelVaccinationBooking(id, onClose, () =>
+                    toast({
+                      ...errorToastOptions,
+                      title: 'Failed to cancel booking',
+                    })
+                  )
+                )
+              }>
               Yes
             </Button>
           </AlertDialogFooter>
