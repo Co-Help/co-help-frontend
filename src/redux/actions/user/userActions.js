@@ -40,6 +40,16 @@ export const fetchProfile = () => async dispatch => {
   }
 };
 
+export const deleteAccount = (id, cb, errorCb) => async () => {
+  try {
+    console.log(id);
+    await axios.delete('/user', {...AUTH_HEADER, data: {id}});
+    cb?.();
+  } catch (err) {
+    errorCb?.(err);
+  }
+};
+
 export const completeProfile = (form, cb, errorCb) => async dispatch => {
   try {
     const data = {
